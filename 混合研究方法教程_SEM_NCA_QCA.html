@@ -1,0 +1,2421 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>混合研究方法完整教程：SEM + NCA + QCA 整合分析框架</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="C:\Users\songh\.workbuddy\skills\huashu-md-html\templates\interactive\theme.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">混合研究方法完整教程：SEM + NCA + QCA
+整合分析框架</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#目录" id="toc-目录">目录</a></li>
+<li><a href="#教程概述" id="toc-教程概述">教程概述</a>
+<ul>
+<li><a href="#为什么需要混合研究方法"
+id="toc-为什么需要混合研究方法">为什么需要混合研究方法？</a></li>
+<li><a href="#本教程的核心价值"
+id="toc-本教程的核心价值">本教程的核心价值</a></li>
+<li><a href="#学习成果" id="toc-学习成果">学习成果</a></li>
+</ul></li>
+<li><a href="#理论基础与方法论原则"
+id="toc-理论基础与方法论原则">理论基础与方法论原则</a>
+<ul>
+<li><a href="#核心方法论原则"
+id="toc-核心方法论原则">核心方法论原则</a></li>
+<li><a href="#方法决策树" id="toc-方法决策树">方法决策树</a></li>
+</ul></li>
+<li><a href="#三种方法的功能分工"
+id="toc-三种方法的功能分工">三种方法的功能分工</a>
+<ul>
+<li><a href="#sem结构方程模型"
+id="toc-sem结构方程模型">SEM（结构方程模型）</a></li>
+<li><a href="#nca必要条件分析"
+id="toc-nca必要条件分析">NCA（必要条件分析）</a></li>
+<li><a href="#qca定性比较分析"
+id="toc-qca定性比较分析">QCA（定性比较分析）</a></li>
+</ul></li>
+<li><a href="#研究设计阶段" id="toc-研究设计阶段">研究设计阶段</a>
+<ul>
+<li><a href="#阶段1明确研究问题"
+id="toc-阶段1明确研究问题">阶段1：明确研究问题</a></li>
+<li><a href="#阶段2评估理论匹配"
+id="toc-阶段2评估理论匹配">阶段2：评估理论匹配</a></li>
+<li><a href="#阶段3设计分析顺序"
+id="toc-阶段3设计分析顺序">阶段3：设计分析顺序</a></li>
+<li><a href="#阶段4确定整合策略"
+id="toc-阶段4确定整合策略">阶段4：确定整合策略</a></li>
+</ul></li>
+<li><a href="#数据收集策略" id="toc-数据收集策略">数据收集策略</a>
+<ul>
+<li><a href="#样本量规划" id="toc-样本量规划">样本量规划</a></li>
+<li><a href="#测量工具选择" id="toc-测量工具选择">测量工具选择</a></li>
+<li><a href="#数据收集注意事项"
+id="toc-数据收集注意事项">数据收集注意事项</a></li>
+</ul></li>
+<li><a href="#sem分析实战" id="toc-sem分析实战">SEM分析实战</a>
+<ul>
+<li><a href="#阶段1测量模型检验cfa"
+id="toc-阶段1测量模型检验cfa">阶段1：测量模型检验（CFA）</a></li>
+<li><a href="#阶段2结构模型检验"
+id="toc-阶段2结构模型检验">阶段2：结构模型检验</a></li>
+<li><a href="#阶段3报告sem结果"
+id="toc-阶段3报告sem结果">阶段3：报告SEM结果</a></li>
+</ul></li>
+<li><a href="#nca分析实战" id="toc-nca分析实战">NCA分析实战</a>
+<ul>
+<li><a href="#阶段1理论论证"
+id="toc-阶段1理论论证">阶段1：理论论证</a></li>
+<li><a href="#阶段2天花板线分析"
+id="toc-阶段2天花板线分析">阶段2：天花板线分析</a></li>
+<li><a href="#阶段3效应量和显著性检验"
+id="toc-阶段3效应量和显著性检验">阶段3：效应量和显著性检验</a></li>
+<li><a href="#阶段4瓶颈分析bottleneck-analysis"
+id="toc-阶段4瓶颈分析bottleneck-analysis">阶段4：瓶颈分析（Bottleneck
+Analysis）</a></li>
+<li><a href="#阶段5报告nca结果"
+id="toc-阶段5报告nca结果">阶段5：报告NCA结果</a></li>
+</ul></li>
+<li><a href="#qca分析实战" id="toc-qca分析实战">QCA分析实战</a>
+<ul>
+<li><a href="#阶段1数据校准calibration"
+id="toc-阶段1数据校准calibration">阶段1：数据校准（Calibration）</a></li>
+<li><a href="#阶段2必要性分析"
+id="toc-阶段2必要性分析">阶段2：必要性分析</a></li>
+<li><a href="#阶段3真值表分析与组态识别"
+id="toc-阶段3真值表分析与组态识别">阶段3：真值表分析与组态识别</a></li>
+<li><a href="#阶段4结果解释"
+id="toc-阶段4结果解释">阶段4：结果解释</a></li>
+<li><a href="#阶段5报告qca结果"
+id="toc-阶段5报告qca结果">阶段5：报告QCA结果</a></li>
+</ul></li>
+<li><a href="#结果整合与解释框架"
+id="toc-结果整合与解释框架">结果整合与解释框架</a>
+<ul>
+<li><a href="#整合策略" id="toc-整合策略">整合策略</a></li>
+<li><a href="#结果不一致的处理"
+id="toc-结果不一致的处理">结果不一致的处理</a></li>
+<li><a href="#整合解释框架" id="toc-整合解释框架">整合解释框架</a></li>
+</ul></li>
+<li><a href="#完整案例分析" id="toc-完整案例分析">完整案例分析</a>
+<ul>
+<li><a href="#案例员工创新行为的影响因素研究"
+id="toc-案例员工创新行为的影响因素研究">案例：员工创新行为的影响因素研究</a></li>
+<li><a href="#分析步骤" id="toc-分析步骤">分析步骤</a></li>
+</ul></li>
+<li><a href="#最佳实践与常见误区"
+id="toc-最佳实践与常见误区">最佳实践与常见误区</a>
+<ul>
+<li><a href="#最佳实践" id="toc-最佳实践">最佳实践</a></li>
+<li><a href="#常见误区" id="toc-常见误区">常见误区</a></li>
+</ul></li>
+<li><a href="#附录代码模板与工具"
+id="toc-附录代码模板与工具">附录：代码模板与工具</a>
+<ul>
+<li><a href="#r语言完整分析流程"
+id="toc-r语言完整分析流程">R语言完整分析流程</a></li>
+<li><a href="#stata代码模板sem部分"
+id="toc-stata代码模板sem部分">Stata代码模板（SEM部分）</a></li>
+<li><a href="#mplus代码模板sem部分"
+id="toc-mplus代码模板sem部分">Mplus代码模板（SEM部分）</a></li>
+<li><a href="#软件选择指南" id="toc-软件选择指南">软件选择指南</a></li>
+<li><a href="#推荐学习资源" id="toc-推荐学习资源">推荐学习资源</a></li>
+</ul></li>
+<li><a href="#总结" id="toc-总结">总结</a></li>
+</ul>
+</nav>
+<blockquote>
+<p><strong>教程目标</strong>：帮助研究者掌握定量与定性研究的设计整合、数据收集与分析策略，以及结果解释框架，特别关注SEM、NCA和QCA三种方法的互补应用。</p>
+</blockquote>
+<hr />
+<h2 id="目录">目录</h2>
+<ol type="1">
+<li><a href="#教程概述">教程概述</a></li>
+<li><a href="#理论基础与方法论原则">理论基础与方法论原则</a></li>
+<li><a href="#三种方法的功能分工">三种方法的功能分工</a></li>
+<li><a href="#研究设计阶段">研究设计阶段</a></li>
+<li><a href="#数据收集策略">数据收集策略</a></li>
+<li><a href="#sem分析实战">SEM分析实战</a></li>
+<li><a href="#nca分析实战">NCA分析实战</a></li>
+<li><a href="#qca分析实战">QCA分析实战</a></li>
+<li><a href="#结果整合与解释框架">结果整合与解释框架</a></li>
+<li><a href="#完整案例分析">完整案例分析</a></li>
+<li><a href="#最佳实践与常见误区">最佳实践与常见误区</a></li>
+<li><a href="#附录代码模板与工具">附录：代码模板与工具</a></li>
+</ol>
+<hr />
+<h2 id="教程概述">教程概述</h2>
+<h3 id="为什么需要混合研究方法">为什么需要混合研究方法？</h3>
+<p>传统的研究方法往往存在以下局限：</p>
+<ol type="1">
+<li><p><strong>因果逻辑单一</strong>：大多数研究只关注”充分性”（X对Y的影响），忽视了”必要性”（X是Y产生的前提）和”组态性”（多个X组合导致Y）</p></li>
+<li><p><strong>方法局限性</strong>：</p>
+<ul>
+<li><strong>回归/SEM</strong>：只能捕捉平均净效应，假设因果对称性</li>
+<li><strong>定性研究</strong>：擅长深度理解，但难以量化效应大小</li>
+<li><strong>单一方法</strong>：无法全面捕捉因果关系的复杂性</li>
+</ul></li>
+<li><p><strong>现实世界的因果复杂性</strong>：社会现象的原因往往是”多重并发”的——多个条件以组合方式共同导致结果，而非各自独立起作用</p></li>
+</ol>
+<h3 id="本教程的核心价值">本教程的核心价值</h3>
+<p>本教程将教你如何整合三种互补的方法：</p>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 35%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>方法</th>
+<th>回答的问题</th>
+<th>因果逻辑</th>
+<th>你的收获</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SEM</strong> (结构方程模型)</td>
+<td>X对Y的”平均效应”有多大？</td>
+<td>充分性（对称）</td>
+<td>量化变量间的净效应和中介机制</td>
+</tr>
+<tr>
+<td><strong>NCA</strong> (必要条件分析)</td>
+<td>X是Y的”必要条件”吗？</td>
+<td>必要性（非对称）</td>
+<td>识别瓶颈条件和约束因素</td>
+</tr>
+<tr>
+<td><strong>QCA</strong> (定性比较分析)</td>
+<td>哪些条件<strong>组合</strong>导致Y？</td>
+<td>充分性（组态、非对称）</td>
+<td>发现多重并发因果路径和等效性</td>
+</tr>
+</tbody>
+</table>
+<h3 id="学习成果">学习成果</h3>
+<p>完成本教程后，你将能够：</p>
+<p>✅ 理解三种方法的理论基础和应用场景<br />
+✅ 设计混合方法研究方案<br />
+✅ 独立完成SEM、NCA和QCA分析<br />
+✅ 整合和解释三种方法的结果<br />
+✅ 避免常见的方法论错误<br />
+✅ 将混合方法应用于实际研究项目</p>
+<hr />
+<h2 id="理论基础与方法论原则">理论基础与方法论原则</h2>
+<h3 id="核心方法论原则">核心方法论原则</h3>
+<h4 id="因果多元主义">1. 因果多元主义</h4>
+<p><strong>核心观点</strong>：因果关系存在多种形态，没有单一的最佳分析方法。</p>
+<ul>
+<li><strong>充分性</strong>（Sufficiency）：X的出现导致Y的出现（传统回归关注的问题）</li>
+<li><strong>必要性</strong>（Necessity）：Y的出现必须以X为前提（NCA关注的问题）</li>
+<li><strong>组态性</strong>（Configurationality）：多个X以特定组合方式导致Y（QCA关注的问题）</li>
+</ul>
+<p><strong>实践含义</strong>：根据你的研究问题，选择最适配的因果逻辑和方法。</p>
+<h4 id="方法-问题适配">2. 方法-问题适配</h4>
+<p><strong>核心观点</strong>：研究方法必须由研究问题决定，而非相反。</p>
+<p><strong>决策框架</strong>：</p>
+<pre><code>研究问题 → 因果逻辑 → 方法选择
+  ↓
+&quot;X对Y有什么影响？&quot; → 充分性 → SEM
+&quot;什么是Y的必要条件？&quot; → 必要性 → NCA
+&quot;哪些因素组合导致Y？&quot; → 组态性 → QCA
+&quot;如何全面理解Y的因果关系？&quot; → 多种逻辑 → 混合方法</code></pre>
+<h4 id="互补性思维">3. 互补性思维</h4>
+<p><strong>核心观点</strong>：不同方法识别因果关系的不同维度，联合使用提供更全面理解。</p>
+<p><strong>三种方法的互补性</strong>： - SEM揭示”平均效应” →
+告诉你”一般情况下X对Y的影响” - NCA识别”必要条件” →
+告诉你”什么是Y产生不可或缺的” - QCA探索”组态路径” →
+告诉你”哪些条件组合可以导致Y”</p>
+<h4 id="理论驱动原则">4. 理论驱动原则</h4>
+<p><strong>核心观点</strong>：方法选择和使用必须理论驱动。</p>
+<p><strong>关键要求</strong>： -
+使用NCA之前，必须理论论证为什么X可能是Y的必要条件 -
+使用QCA之前，必须理论论证为什么因果可能是组态的 -
+不能”先跑一下看看结果”再找理论解释</p>
+<h4 id="因果复杂性认可">5. 因果复杂性认可</h4>
+<p><strong>核心观点</strong>：社会现象原因是”多重并发”的，等效性（equifinality）是常态。</p>
+<p><strong>核心概念</strong>： -
+<strong>等效性</strong>：达到同一结果可以有多种不同的路径 -
+<strong>非对称性</strong>：导致Y出现的因素组合，与导致Y缺失的因素组合不一定完全对称
+-
+<strong>组态效应</strong>：整体大于部分之和，条件的组合效应不等于各条件独立效应之和</p>
+<h3 id="方法决策树">方法决策树</h3>
+<h4 id="决策树1单一方法-vs-混合方法">决策树1：单一方法 vs 混合方法</h4>
+<pre><code>研究问题分析
+  ↓
+研究问题明确是以下哪一种？
+  ├─ &quot;X对Y有什么影响？&quot; → 使用SEM
+  ├─ &quot;什么是Y的必要条件？&quot; → 使用NCA  
+  ├─ &quot;哪些因素组合导致Y？&quot; → 使用QCA
+  └─ &quot;如何全面理解Y的因果关系？&quot; → 考虑混合方法
+       ↓
+      理论是否支持多种因果逻辑？
+        ├─ 是 → 使用混合方法（SEM+NCA+QCA）
+        └─ 否 → 仅使用最适配的单一方法</code></pre>
+<h4 id="决策树2混合方法设计选择">决策树2：混合方法设计选择</h4>
+<pre><code>混合方法设计
+  ↓
+研究阶段？
+  ├─ 探索性研究 → 顺序1: QCA → SEM → NCA
+  ├─ 验证性研究 → 顺序2: SEM → NCA → QCA  
+  └─ 综合性研究 → 顺序3: NCA → QCA → SEM</code></pre>
+<p><strong>三种顺序的适用场景</strong>：</p>
+<ol type="1">
+<li><strong>顺序1</strong>（探索→验证→深化）：
+<ul>
+<li>适用：理论不足，需要先发现条件组合</li>
+<li>优点：从探索性发现到验证性检验，逻辑清晰</li>
+<li>缺点：需要较大样本量支持SEM</li>
+</ul></li>
+<li><strong>顺序2</strong>（验证→检验→探索）：
+<ul>
+<li>适用：理论充分，需要检验后探索未预期路径</li>
+<li>优点：先验证理论模型，再用NCA和QCA深化理解</li>
+<li>缺点：如果SEM结果不显著，后续分析可能缺乏理论支撑</li>
+</ul></li>
+<li><strong>顺序3</strong>（约束→路径→量化）：
+<ul>
+<li>适用：需要先识别瓶颈，再探索突破约束的路径</li>
+<li>优点：从必要条件（约束）到组态路径（突破），逻辑连贯</li>
+<li>缺点：NCA的理论论证要求较高</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="三种方法的功能分工">三种方法的功能分工</h2>
+<h3 id="sem结构方程模型">SEM（结构方程模型）</h3>
+<h4 id="主要功能">主要功能</h4>
+<ol type="1">
+<li><strong>检验理论模型</strong>：验证潜变量间的假设关系</li>
+<li><strong>量化效应大小</strong>：提供标准化系数、效应量</li>
+<li><strong>检验中介效应</strong>：分析变量间的作用机制</li>
+<li><strong>处理测量误差</strong>：通过CFA确保构念测量的信效度</li>
+</ol>
+<h4 id="适用场景">适用场景</h4>
+<ul>
+<li>✅ 检验理论模型中的直接效应和中介效应</li>
+<li>✅ 需要量化效应大小和统计显著性</li>
+<li>✅ 关注”平均效应”（average effect）</li>
+<li>❌ 不适合识别必要条件</li>
+<li>❌ 不适合探索组态效应</li>
+</ul>
+<h4 id="方法变体">方法变体</h4>
+<ol type="1">
+<li><strong>cb-SEM</strong>（协方差基础SEM）：
+<ul>
+<li>软件：AMOS, Mplus, lavaan (R)</li>
+<li>要求：大样本（N &gt; 200），数据正态分布</li>
+<li>优点：参数估计准确，模型检验严格</li>
+<li>缺点：对数据要求高</li>
+</ul></li>
+<li><strong>PLS-SEM</strong>（偏最小二乘SEM）：
+<ul>
+<li>软件：SmartPLS, plspm (R)</li>
+<li>要求：小样本可接受（N &gt; 30），不要求正态分布</li>
+<li>优点：对数据要求宽松，适合探索性研究</li>
+<li>缺点：参数估计可能有偏，不适合严格的理论验证</li>
+</ul></li>
+</ol>
+<h4 id="结果解读">结果解读</h4>
+<ul>
+<li><strong>拟合指数</strong>：CFI &gt; 0.95, TLI &gt; 0.95, RMSEA &lt;
+0.06, SRMR &lt; 0.08</li>
+<li><strong>路径系数</strong>：标准化系数（β），通常0.1-0.3为小效应，0.3-0.5为中等效应，&gt;0.5为大效应</li>
+<li><strong>显著性</strong>：p &lt; 0.05（或使用Bootstrap法）</li>
+<li><strong>效应量</strong>：Cohen’s
+f²（0.02为小，0.15为中等，0.35为大）</li>
+</ul>
+<h3 id="nca必要条件分析">NCA（必要条件分析）</h3>
+<h4 id="主要功能-1">主要功能</h4>
+<ol type="1">
+<li><strong>识别必要条件</strong>：判断X是否是Y产生不可或缺的条件</li>
+<li><strong>量化约束程度</strong>：通过效应量（d值）反映必要条件的约束程度</li>
+<li><strong>瓶颈分析</strong>：揭示达成不同水平的Y所需的X的最低必要值</li>
+</ol>
+<h4 id="适用场景-1">适用场景</h4>
+<ul>
+<li>✅ 理论论证了某个条件是结果产生的必要条件</li>
+<li>✅ 关注”瓶颈因素”和”约束条件”</li>
+<li>✅
+需要区分”应该有的条件”（should-have）和”必须有的条件”（must-have）</li>
+<li>❌ 不适合识别充分条件（X对Y的平均效应）</li>
+<li>❌ 不适合探索多个条件的组合效应</li>
+</ul>
+<h4 id="理论基础">理论基础</h4>
+<p><strong>必要条件的逻辑</strong>： - 如果X是Y的必要条件，则：Y →
+X（Y出现必须以X为前提） - 用集合语言表达：Y的集合是X的集合的子集 -
+用逻辑表达：~X → ~Y（X不存在则Y不可能出现）</p>
+<p><strong>与充分条件的区别</strong>： - 充分条件：X →
+Y（X出现导致Y出现） - 必要条件：Y → X（Y出现必须以X为前提） -
+一个条件可以既是必要也是充分，或仅是必要的，或仅充分的</p>
+<h4 id="结果解读-1">结果解读</h4>
+<ul>
+<li><p><strong>效应量（d值）</strong>：</p>
+<ul>
+<li>d = 0.0-0.1：可忽略的必要性</li>
+<li>d = 0.1-0.3：小效应</li>
+<li>d = 0.3-0.5：中等效应</li>
+<li>d &gt; 0.5：大效应</li>
+</ul></li>
+<li><p><strong>显著性检验</strong>：置换检验（Permutation
+Test）1000次，p &lt; 0.05表示必要条件关系显著</p></li>
+<li><p><strong>天花板线图</strong>：可视化X和Y的关系，展示”天花板”（上限）</p></li>
+<li><p><strong>瓶颈表</strong>：显示达成不同水平的Y所需的X的最低必要值</p></li>
+</ul>
+<h4 id="关键要求">关键要求</h4>
+<p>⚠️
+<strong>理论论证优先</strong>：使用NCA之前，必须理论论证为什么X可能是Y的必要条件。不能”先跑一下看看”。</p>
+<p>⚠️
+<strong>时间顺序</strong>：X的发生必须早于Y，或至少在逻辑上先于Y。</p>
+<p>⚠️ <strong>因果机制</strong>：必须能够解释X如何影响Y的产生。</p>
+<h3 id="qca定性比较分析">QCA（定性比较分析）</h3>
+<h4 id="主要功能-2">主要功能</h4>
+<ol type="1">
+<li><strong>识别组态路径</strong>：发现导致结果的多个条件组合</li>
+<li><strong>揭示等效性</strong>：展示达到同一结果的不同路径</li>
+<li><strong>探索因果不对称性</strong>：分别分析导致结果出现和缺失的条件组合</li>
+<li><strong>处理中小样本</strong>：适合案例数量在10-150的研究</li>
+</ol>
+<h4 id="适用场景-2">适用场景</h4>
+<ul>
+<li>✅ 理论论证了因果的组态性（多个条件组合导致结果）</li>
+<li>✅ 关注”多重并发因果”</li>
+<li>✅ 样本量中等（10-150案例）</li>
+<li>✅ 需要揭示因果不对称性</li>
+<li>❌ 不适合大样本（&gt;150案例，除非使用扩展方法）</li>
+<li>❌ 不适合检验简单的线性关系</li>
+</ul>
+<h4 id="方法变体-1">方法变体</h4>
+<ol type="1">
+<li><strong>csQCA</strong>（清晰集QCA）：
+<ul>
+<li>变量：二分类（0/1）</li>
+<li>适用：案例可以清晰归类为”属于”或”不属于”</li>
+<li>优点：简单直观</li>
+<li>缺点：损失信息，不适合连续变量</li>
+</ul></li>
+<li><strong>fsQCA</strong>（模糊集QCA）：
+<ul>
+<li>变量：模糊集（0-1之间的连续值）</li>
+<li>适用：案例可以部分属于某个集合</li>
+<li>优点：保留更多信息，适合连续变量</li>
+<li>缺点：校准过程主观，需要理论依据</li>
+</ul></li>
+<li><strong>mvQCA</strong>（多值QCA）：
+<ul>
+<li>变量：多分类（0/1/2…）</li>
+<li>适用：分类变量有多于两个类别</li>
+<li>优点：适合有序分类变量</li>
+<li>缺点：解释相对复杂</li>
+</ul></li>
+</ol>
+<h4 id="核心概念">核心概念</h4>
+<ol type="1">
+<li><strong>校准</strong>（Calibration）：
+<ul>
+<li>将原始数据转换为集合隶属分数（0-1）</li>
+<li>三个定性锚点：完全不属于（e）、交叉点（c）、完全属于（i）</li>
+<li>校准方案必须有理论或数据分布依据</li>
+</ul></li>
+<li><strong>一致性</strong>（Consistency）：
+<ul>
+<li>衡量条件组合导致结果的程度</li>
+<li>必要条件：一致性 ≥ 0.9</li>
+<li>充分性：一致性 ≥ 0.75（探索性）或0.8（验证性）</li>
+</ul></li>
+<li><strong>覆盖度</strong>（Coverage）：
+<ul>
+<li>衡量条件组合解释案例的比例</li>
+<li>原始覆盖度：所有案例中被解释的</li>
+<li>唯一覆盖度：排除与其他解重叠后被唯一解释的</li>
+</ul></li>
+<li><strong>组态解</strong>：
+<ul>
+<li>简约解（Parsimonious solution）：最简洁的组态</li>
+<li>中间解（Intermediate solution）：加入理论知识的中间解</li>
+<li>复杂解（Complex solution）：包含所有可能的解</li>
+</ul></li>
+</ol>
+<h4 id="结果解读-2">结果解读</h4>
+<ul>
+<li><strong>必要性分析</strong>：一致性 ≥ 0.9 → 该条件是必要条件</li>
+<li><strong>充分性分析</strong>：组态一致性 ≥ 0.75，覆盖度尽可能高</li>
+<li><strong>核心条件</strong>：在简约解和中间解中都出现的条件</li>
+<li><strong>边缘条件</strong>：仅在中间解中出现的条件</li>
+</ul>
+<hr />
+<h2 id="研究设计阶段">研究设计阶段</h2>
+<h3 id="阶段1明确研究问题">阶段1：明确研究问题</h3>
+<p><strong>🔴 CHECKPOINT · 研究问题明确性检查</strong></p>
+<p>在开始之前，必须明确：</p>
+<ol type="1">
+<li><strong>写下一句话研究问题</strong>：用一句话概括你的研究问题</li>
+<li><strong>识别子问题</strong>：将主问题分解为3-5个子问题</li>
+<li><strong>匹配因果逻辑</strong>：每个子问题对应哪种因果逻辑（充分性/必要性/组态性）？</li>
+<li><strong>选择方法</strong>：基于子问题的因果逻辑，选择最适配的方法</li>
+</ol>
+<p><strong>示例</strong>：</p>
+<p><strong>主问题</strong>：“哪些因素导致员工创新行为？”</p>
+<p><strong>子问题</strong>： 1. “领导风格对员工创新行为有什么影响？” →
+充分性 → SEM 2. “创新自我效能感是否是员工创新行为的必要条件？” → 必要性
+→ NCA 3. “哪些因素组合可以导致员工创新行为？” → 组态性 → QCA</p>
+<p><strong>方法选择</strong>：混合方法（SEM + NCA + QCA）</p>
+<p><strong>决策规则</strong>：</p>
+<ul>
+<li>如果研究问题明确是”X对Y的影响” → 优先SEM</li>
+<li>如果研究问题涉及”必要条件” → 必须包含NCA</li>
+<li>如果研究问题涉及”多重并发因果” → 必须包含QCA</li>
+<li>如果理论支持多种因果逻辑 → 使用混合方法</li>
+</ul>
+<p><strong>🛑
+STOP：请确认研究问题和理论匹配是否已经明确？如果不确定，必须先回到文献回顾阶段明确研究问题后再继续。</strong></p>
+<h3 id="阶段2评估理论匹配">阶段2：评估理论匹配</h3>
+<p><strong>核心任务</strong>：回顾文献，识别理论假设的因果逻辑。</p>
+<p><strong>步骤</strong>：</p>
+<ol type="1">
+<li><strong>文献回顾</strong>：系统回顾与研究问题相关的前人研究</li>
+<li><strong>理论识别</strong>：识别前人研究使用的理论框架</li>
+<li><strong>因果逻辑提取</strong>：从理论框架中提取隐含的因果逻辑</li>
+<li><strong>缺口识别</strong>：识别前人研究忽略的因果逻辑</li>
+</ol>
+<p><strong>示例</strong>：</p>
+<p><strong>理论框架</strong>：社会认知理论（Bandura）</p>
+<ul>
+<li><strong>隐含的充分性逻辑</strong>：自我效能感 →
+创新行为（主效应）</li>
+<li><strong>隐含的必要性逻辑</strong>：自我效能感可能是创新行为的必要条件（“没有自我效能感，创新行为不可能发生”）</li>
+<li><strong>忽略的组态逻辑</strong>：自我效能感、领导支持、组织氛围的组合效应</li>
+</ul>
+<p><strong>理论匹配评估</strong>：</p>
+<ul>
+<li>✅ 充分性逻辑有明确理论支持 → 使用SEM</li>
+<li>✅ 必要性逻辑可以理论论证 → 使用NCA</li>
+<li>✅ 组态逻辑被前人忽略 → 使用QCA探索</li>
+</ul>
+<p><strong>结论</strong>：使用混合方法（SEM + NCA + QCA）</p>
+<h3 id="阶段3设计分析顺序">阶段3：设计分析顺序</h3>
+<p><strong>核心任务</strong>：确定方法的执行顺序和整合策略。</p>
+<p><strong>三种顺序的详细对比</strong>：</p>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 24%" />
+<col style="width: 27%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr>
+<th>顺序</th>
+<th>分析流程</th>
+<th>适用场景</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>顺序1</strong></td>
+<td>QCA → SEM → NCA</td>
+<td>探索性研究</td>
+<td>从探索性发现到验证性检验</td>
+<td>需要较大样本量</td>
+</tr>
+<tr>
+<td><strong>顺序2</strong></td>
+<td>SEM → NCA → QCA</td>
+<td>验证性研究</td>
+<td>先验证理论模型</td>
+<td>如果SEM不显著，后续分析缺乏支撑</td>
+</tr>
+<tr>
+<td><strong>顺序3</strong></td>
+<td>NCA → QCA → SEM</td>
+<td>综合性研究</td>
+<td>从约束到突破路径</td>
+<td>NCA的理论论证要求高</td>
+</tr>
+</tbody>
+</table>
+<p><strong>选择指南</strong>：</p>
+<ol type="1">
+<li><strong>如果你处于探索性阶段</strong>（理论不足，样本量中等）：
+<ul>
+<li>推荐：顺序1（QCA → SEM → NCA）</li>
+<li>理由：先用QCA探索条件组合，再用SEM验证量化效应，最后用NCA识别瓶颈</li>
+</ul></li>
+<li><strong>如果你处于验证性阶段</strong>（理论充分，样本量充足）：
+<ul>
+<li>推荐：顺序2（SEM → NCA → QCA）</li>
+<li>理由：先验证理论模型，再用NCA检验必要条件，最后用QCA探索未预期的组态路径</li>
+</ul></li>
+<li><strong>如果你关注瓶颈突破</strong>（理论关注约束条件）：
+<ul>
+<li>推荐：顺序3（NCA → QCA → SEM）</li>
+<li>理由：先识别瓶颈（必要条件），再探索突破瓶颈的路径（组态），最后量化效应大小</li>
+</ul></li>
+</ol>
+<h3 id="阶段4确定整合策略">阶段4：确定整合策略</h3>
+<p><strong>核心任务</strong>：设计如何整合三种方法的结果。</p>
+<p><strong>整合策略1：分别报告，然后整合（推荐）</strong></p>
+<p><strong>步骤</strong>： 1. 按选择的分析顺序，分别报告三种方法的结果
+2. 识别三种方法结果的一致点 3. 解释结果之间的矛盾（使用因果不对称性） 4.
+提供整合性理论框架</p>
+<p><strong>优点</strong>： - 清晰展示每种方法的价值 - 便于读者理解 -
+符合顶刊报告规范</p>
+<p><strong>缺点</strong>： - 篇幅较长 - 需要更多的整合解释工作</p>
+<p><strong>整合策略2：按研究问题整合</strong></p>
+<p><strong>步骤</strong>： 1. 将研究问题分解为3-5个子问题 2.
+每个子问题下，分别报告三种方法的发现 3. 每个子问题提供整合解释 4.
+最后提供总体整合框架</p>
+<p><strong>优点</strong>： - 紧扣研究问题 - 逻辑清晰 -
+便于突出理论贡献</p>
+<p><strong>缺点</strong>： - 需要在研究设计阶段就明确子问题 -
+对研究问题的分解要求较高</p>
+<p><strong>推荐</strong>：使用”整合策略1”（分别报告，然后整合），除非你的研究问题非常清晰且可以自然分解。</p>
+<hr />
+<h2 id="数据收集策略">数据收集策略</h2>
+<h3 id="样本量规划">样本量规划</h3>
+<p><strong>🔴 CHECKPOINT · 样本量充足性检查</strong></p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>最低样本量</th>
+<th>推荐样本量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SEM (cb-SEM)</td>
+<td>N &gt; 200</td>
+<td>N &gt; 300</td>
+<td>需要大样本，数据正态分布</td>
+</tr>
+<tr>
+<td>SEM (PLS-SEM)</td>
+<td>N &gt; 30</td>
+<td>N &gt; 100</td>
+<td>小样本可接受</td>
+</tr>
+<tr>
+<td>QCA (fsQCA)</td>
+<td>N &gt; 10</td>
+<td>N = 10-150</td>
+<td>中等样本最合适</td>
+</tr>
+<tr>
+<td>NCA</td>
+<td>无严格下限</td>
+<td>N &gt; 50</td>
+<td>需要有变异</td>
+</tr>
+<tr>
+<td><strong>混合方法</strong></td>
+<td><strong>N &gt; 200</strong></td>
+<td><strong>N &gt; 300</strong></td>
+<td>取最大样本量要求</td>
+</tr>
+</tbody>
+</table>
+<p><strong>样本量不足的应对措施</strong>：</p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 31%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>触发条件</th>
+<th>一线修复</th>
+<th>仍失败兜底</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>样本量 &lt; 200但想用混合方法</td>
+<td>增加样本量至&gt;200</td>
+<td>改为单一方法（优先SEM或fsQCA）</td>
+</tr>
+<tr>
+<td>样本量 &lt; 10</td>
+<td>收集更多数据</td>
+<td>改用案例研究或单案例深度分析</td>
+</tr>
+<tr>
+<td>样本量 &gt; 150但想用fsQCA</td>
+<td>检查案例同质性，考虑LPA分组</td>
+<td>使用fsQCA的large-N扩展方法</td>
+</tr>
+</tbody>
+</table>
+<p><strong>🛑
+STOP：请确认样本量是否符合所选方法的要求？如果不符合，需要调整方法选择或增加样本量。</strong></p>
+<h3 id="测量工具选择">测量工具选择</h3>
+<p><strong>核心要求</strong>：必须使用已验证的量表（Validated
+Scales）。</p>
+<p><strong>步骤</strong>：</p>
+<ol type="1">
+<li><strong>文献回顾</strong>：找到与研究构念相关的前人研究</li>
+<li><strong>量表识别</strong>：识别前人研究使用的量表</li>
+<li><strong>信效度检查</strong>：检查量表的信度（α &gt;
+0.7）和效度（CFA拟合指数达标）</li>
+<li><strong>跨文化适配</strong>：如果用到不同文化语境，需要进行翻译和跨文化验证</li>
+</ol>
+<p><strong>量表选择标准</strong>：</p>
+<ul>
+<li>✅ 已发表在国际期刊上的量表</li>
+<li>✅ 有证据表明信效度良好</li>
+<li>✅ 被用于类似的研究情境</li>
+<li>❌ 自编量表（除非经过严格的量表开发程序）</li>
+<li>❌ 信效度证据不足的量表</li>
+</ul>
+<h3 id="数据收集注意事项">数据收集注意事项</h3>
+<p><strong>多时点设计</strong>：</p>
+<p>如果研究关注的是因果关系（而非仅相关关系），推荐使用多时点数据收集：</p>
+<ul>
+<li><strong>时点1</strong>：收集自变量、控制变量</li>
+<li><strong>时点2</strong>（间隔2-4周）：收集中介变量</li>
+<li><strong>时点3</strong>（间隔2-4周）：收集因变量</li>
+</ul>
+<p><strong>优点</strong>： - 减少共同方法偏差（CMV） -
+增强因果推断的逻辑 - 符合顶刊的方法论要求</p>
+<p><strong>缺点</strong>： - 样本流失率可能较高 -
+需要更多的资源和时间</p>
+<p><strong>共同方法偏差（CMV）检验</strong>：</p>
+<p><strong>Harman单因子检验</strong>： - 将所有题项放入探索性因子分析 -
+如果第一个因子解释的变异量 &lt; 50%，则CMV不严重</p>
+<p><strong>控制变量</strong>：</p>
+<p>在收集数据时，考虑收集以下控制变量： -
+人口统计学变量：年龄、性别、教育水平、工作年限 -
+组织变量：组织规模、行业、所有权性质 - 其他相关变量：基于文献回顾</p>
+<hr />
+<h2 id="sem分析实战">SEM分析实战</h2>
+<h3 id="阶段1测量模型检验cfa">阶段1：测量模型检验（CFA）</h3>
+<p><strong>输入</strong>：收集的数据集
+<strong>输出</strong>：CFA拟合结果、因子载荷、拟合指数</p>
+<h4 id="步骤1数据准备">步骤1：数据准备</h4>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载所需包</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(semTools)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 导入数据</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data.csv&quot;</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 检查缺失值</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 处理缺失值（推荐使用FIML）</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># lavaan默认使用FIML处理缺失值，无需手动删除</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 检查数据正态性</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(data)  <span class="co"># 查看描述性统计</span></span></code></pre></div>
+<h4 id="步骤2指定测量模型">步骤2：指定测量模型</h4>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 测量模型（示例：3个构念，每个构念3个题项）</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>cfa_model <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">  # 定义潜变量和观测变量的关系</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent1 =~ x1 + x2 + x3</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent2 =~ y1 + y2 + y3</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent3 =~ z1 + z2 + z3</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 更详细的模型指定（如果需要约束因子载荷或截距）</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>cfa_model_detailed <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="st">  # 测量模型</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent1 =~ a1*x1 + a2*x2 + a3*x3</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent2 =~ b1*y1 + b2*y2 + b3*y3</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent3 =~ c1*z1 + c2*z2 + c3*z3</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="st">  # 约束第一个因子载荷为1（识别模型）</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="st">  a1 == 1</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="st">  b1 == 1</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="st">  c1 == 1</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span></span></code></pre></div>
+<h4 id="步骤3拟合测量模型">步骤3：拟合测量模型</h4>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 拟合模型（使用ML估计）</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>fit_cfa <span class="ot">&lt;-</span> <span class="fu">cfa</span>(cfa_model, <span class="at">data =</span> data)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看基本结果</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_cfa, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看标准化因子载荷</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>std_loadings <span class="ot">&lt;-</span> <span class="fu">standardizedSolution</span>(fit_cfa)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">subset</span>(std_loadings, op <span class="sc">==</span> <span class="st">&quot;=~&quot;</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算组合信度（CR）和平均方差萃取（AVE）</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">reliability</span>(fit_cfa)</span></code></pre></div>
+<h4 id="步骤4评估拟合指数">步骤4：评估拟合指数</h4>
+<p><strong>🔴 CHECKPOINT · CFA拟合指数检查</strong></p>
+<table>
+<thead>
+<tr>
+<th>拟合指数</th>
+<th>推荐标准</th>
+<th>可接受标准</th>
+<th>你的结果</th>
+<th>是否达标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>χ²/df</td>
+<td>&lt; 3</td>
+<td>&lt; 5</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CFI</td>
+<td>&gt; 0.95</td>
+<td>&gt; 0.90</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>TLI</td>
+<td>&gt; 0.95</td>
+<td>&gt; 0.90</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>RMSEA</td>
+<td>&lt; 0.06</td>
+<td>&lt; 0.08</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>SRMR</td>
+<td>&lt; 0.08</td>
+<td>&lt; 0.10</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>拟合指数不达标的一线修复</strong>：</p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 31%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>触发条件</th>
+<th>一线修复</th>
+<th>仍失败兜底</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CFI &lt; 0.95 或 TLI &lt; 0.95</td>
+<td>检查因子载荷，删除载荷&lt;0.5的题目</td>
+<td>重新设计测量模型，增加题目或拆分因子</td>
+</tr>
+<tr>
+<td>RMSEA &gt; 0.08</td>
+<td>检查残差相关，释放部分残差</td>
+<td>考虑二阶因子模型或bi-factor模型</td>
+</tr>
+<tr>
+<td>SRMR &gt; 0.08</td>
+<td>检查数据正态性，考虑使用稳健估计</td>
+<td>使用cb-SEM的稳健版本（如MLR估计）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>修复示例</strong>：</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果某个题项的因子载荷过低（&lt;0.5），删除该题项</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 假设x2的因子载荷过低</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>cfa_model_updated <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent1 =~ x1 + x3  # 删除x2</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent2 =~ y1 + y2 + y3</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent3 =~ z1 + z2 + z3</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>fit_cfa_updated <span class="ot">&lt;-</span> <span class="fu">cfa</span>(cfa_model_updated, <span class="at">data =</span> data)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_cfa_updated, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><strong>🛑
+STOP：请确认测量模型的拟合指数是否达标？如果不达标，需要先修正测量模型再进行结构模型检验。</strong></p>
+<h4 id="步骤5评估信效度">步骤5：评估信效度</h4>
+<p><strong>组合信度（CR）</strong>： - 标准：CR &gt; 0.7 -
+计算：使用<code>reliability()</code>函数</p>
+<p><strong>平均方差萃取（AVE）</strong>： - 标准：AVE &gt; 0.5 -
+计算：使用<code>reliability()</code>函数</p>
+<p><strong>区分效度</strong>： - 标准：每个构念的AVE的平方根 &gt;
+该构念与其他构念的相关系数 -
+检验：使用<code>lavInspect(fit_cfa, "cor.ov")</code>查看潜变量相关，与AVE平方根比较</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算AVE平方根并检查区分效度</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>rel <span class="ot">&lt;-</span> <span class="fu">reliability</span>(fit_cfa)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>ave_sqrt <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(rel<span class="sc">$</span>ave)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看潜变量相关</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>cor_ov <span class="ot">&lt;-</span> <span class="fu">lavInspect</span>(fit_cfa, <span class="st">&quot;cor.ov&quot;</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 比较AVE平方根和相关系数</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果对角线上（AVE平方根）大于非对角线上（相关系数），则区分效度良好</span></span></code></pre></div>
+<h3 id="阶段2结构模型检验">阶段2：结构模型检验</h3>
+<p><strong>输入</strong>：通过CFA检验的测量模型
+<strong>输出</strong>：结构模型结果、路径系数、拟合指数</p>
+<h4 id="步骤1指定结构模型">步骤1：指定结构模型</h4>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 完整SEM模型（包含测量模型和结构模型）</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>sem_model <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="st">  # 测量模型</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent1 =~ x1 + x2 + x3</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent2 =~ y1 + y2 + y3</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent3 =~ z1 + z2 + z3</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="st">  # 结构模型（路径关系）</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent2 ~ Latent1       # Latent1对Latent2的影响</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent3 ~ Latent1 + Latent2  # Latent1和Latent2对Latent3的影响</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 带中介效应的模型</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>sem_model_med <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="st">  # 测量模型</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent1 =~ x1 + x2 + x3</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent2 =~ m1 + m2 + m3</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent3 =~ y1 + y2 + y3</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="st">  # 结构模型（中介模型）</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent2 ~ a*Latent1      # 路径a</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent3 ~ b*Latent2 + c*Latent1  # 路径b和c</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="st">  # 间接效应</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="st">  indirect := a * b</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="st">  # 总效应</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="st">  total := c + (a * b)</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span></span></code></pre></div>
+<h4 id="步骤2拟合结构模型">步骤2：拟合结构模型</h4>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 拟合模型（使用ML估计）</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>fit_sem <span class="ot">&lt;-</span> <span class="fu">sem</span>(sem_model, <span class="at">data =</span> data)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看结果</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_sem, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看标准化路径系数</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">parameterEstimates</span>(fit_sem, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 拟合指数</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="fu">fitMeasures</span>(fit_sem, <span class="fu">c</span>(<span class="st">&quot;chisq&quot;</span>, <span class="st">&quot;df&quot;</span>, <span class="st">&quot;cfi&quot;</span>, <span class="st">&quot;tli&quot;</span>, <span class="st">&quot;rmsea&quot;</span>, <span class="st">&quot;srmr&quot;</span>))</span></code></pre></div>
+<h4
+id="步骤3bootstrap法检验中介效应">步骤3：Bootstrap法检验中介效应</h4>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用Bootstrap法检验中介效应（推荐）</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>fit_med <span class="ot">&lt;-</span> <span class="fu">sem</span>(sem_model_med, </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> data, </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">se =</span> <span class="st">&quot;bootstrap&quot;</span>, </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">bootstrap =</span> <span class="dv">5000</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看Bootstrap结果</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_med, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看间接效应的置信区间</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">parameterEstimates</span>(fit_med, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<p><strong>中介效应检验标准</strong>： - 间接效应的95%置信区间不包含0 →
+中介效应显著 - 推荐使用Bootstrap法（5000次抽样），而非Sobel检验</p>
+<h4 id="步骤4评估模型拟合">步骤4：评估模型拟合</h4>
+<p><strong>🔴 CHECKPOINT · 结构模型拟合指数检查</strong></p>
+<table>
+<thead>
+<tr>
+<th>拟合指数</th>
+<th>推荐标准</th>
+<th>可接受标准</th>
+<th>你的结果</th>
+<th>是否达标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>χ²/df</td>
+<td>&lt; 3</td>
+<td>&lt; 5</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CFI</td>
+<td>&gt; 0.95</td>
+<td>&gt; 0.90</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>TLI</td>
+<td>&gt; 0.95</td>
+<td>&gt; 0.90</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>RMSEA</td>
+<td>&lt; 0.06</td>
+<td>&lt; 0.08</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>SRMR</td>
+<td>&lt; 0.08</td>
+<td>&lt; 0.10</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>模型修正</strong>：</p>
+<p>如果拟合指数不达标，可以考虑：</p>
+<ol type="1">
+<li><strong>释放残差相关</strong>：基于修正指数（MI &gt; 10）</li>
+<li><strong>删除不显著路径</strong>：如果理论允许</li>
+<li><strong>重新指定模型</strong>：如果理论框架有问题</li>
+</ol>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看修正指数</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">modindices</span>(fit_sem, <span class="at">sort. =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果MI &gt; 10，可以考虑释放该参数</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 例如：释放x1和x2的残差相关</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>sem_model_updated <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="st">  # 测量模型</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent1 =~ x1 + x2 + x3</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent2 =~ y1 + y2 + y3</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent3 =~ z1 + z2 + z3</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="st">  # 结构模型</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent2 ~ Latent1</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent3 ~ Latent1 + Latent2</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="st">  # 释放残差相关（基于MI）</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="st">  x1 ~~ x2</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>fit_sem_updated <span class="ot">&lt;-</span> <span class="fu">sem</span>(sem_model_updated, <span class="at">data =</span> data)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_sem_updated, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><strong>⚠️
+注意</strong>：模型修正必须理论驱动，不能仅基于统计指标。</p>
+<h3 id="阶段3报告sem结果">阶段3：报告SEM结果</h3>
+<p><strong>SEM报告规范</strong>：</p>
+<ol type="1">
+<li><strong>测量模型结果</strong>：
+<ul>
+<li>报告CFA拟合指数</li>
+<li>报告标准化因子载荷（λ）</li>
+<li>报告组合信度（CR）和平均方差萃取（AVE）</li>
+<li>报告区分效度检验结果</li>
+</ul></li>
+<li><strong>结构模型结果</strong>：
+<ul>
+<li>报告SEM拟合指数</li>
+<li>报告标准化路径系数（β）、标准误（SE）、临界比（CR）、p值</li>
+<li>报告效应量（Cohen’s f²）</li>
+<li>如果检验了中介效应，报告间接效应、直接效应、总效应</li>
+</ul></li>
+<li><strong>表格模板</strong>：</li>
+</ol>
+<p><strong>表1：测量模型拟合指数</strong> | 拟合指数 | 推荐标准 |
+本研究结果 | 是否达标 | |———|———|———-|———| | χ²/df | &lt; 3 | | | | CFI
+| &gt; 0.95 | | | | TLI | &gt; 0.95 | | | | RMSEA | &lt; 0.06 | | | |
+SRMR | &lt; 0.08 | | |</p>
+<p><strong>表2：标准化因子载荷</strong> | 构念 | 题项 | 标准化载荷 | CR
+| AVE | |——|——|———-|—–|—–| | Latent1 | x1 | | | | | | x2 | | | | | | x3
+| | | |</p>
+<p><strong>表3：描述性统计和相关系数</strong> | 变量 | M | SD | 1 | 2 |
+3 | |——|—|—|—|—|—| | 1. Latent1 | | | (AVE√) | | | | 2. Latent2 | | | |
+(AVE√) | | | 3. Latent3 | | | | | (AVE√) |</p>
+<p><strong>表4：结构模型结果</strong> | 假设 | 路径 | 标准化系数 | SE |
+CR | p值 | 结果 | |——|——|———-|—–|—–|—–|——| | H1 | Latent1 → Latent2 | |
+| | | 支持/不支持 | | H2 | Latent1 → Latent3 | | | | | 支持/不支持 | |
+H3 | Latent2 → Latent3 | | | | | 支持/不支持 |</p>
+<p><strong>图1：SEM结果图</strong> - 使用结构方程模型图展示结果 -
+标准化系数标注在路径上 - 不显著的路径用虚线表示</p>
+<hr />
+<h2 id="nca分析实战">NCA分析实战</h2>
+<h3 id="阶段1理论论证">阶段1：理论论证</h3>
+<p><strong>⚠️ 关键步骤</strong>：NCA分析必须先有理论论证必要条件。</p>
+<p><strong>核心问题</strong>：</p>
+<ol type="1">
+<li><strong>为什么X可能是Y的必要条件？</strong>（理论依据）
+<ul>
+<li>回顾文献，寻找理论支持</li>
+<li>引用前人研究或理论框架</li>
+<li>提供逻辑论证</li>
+</ul></li>
+<li><strong>时间顺序</strong>：X的发生必须早于Y
+<ul>
+<li>如果是横截面数据，至少在逻辑上X先于Y</li>
+<li>如果是纵向数据，检验时间顺序</li>
+</ul></li>
+<li><strong>因果机制</strong>：解释X如何影响Y的产生
+<ul>
+<li>提供理论解释或机制论证</li>
+<li>可以引用质性数据或前人研究</li>
+</ul></li>
+</ol>
+<p><strong>🔴 CHECKPOINT · 必要条件理论论证检查</strong></p>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>是否完成</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>理论依据</td>
+<td></td>
+<td>引用了哪些理论或前人研究？</td>
+</tr>
+<tr>
+<td>时间顺序</td>
+<td></td>
+<td>X是否先于Y？</td>
+</tr>
+<tr>
+<td>因果机制</td>
+<td></td>
+<td>能否解释X如何影响Y？</td>
+</tr>
+</tbody>
+</table>
+<p><strong>🛑
+STOP：请确认是否已经理论论证了必要条件？如果未论证，NCA结果将缺乏理论支撑，必须停止使用NCA，改用SEM或QCA。</strong></p>
+<h3 id="阶段2天花板线分析">阶段2：天花板线分析</h3>
+<p><strong>输入</strong>：SEM分析得到的潜变量得分 + 原始数据
+<strong>输出</strong>：NCA效应量（d值）、天花板线图</p>
+<h4 id="步骤1准备数据">步骤1：准备数据</h4>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载NCA包</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(NCA)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果使用潜变量得分</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 从SEM模型中提取潜变量得分</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>sem_scores <span class="ot">&lt;-</span> <span class="fu">lavPredict</span>(fit_sem)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 合并原始数据</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>data_nca <span class="ot">&lt;-</span> <span class="fu">cbind</span>(data, sem_scores)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看数据</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_nca)</span></code></pre></div>
+<h4 id="步骤2进行nca分析">步骤2：进行NCA分析</h4>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 基础NCA分析</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>nca_result <span class="ot">&lt;-</span> <span class="fu">nca</span>(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> data_nca,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">&quot;condition&quot;</span>,   <span class="co"># 必要条件（X）</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">&quot;outcome&quot;</span>,     <span class="co"># 结果变量（Y）</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ceiling =</span> <span class="st">&quot;CR&quot;</span>     <span class="co"># 天花板线类型：CR（上限回归）</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看结果</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nca_result)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制天花板线图</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nca_result, </span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Necessary Condition Analysis&quot;</span>,</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Condition X&quot;</span>,</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Outcome Y&quot;</span>)</span></code></pre></div>
+<p><strong>天花板线类型选择</strong>：</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 21%" />
+<col style="width: 35%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr>
+<th>类型</th>
+<th>全称</th>
+<th>适用场景</th>
+<th>推荐</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CR</td>
+<td>Ceiling Regression</td>
+<td>连续数据，线性关系</td>
+<td>首选</td>
+</tr>
+<tr>
+<td>CACC</td>
+<td>Ceiling Above Curved Concave</td>
+<td>连续数据，非线性关系</td>
+<td>数据明显非线性时</td>
+</tr>
+<tr>
+<td>CE</td>
+<td>Ceiling Envelopment</td>
+<td>离散数据</td>
+<td>分类变量</td>
+</tr>
+<tr>
+<td>CBF</td>
+<td>Ceiling Distribution Free</td>
+<td>非参数方法，通用</td>
+<td>数据分布不明时</td>
+</tr>
+</tbody>
+</table>
+<p><strong>推荐策略</strong>：使用多种天花板线类型，报告最保守结果。</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用多种天花板线类型</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>nca_cr <span class="ot">&lt;-</span> <span class="fu">nca</span>(data_nca, <span class="at">x =</span> <span class="st">&quot;condition&quot;</span>, <span class="at">y =</span> <span class="st">&quot;outcome&quot;</span>, <span class="at">ceiling =</span> <span class="st">&quot;CR&quot;</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>nca_cacc <span class="ot">&lt;-</span> <span class="fu">nca</span>(data_nca, <span class="at">x =</span> <span class="st">&quot;condition&quot;</span>, <span class="at">y =</span> <span class="st">&quot;outcome&quot;</span>, <span class="at">ceiling =</span> <span class="st">&quot;CACC&quot;</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>nca_ce <span class="ot">&lt;-</span> <span class="fu">nca</span>(data_nca, <span class="at">x =</span> <span class="st">&quot;condition&quot;</span>, <span class="at">y =</span> <span class="st">&quot;outcome&quot;</span>, <span class="at">ceiling =</span> <span class="st">&quot;CE&quot;</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>nca_cbf <span class="ot">&lt;-</span> <span class="fu">nca</span>(data_nca, <span class="at">x =</span> <span class="st">&quot;condition&quot;</span>, <span class="at">y =</span> <span class="st">&quot;outcome&quot;</span>, <span class="at">ceiling =</span> <span class="st">&quot;CBF&quot;</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 比较结果</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nca_cr)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nca_cacc)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nca_ce)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nca_cbf)</span></code></pre></div>
+<h3 id="阶段3效应量和显著性检验">阶段3：效应量和显著性检验</h3>
+<p><strong>效应量（d值）解读</strong>：</p>
+<ul>
+<li>d = 0.0-0.1：可忽略的必要性</li>
+<li>d = 0.1-0.3：小效应</li>
+<li>d = 0.3-0.5：中等效应</li>
+<li>d &gt; 0.5：大效应</li>
+</ul>
+<p><strong>显著性检验</strong>：置换检验（Permutation Test）1000次，p
+&lt; 0.05表示必要条件关系显著。</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 进行显著性检验（置换检验）</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>nca_result_sig <span class="ot">&lt;-</span> <span class="fu">nca</span>(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> data_nca,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">&quot;condition&quot;</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">&quot;outcome&quot;</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ceiling =</span> <span class="st">&quot;CR&quot;</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">test =</span> <span class="cn">TRUE</span>,       <span class="co"># 进行显著性检验</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">perm =</span> <span class="dv">1000</span>        <span class="co"># 置换检验1000次</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看结果（包括效应量和p值）</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nca_result_sig)</span></code></pre></div>
+<p><strong>🔴 CHECKPOINT · NCA效应量解释</strong></p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 31%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>触发条件</th>
+<th>一线修复</th>
+<th>仍失败兜底</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>d值 &lt; 0.1</td>
+<td>检查理论依据，可能X不是必要条件</td>
+<td>报告”无必要条件”，改用SEM主效应分析</td>
+</tr>
+<tr>
+<td>p值 &gt; 0.05</td>
+<td>增加样本量或检查数据分布</td>
+<td>报告趋势性结果，标注”不显著”</td>
+</tr>
+<tr>
+<td>效应量与理论预期相反</td>
+<td>检查天花板线类型选择</td>
+<td>使用多种天花板线类型，报告最保守结果</td>
+</tr>
+</tbody>
+</table>
+<h3 id="阶段4瓶颈分析bottleneck-analysis">阶段4：瓶颈分析（Bottleneck
+Analysis）</h3>
+<p><strong>功能</strong>：生成瓶颈表，显示达成不同水平的Y所需的X的最低必要值。</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 瓶颈分析</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>bottleneck <span class="ot">&lt;-</span> <span class="fu">nca_bottleneck</span>(</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  nca_result,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y_levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">100</span>)  <span class="co"># Y的不同水平（百分比）</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看瓶颈表</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(bottleneck)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制瓶颈图</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nca_result, <span class="at">type =</span> <span class="st">&quot;bottleneck&quot;</span>)</span></code></pre></div>
+<p><strong>瓶颈表解读</strong>：</p>
+<ul>
+<li>表的每一行表示一个Y的水平（如10%, 20%, …, 100%）</li>
+<li>表的每一列表示一个必要条件</li>
+<li>表中的数值表示：要达到该水平的Y，该必要条件至少需要达到的值</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>Y的水平</th>
+<th>必要条件1</th>
+<th>必要条件2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10%</td>
+<td>5</td>
+<td>3</td>
+</tr>
+<tr>
+<td>50%</td>
+<td>20</td>
+<td>15</td>
+</tr>
+<tr>
+<td>100%</td>
+<td>50</td>
+<td>40</td>
+</tr>
+</tbody>
+</table>
+<p><strong>解读</strong>：要达到100%的Y，必要条件1至少需要达到50，必要条件2至少需要达到40。</p>
+<h3 id="阶段5报告nca结果">阶段5：报告NCA结果</h3>
+<p><strong>NCA报告规范</strong>：</p>
+<ol type="1">
+<li><strong>理论论证</strong>：在方法章节之前，明确论证为什么X可能是Y的必要条件</li>
+<li><strong>效应量</strong>：报告d值、p值（置换检验）</li>
+<li><strong>天花板线图</strong>：展示X和Y的关系</li>
+<li><strong>瓶颈表</strong>：报告达成不同水平的Y所需的X的最低必要值</li>
+<li><strong>显著性检验</strong>：报告置换检验结果</li>
+</ol>
+<p><strong>表格模板</strong>：</p>
+<p><strong>表5：NCA效应量</strong> | 必要条件 | 效应量（d） | p值 |
+显著性 | |———|———–|—–|——–| | X1 | | | | | X2 | | | |</p>
+<p><strong>表6：瓶颈分析</strong> | Y的水平 | X1 | X2 | X3 |
+|———|—–|—–|—–| | 10% | | | | | 50% | | | | | 100% | | | |</p>
+<p><strong>图2：天花板线图</strong> - 展示X和Y的散点图 -
+叠加天花板线（上限回归线） - 标注效应量（d值）</p>
+<hr />
+<h2 id="qca分析实战">QCA分析实战</h2>
+<h3 id="阶段1数据校准calibration">阶段1：数据校准（Calibration）</h3>
+<p><strong>核心任务</strong>：将原始数据转换为模糊集隶属分数（0-1）。</p>
+<p><strong>校准原则</strong>：</p>
+<ol type="1">
+<li><strong>理论依据</strong>：校准锚点必须有理论依据</li>
+<li><strong>三个定性锚点</strong>：
+<ul>
+<li>e：完全不属于（完全不隶属该集合）</li>
+<li>c：交叉点（既不完全属于也不完全不属于）</li>
+<li>i：完全属于（完全隶属该集合）</li>
+</ul></li>
+<li><strong>锚点选择</strong>：
+<ul>
+<li>基于理论（如”高收入”的理论定义）</li>
+<li>基于数据分布（95th/50th/5th 分位数）</li>
+<li>报告校准合理性检验</li>
+</ul></li>
+</ol>
+<h4 id="步骤1选择校准方案">步骤1：选择校准方案</h4>
+<p><strong>方案1：理论锚点法</strong> -
+适用于：理论明确界定了”高/中/低”的标准 -
+示例：如果理论定义”高创新自我效能感”为”得分≥4（5点量表）“，则i=4</p>
+<p><strong>方案2：分位数法</strong> - 适用于：理论未明确界定锚点 -
+示例：使用95th/50th/5th分位数作为i/c/e</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算分位数</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(data<span class="sc">$</span>var, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.50</span>, <span class="fl">0.95</span>))</span></code></pre></div>
+<p><strong>方案3：外部标准法</strong> -
+适用于：有外部标准（如行业基准、国家标准） -
+示例：如果行业基准定义”高绩效”为”销售额≥100万”，则i=100</p>
+<h4 id="步骤2进行校准">步骤2：进行校准</h4>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载QCA包</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(QCA)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 方案1：直接校准法（推荐）</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 3个定性锚点：e=完全不属于，c=交叉点，i=完全属于</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>data_cal <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 校准条件变量</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">Condition1 =</span> <span class="fu">calibrate</span>(</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> data<span class="sc">$</span>condition1,</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;fuzzy&quot;</span>,</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;direct&quot;</span>,</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">thresholds =</span> <span class="st">&quot;e=1, c=3, i=5&quot;</span>  <span class="co"># 根据理论和数据分布设定</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">Condition2 =</span> <span class="fu">calibrate</span>(</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> data<span class="sc">$</span>condition2,</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;fuzzy&quot;</span>,</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;direct&quot;</span>,</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">thresholds =</span> <span class="st">&quot;e=2, c=4, i=6&quot;</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 校准结果变量</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">Outcome =</span> <span class="fu">calibrate</span>(</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> data<span class="sc">$</span>outcome,</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;fuzzy&quot;</span>,</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;direct&quot;</span>,</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">thresholds =</span> <span class="st">&quot;e=10, c=20, i=30&quot;</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看校准后的数据</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data_cal)</span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a><span class="co"># 检查校准质量</span></span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(data<span class="sc">$</span>condition1, data_cal<span class="sc">$</span>Condition1, </span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Original&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Calibrated&quot;</span>,</span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Calibration Quality Check&quot;</span>)</span></code></pre></div>
+<p><strong>🔴 CHECKPOINT · 校准质量检查</strong></p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 31%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>触发条件</th>
+<th>一线修复</th>
+<th>仍失败兜底</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>校准锚点选择缺乏理论依据</td>
+<td>回到文献，明确锚点的理论含义</td>
+<td>使用分位数法，报告敏感性检验</td>
+</tr>
+<tr>
+<td>校准后数据分布极端（&gt;80%案例在0或1）</td>
+<td>调整锚点，使用更宽松的校准</td>
+<td>考虑使用清晰集QCA（csQCA）</td>
+</tr>
+<tr>
+<td>不同校准方案结果差异大</td>
+<td>报告多种校准方案的结果</td>
+<td>使用模糊集而非清晰集，增加校准模糊性</td>
+</tr>
+</tbody>
+</table>
+<p><strong>🛑
+STOP：请确认校准锚点选择是否有理论依据？如果缺乏理论依据，校准结果将不可靠，建议使用分位数法并报告敏感性检验。</strong></p>
+<h4 id="步骤3校准敏感性检验">步骤3：校准敏感性检验</h4>
+<p><strong>核心任务</strong>：检验不同校准方案是否导致结果的稳健性。</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 校准敏感性检验</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 方案1：理论锚点法</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>data_cal1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Condition1 =</span> <span class="fu">calibrate</span>(data<span class="sc">$</span>condition1, <span class="at">thresholds =</span> <span class="st">&quot;e=1, c=3, i=5&quot;</span>),</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Condition2 =</span> <span class="fu">calibrate</span>(data<span class="sc">$</span>condition2, <span class="at">thresholds =</span> <span class="st">&quot;e=2, c=4, i=6&quot;</span>),</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Outcome =</span> <span class="fu">calibrate</span>(data<span class="sc">$</span>outcome, <span class="at">thresholds =</span> <span class="st">&quot;e=10, c=20, i=30&quot;</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 方案2：分位数法</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>data_cal2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">Condition1 =</span> <span class="fu">calibrate</span>(data<span class="sc">$</span>condition1, <span class="at">thresholds =</span> <span class="st">&quot;e=0.05, c=0.50, i=0.95&quot;</span>),</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">Condition2 =</span> <span class="fu">calibrate</span>(data<span class="sc">$</span>condition2, <span class="at">thresholds =</span> <span class="st">&quot;e=0.05, c=0.50, i=0.95&quot;</span>),</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">Outcome =</span> <span class="fu">calibrate</span>(data<span class="sc">$</span>outcome, <span class="at">thresholds =</span> <span class="st">&quot;e=0.05, c=0.50, i=0.95&quot;</span>)</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 方案3：混合方法</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>data_cal3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">Condition1 =</span> <span class="fu">calibrate</span>(data<span class="sc">$</span>condition1, <span class="at">thresholds =</span> <span class="st">&quot;e=1, c=0.50, i=0.95&quot;</span>),</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">Condition2 =</span> <span class="fu">calibrate</span>(data<span class="sc">$</span>condition2, <span class="at">thresholds =</span> <span class="st">&quot;e=0.05, c=4, i=6&quot;</span>),</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">Outcome =</span> <span class="fu">calibrate</span>(data<span class="sc">$</span>outcome, <span class="at">thresholds =</span> <span class="st">&quot;e=10, c=0.50, i=0.95&quot;</span>)</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 比较三种校准方案下的必要性分析结果</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>nec1 <span class="ot">&lt;-</span> <span class="fu">necessity</span>(data_cal1<span class="sc">$</span>Outcome, data_cal1[, <span class="fu">c</span>(<span class="st">&quot;Condition1&quot;</span>, <span class="st">&quot;Condition2&quot;</span>)])</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>nec2 <span class="ot">&lt;-</span> <span class="fu">necessity</span>(data_cal2<span class="sc">$</span>Outcome, data_cal2[, <span class="fu">c</span>(<span class="st">&quot;Condition1&quot;</span>, <span class="st">&quot;Condition2&quot;</span>)])</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>nec3 <span class="ot">&lt;-</span> <span class="fu">necessity</span>(data_cal3<span class="sc">$</span>Outcome, data_cal3[, <span class="fu">c</span>(<span class="st">&quot;Condition1&quot;</span>, <span class="st">&quot;Condition2&quot;</span>)])</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果结果一致，则校准稳健</span></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(nec1)</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(nec2)</span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(nec3)</span></code></pre></div>
+<h3 id="阶段2必要性分析">阶段2：必要性分析</h3>
+<p><strong>核心任务</strong>：检验哪些条件是结果的必要条件。</p>
+<p><strong>标准</strong>：一致性（Consistency）≥ 0.9 →
+该条件是必要条件。</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 必要性检验</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>necessity <span class="ot">&lt;-</span> <span class="fu">necessity</span>(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> data_cal<span class="sc">$</span>Outcome,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">conditions =</span> data_cal[, <span class="fu">c</span>(<span class="st">&quot;Condition1&quot;</span>, <span class="st">&quot;Condition2&quot;</span>, <span class="st">&quot;Condition3&quot;</span>)]</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看结果</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(necessity)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制必要性散点图</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(necessity)</span></code></pre></div>
+<p><strong>🔴 CHECKPOINT · 必要性结果解释</strong></p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 31%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>触发条件</th>
+<th>一线修复</th>
+<th>仍失败兜底</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>所有条件的一致性 &lt; 0.9</td>
+<td>检查校准质量，可能锚点选择不当</td>
+<td>该结果无必要条件，改用充分性分析</td>
+</tr>
+<tr>
+<td>多个条件的一致性 ≥ 0.9</td>
+<td>报告所有必要条件，讨论理论含义</td>
+<td>使用NCA验证必要条件的效应量</td>
+</tr>
+<tr>
+<td>必要条件的理论与预期相反</td>
+<td>检查数据编码方向</td>
+<td>在讨论中明确标注并解释</td>
+</tr>
+</tbody>
+</table>
+<h3 id="阶段3真值表分析与组态识别">阶段3：真值表分析与组态识别</h3>
+<p><strong>核心任务</strong>：构建真值表，识别导致结果的组态路径。</p>
+<h4 id="步骤1构建真值表">步骤1：构建真值表</h4>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 构建真值表</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>truth_table <span class="ot">&lt;-</span> <span class="fu">truthTable</span>(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  data_cal,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="st">&quot;Outcome&quot;</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">conditions =</span> <span class="fu">c</span>(<span class="st">&quot;Condition1&quot;</span>, <span class="st">&quot;Condition2&quot;</span>, <span class="st">&quot;Condition3&quot;</span>),</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">incl.cut =</span> <span class="fl">0.8</span>,  <span class="co"># 一致性阈值（推荐0.8，探索性可放宽至0.75）</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">n.cut =</span> <span class="dv">1</span>        <span class="co"># 最小案例频数（小样本用1，大样本用2-3）</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看真值表</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(truth_table)</span></code></pre></div>
+<p><strong>参数设置规范</strong>：</p>
+<ul>
+<li><strong>一致性阈值</strong>（incl.cut）：
+<ul>
+<li>0.75：探索性研究</li>
+<li>0.8：一般研究（推荐）</li>
+<li>0.85：验证性研究</li>
+</ul></li>
+<li><strong>频率阈值</strong>（n.cut）：
+<ul>
+<li>1：小样本（&lt;30案例）</li>
+<li>2-3：大样本（&gt;50案例）</li>
+</ul></li>
+<li><strong>PRI阈值</strong>（用于区分核心条件和边缘条件）：
+<ul>
+<li>0.6-0.7：推荐范围</li>
+</ul></li>
+</ul>
+<h4 id="步骤2最小化分析识别组态">步骤2：最小化分析（识别组态）</h4>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 最小化分析（识别组态）</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>solution <span class="ot">&lt;-</span> <span class="fu">minimize</span>(</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  truth_table,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">include =</span> <span class="st">&quot;?&quot;</span>,  <span class="co"># 包含模糊集合</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">details =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.cases =</span> <span class="cn">TRUE</span>  <span class="co"># 显示每个解覆盖的案例</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看结果</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(solution)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看简约解</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>solution<span class="sc">$</span>ps</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看中间解</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>solution<span class="sc">$</span>ims</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看复杂解</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>solution<span class="sc">$</span>cs</span></code></pre></div>
+<p><strong>组态解的类型</strong>：</p>
+<ol type="1">
+<li><strong>简约解</strong>（Parsimonious solution）：
+<ul>
+<li>最简洁的组态</li>
+<li>可能遗漏一些条件（过于简化）</li>
+<li>用于识别核心条件</li>
+</ul></li>
+<li><strong>中间解</strong>（Intermediate solution）：
+<ul>
+<li>加入理论知识的中间解</li>
+<li>最平衡，推荐报告</li>
+<li>区分核心条件和边缘条件</li>
+</ul></li>
+<li><strong>复杂解</strong>（Complex solution）：
+<ul>
+<li>包含所有可能的解</li>
+<li>可能过于复杂</li>
+<li>用于敏感性检验</li>
+</ul></li>
+</ol>
+<p><strong>推荐</strong>：报告中间解，并标注核心条件和边缘条件。</p>
+<h4 id="步骤3评估组态质量">步骤3：评估组态质量</h4>
+<p><strong>组态一致性</strong>（Consistency）： - 标准：≥
+0.75（可接受），≥ 0.8（推荐） - 解读：该组态导致结果的程度</p>
+<p><strong>组态覆盖度</strong>（Coverage）： - 原始覆盖度（Raw
+coverage）：该组态解释的案例比例 - 唯一覆盖度（Unique
+coverage）：排除与其他解重叠后被唯一解释的比例 - 总体覆盖度（Solution
+coverage）：所有组态解释的案例比例</p>
+<p><strong>🔴 CHECKPOINT · 组态解解释</strong></p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 31%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>触发条件</th>
+<th>一线修复</th>
+<th>仍失败兜底</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无组态通过一致性阈值</td>
+<td>降低一致性阈值至0.75</td>
+<td>该结果无组态解，改用SEM分析主效应</td>
+</tr>
+<tr>
+<td>组态数量过多（&gt;5个）</td>
+<td>提高一致性阈值或频率阈值</td>
+<td>使用理论筛选核心组态</td>
+</tr>
+<tr>
+<td>组态覆盖度过低（&lt;0.5）</td>
+<td>检查是否遗漏重要条件</td>
+<td>增加条件变量，重新分析</td>
+</tr>
+</tbody>
+</table>
+<h3 id="阶段4结果解释">阶段4：结果解释</h3>
+<p><strong>核心概念</strong>：</p>
+<ol type="1">
+<li><strong>核心条件</strong>：
+<ul>
+<li>定义：在简约解和中间解中都出现的条件</li>
+<li>解读：对该组态至关重要的条件</li>
+</ul></li>
+<li><strong>边缘条件</strong>：
+<ul>
+<li>定义：仅在中间解中出现的条件</li>
+<li>解读：对该组态有贡献但不至关重要的条件</li>
+</ul></li>
+<li><strong>组态呈现</strong>：
+<ul>
+<li>使用布尔代数符号：
+<ul>
+<li>*：表示”和”（AND）</li>
+<li>+：表示”或”（OR）</li>
+<li>~：表示”非”（NOT）</li>
+</ul></li>
+<li>示例：Condition1 * Condition2 + ~Condition3
+<ul>
+<li>解读：“(Condition1 AND Condition2) OR (NOT Condition3)”</li>
+</ul></li>
+</ul></li>
+</ol>
+<p><strong>结果解释步骤</strong>：</p>
+<ol type="1">
+<li><strong>描述组态</strong>：用自然语言描述每个组态</li>
+<li><strong>识别核心条件</strong>：标注每个组态的核心条件</li>
+<li><strong>比较组态</strong>：识别不同组态的共性和差异</li>
+<li><strong>理论解释</strong>：用理论解释为什么这些条件组合可以导致结果</li>
+</ol>
+<p><strong>示例</strong>：</p>
+<p>”
+fsQCA识别出3条导致高创新行为的等效组态（一致性≥0.85，覆盖度=0.65）：</p>
+<ul>
+<li><strong>组态1</strong>：高领导支持 *
+高自我效能感（核心条件：领导支持、自我效能感；边缘条件：组织创新氛围）</li>
+<li><strong>组态2</strong>：高同事支持 *
+高创新自我效能感（核心条件：同事支持、自我效能感；边缘条件：工作自主性）</li>
+<li><strong>组态3</strong>：高组织创新氛围 *
+高工作自主性（核心条件：组织创新氛围、工作自主性；边缘条件：无）</li>
+</ul>
+<p>值得注意的是，自我效能感出现在所有3个组态中，要么是核心条件（组态1和2），要么是边缘条件（组态3），表明自我效能感是创新行为产生的重要前提条件。”</p>
+<h3 id="阶段5报告qca结果">阶段5：报告QCA结果</h3>
+<p><strong>QCA报告规范</strong>：</p>
+<ol type="1">
+<li><strong>校准方案</strong>：详细说明校准锚点的选择依据</li>
+<li><strong>必要性分析</strong>：报告一致性≥0.9的必要条件</li>
+<li><strong>真值表</strong>：报告一致性阈值、频率阈值</li>
+<li><strong>组态解</strong>：报告简约解/中间解/复杂解，一致性+覆盖度</li>
+<li><strong>稳健性检验</strong>：报告不同一致性阈值下的结果</li>
+</ol>
+<p><strong>表格模板</strong>：</p>
+<p><strong>表7：必要性分析结果</strong> | 条件 | 一致性 | 覆盖度 |
+是否必要条件 | |——|——–|——–|————| | Condition1 | | | 是/否 | | Condition2
+| | | 是/否 |</p>
+<p><strong>表8：组态解</strong> | 组态 | 核心条件 | 边缘条件 | 一致性 |
+原始覆盖度 | 唯一覆盖度 | |——|———|———|——–|———-|———-| | 1 | | | | | | | 2
+| | | | | | | 3 | | | | | |</p>
+<p><strong>图3：组态图</strong> - 使用Venn图或组态图展示组态 -
+标注核心条件和边缘条件 - 展示每个组态覆盖的案例</p>
+<hr />
+<h2 id="结果整合与解释框架">结果整合与解释框架</h2>
+<h3 id="整合策略">整合策略</h3>
+<h4
+id="整合策略1分别报告然后整合推荐">整合策略1：分别报告，然后整合（推荐）</h4>
+<p><strong>步骤</strong>：</p>
+<ol type="1">
+<li><strong>分别报告</strong>：按SEM → NCA →
+QCA顺序，分别报告三种方法的结果</li>
+<li><strong>交叉验证</strong>：识别三种方法结果的一致点</li>
+<li><strong>解释不一致</strong>：如果结果看似矛盾，使用因果不对称性解释</li>
+<li><strong>整合理论</strong>：构建综合因果理论</li>
+</ol>
+<p><strong>优点</strong>： - 清晰展示每种方法的价值 - 便于读者理解 -
+符合顶刊报告规范</p>
+<p><strong>模板</strong>：</p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## 结果</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">### 研究问题1：[对应的SEM维度]</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>**SEM结果**：<span class="co">[</span><span class="ot">报告SEM结果</span><span class="co">]</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>**NCA结果**：<span class="co">[</span><span class="ot">报告NCA结果</span><span class="co">]</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>**QCA结果**：<span class="co">[</span><span class="ot">报告QCA结果</span><span class="co">]</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>**整合解释**：<span class="co">[</span><span class="ot">提供整合解释</span><span class="co">]</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="fu">### 研究问题2：[对应的NCA维度]</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">同上格式</span><span class="co">]</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="fu">### 研究问题3：[对应的QCA维度]</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">同上格式</span><span class="co">]</span></span></code></pre></div>
+<h4 id="整合策略2按研究问题整合">整合策略2：按研究问题整合</h4>
+<p><strong>步骤</strong>：</p>
+<ol type="1">
+<li><strong>分解研究问题</strong>：将主问题分解为3-5个子问题</li>
+<li><strong>每个子问题整合</strong>：每个子问题下，分别报告三种方法的发现，然后提供整合解释</li>
+<li><strong>总体整合</strong>：最后提供总体整合框架</li>
+</ol>
+<p><strong>优点</strong>： - 紧扣研究问题 - 逻辑清晰 -
+便于突出理论贡献</p>
+<h3 id="结果不一致的处理">结果不一致的处理</h3>
+<p><strong>常见不一致情境</strong>：</p>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr>
+<th>情境</th>
+<th>SEM结果</th>
+<th>NCA结果</th>
+<th>QCA结果</th>
+<th>整合解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>X→Y显著正向</td>
+<td>X是必要条件</td>
+<td>X出现在所有配置中</td>
+<td>X是核心必要条件，且对Y有正向影响</td>
+</tr>
+<tr>
+<td>2</td>
+<td>X→Y显著正向</td>
+<td>X不是必要条件</td>
+<td>X出现在部分配置中</td>
+<td>X是充分但非必要条件，可被其他条件替代</td>
+</tr>
+<tr>
+<td>3</td>
+<td>X→Y不显著</td>
+<td>X是必要条件</td>
+<td>X出现在所有配置中</td>
+<td>X是必要条件但非充分条件，需要与其他条件组合</td>
+</tr>
+<tr>
+<td>4</td>
+<td>X→Y显著负向</td>
+<td>X是必要条件</td>
+<td>X的不存在导致~Y</td>
+<td>揭示因果不对称性：X的存在必要，但过量可能有害</td>
+</tr>
+</tbody>
+</table>
+<p><strong>🔴 CHECKPOINT · 结果一致性检查</strong></p>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>是否完成</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>识别了一致点</td>
+<td></td>
+<td>三种方法结果的一致点是什么？</td>
+</tr>
+<tr>
+<td>解释了矛盾点</td>
+<td></td>
+<td>如何解释看似矛盾的结果？</td>
+</tr>
+<tr>
+<td>提供了整合框架</td>
+<td></td>
+<td>整合框架是什么？</td>
+</tr>
+</tbody>
+</table>
+<p><strong>🛑
+STOP：请确认是否已经识别并解释了结果之间的一致点和矛盾点？如果未解释矛盾，需要在讨论章节中明确说明。</strong></p>
+<h3 id="整合解释框架">整合解释框架</h3>
+<p><strong>核心观点</strong>：三种方法的整合超越单一方法的局限。</p>
+<p><strong>整合框架</strong>：</p>
+<ol type="1">
+<li><strong>SEM揭示了净效应</strong>：
+<ul>
+<li>告诉你”一般情况下X对Y的影响”</li>
+<li>量化效应大小和统计显著性</li>
+<li>检验中介机制和边界条件</li>
+</ul></li>
+<li><strong>NCA识别了瓶颈条件</strong>：
+<ul>
+<li>告诉你”什么是Y产生不可或缺的”</li>
+<li>区分”应该有的条件”和”必须有的条件”</li>
+<li>提供瓶颈分析和实践启示</li>
+</ul></li>
+<li><strong>QCA探索了等效路径</strong>：
+<ul>
+<li>告诉你”哪些条件组合可以导致Y”</li>
+<li>揭示多重并发因果和等效性</li>
+<li>展示因果不对称性</li>
+</ul></li>
+</ol>
+<p><strong>整合理论构建</strong>：</p>
+<p>基于三种方法的结果，构建综合因果理论：</p>
+<ol type="1">
+<li><strong>平均效应维度</strong>：基于SEM结果，阐述X对Y的一般影响</li>
+<li><strong>必要条件维度</strong>：基于NCA结果，阐述Y产生的瓶颈条件</li>
+<li><strong>组态路径维度</strong>：基于QCA结果，阐述导致Y的多重路径</li>
+</ol>
+<p><strong>示例</strong>：</p>
+<p>“三种方法的整合表明：领导支持对
+employee创新行为有显著正向影响（SEM结果），但领导支持不是创新行为的必要条件（NCA结果）——创新行为可以通过其他路径（如同事支持+自我效能感）产生（QCA结果）。然而，自我效能感是创新行为的必要条件（NCA结果），且出现在所有导致高创新行为的组态中（QCA结果）。这意味着：自我效能感是创新行为产生不可或缺的前提条件，但创新行为的具体产生机制可以是多种的（等效性）。”</p>
+<hr />
+<h2 id="完整案例分析">完整案例分析</h2>
+<h3
+id="案例员工创新行为的影响因素研究">案例：员工创新行为的影响因素研究</h3>
+<p><strong>研究问题</strong>：“哪些因素导致员工创新行为？”</p>
+<p><strong>理论框架</strong>：社会认知理论 + 组织支持理论</p>
+<p><strong>研究方法</strong>：SEM + NCA + QCA混合方法</p>
+<p><strong>样本</strong>：N = 250名员工（来自10家中国企业）</p>
+<p><strong>变量</strong>： -
+自变量：领导支持、同事支持、自我效能感、组织创新氛围 -
+因变量：创新行为</p>
+<h3 id="分析步骤">分析步骤</h3>
+<h4 id="步骤1sem分析">步骤1：SEM分析</h4>
+<p><strong>测量模型</strong>： - 领导支持：4个题项，CFA拟合指数达标 -
+同事支持：4个题项，CFA拟合指数达标 -
+自我效能感：3个题项，CFA拟合指数达标 -
+组织创新氛围：4个题项，CFA拟合指数达标 -
+创新行为：4个题项，CFA拟合指数达标</p>
+<p><strong>结构模型</strong>： - 领导支持 → 创新行为：β = 0.25, p &lt;
+0.01 - 同事支持 → 创新行为：β = 0.18, p &lt; 0.05 - 自我效能感 →
+创新行为：β = 0.32, p &lt; 0.001 - 组织创新氛围 → 创新行为：β = 0.15, p
+&lt; 0.05</p>
+<p><strong>SEM结论</strong>：所有四个前因变量对创新行为有显著正向影响。</p>
+<h4 id="步骤2nca分析">步骤2：NCA分析</h4>
+<p><strong>理论论证</strong>：基于社会认知理论，自我效能感是创新行为产生的必要条件（“没有自我效能感，员工不会尝试创新”）。</p>
+<p><strong>NCA结果</strong>： - 自我效能感是创新行为的必要条件：d =
+0.35, p &lt; 0.01 - 其他条件不是必要条件：d &lt; 0.1, p &gt; 0.05</p>
+<p><strong>瓶颈分析</strong>： -
+要达到50%的创新行为，至少需要30%的自我效能感 -
+要达到100%的创新行为，至少需要70%的自我效能感</p>
+<p><strong>NCA结论</strong>：自我效能感是创新行为的必要条件，但其他条件不是。</p>
+<h4 id="步骤3qca分析">步骤3：QCA分析</h4>
+<p><strong>校准方案</strong>：使用理论锚点法 +
+分位数法，进行敏感性检验。</p>
+<p><strong>必要性分析</strong>： - 自我效能感的一致性 = 0.92 → 必要条件
+- 其他条件的一致性 &lt; 0.9 → 不是必要条件</p>
+<p><strong>充分性分析</strong>： -
+识别出3条导致高创新行为的组态（一致性≥0.85，覆盖度=0.68）： -
+组态1：高领导支持 * 高自我效能感（核心条件：领导支持、自我效能感） -
+组态2：高同事支持 * 高自我效能感（核心条件：同事支持、自我效能感） -
+组态3：高组织创新氛围 *
+高工作自主性（核心条件：组织创新氛围、工作自主性；自我效能感为边缘条件）</p>
+<p><strong>QCA结论</strong>：自我效能感出现在所有组态中，表明其重要性。但创新行为可以通过多种路径产生（等效性）。</p>
+<h4 id="步骤4结果整合">步骤4：结果整合</h4>
+<p><strong>一致点</strong>： -
+SEM和QCA都显示自我效能感对创新行为有积极影响 -
+NCA和QCA都显示自我效能感是必要条件</p>
+<p><strong>矛盾点</strong>： -
+SEM显示领导支持对创新行为有显著正向影响，但QCA显示领导支持仅出现在部分组态中（非普遍存在）</p>
+<p><strong>解释</strong>： -
+SEM关注的是”平均效应”，即一般情况下领导支持对创新行为有正向影响 -
+QCA关注的是”组态效应”，即领导支持需要与其他条件组合才能导致创新行为 -
+这一”矛盾”揭示了因果不对称性：领导支持的平均效应显著，但不是所有导致创新行为的组态都包含领导支持</p>
+<p><strong>整合理论</strong>： -
+<strong>平均效应维度</strong>：领导支持、同事支持、自我效能感、组织创新氛围都对创新行为有正向影响（SEM）
+-
+<strong>必要条件维度</strong>：自我效能感是创新行为的必要条件，构成瓶颈（NCA）
+-
+<strong>组态路径维度</strong>：创新行为可以通过多种路径产生，但所有路径都包含自我效能感（QCA）</p>
+<p><strong>理论贡献</strong>： 1.
+揭示了自我效能感作为必要条件的”瓶颈效应”，超越了前人仅关注充分性的研究
+2. 发现了导致创新行为的多重路径，揭示了因果复杂性和等效性 3.
+整合了充分性和必要性的因果逻辑，提供了更全面的因果理解</p>
+<hr />
+<h2 id="最佳实践与常见误区">最佳实践与常见误区</h2>
+<h3 id="最佳实践">最佳实践</h3>
+<h4 id="理论驱动">1. 理论驱动</h4>
+<p><strong>原则</strong>：方法选择和使用必须理论驱动。</p>
+<p><strong>实践</strong>： -
+使用NCA之前，必须理论论证为什么X可能是Y的必要条件 -
+使用QCA之前，必须理论论证为什么因果可能是组态的 -
+不能”先跑一下看看结果”再找理论解释</p>
+<h4 id="方法适配">2. 方法适配</h4>
+<p><strong>原则</strong>：研究方法必须由研究问题决定。</p>
+<p><strong>实践</strong>： -
+明确研究问题的因果逻辑（充分性/必要性/组态性） -
+选择最适配的方法或方法组合 -
+避免方法堆砌（不能使用三种方法”因为看起来厉害”）</p>
+<h4 id="结果整合">3. 结果整合</h4>
+<p><strong>原则</strong>：混合方法的价值在于整合，而非简单叠加。</p>
+<p><strong>实践</strong>： - 分别报告每种方法的结果 -
+识别结果之间的一致点和矛盾点 - 提供整合性理论框架 -
+解释看似矛盾的结果（使用因果不对称性）</p>
+<h4 id="透明报告">4. 透明报告</h4>
+<p><strong>原则</strong>：报告必须透明、可复制。</p>
+<p><strong>实践</strong>： - 详细报告校准方案（QCA） -
+详细报告效应量和显著性检验（NCA） - 详细报告拟合指数和路径系数（SEM） -
+提供稳健性检验结果</p>
+<h4 id="局限坦诚">5. 局限坦诚</h4>
+<p><strong>原则</strong>：坦诚说明研究的局限性。</p>
+<p><strong>实践</strong>： - 说明横截面设计的局限（如果不能做纵向设计）
+- 说明共同方法偏差的潜在影响 - 说明样本代表性的局限 -
+说明方法的固有局限（如SEM的对称性假设）</p>
+<h3 id="常见误区">常见误区</h3>
+<h4
+id="误区1理论未明确必要性但使用了nca">误区1：理论未明确必要性，但使用了NCA</h4>
+<p><strong>表现</strong>：在方法章节写”我们使用NCA探索必要条件”，但没有理论论证。</p>
+<p><strong>后果</strong>：审稿人会质疑”你凭什么说这个条件是必要条件？”</p>
+<p><strong>纠正</strong>：先发展必要条件理论，再使用NCA。如果理论未明确，改用SEM主效应分析。</p>
+<h4 id="误区2忽略qca的因果不对称性">误区2：忽略QCA的因果不对称性</h4>
+<p><strong>表现</strong>：只分析导致结果出现的组态，不分析导致结果缺失的组态。</p>
+<p><strong>后果</strong>：遗漏了重要的因果信息，结论可能偏颇。</p>
+<p><strong>纠正</strong>：分别分析导致结果出现和缺失的组态，比较异同。</p>
+<h4
+id="误区3将nca的效应量解释为影响力大小">误区3：将NCA的效应量解释为影响力大小</h4>
+<p><strong>表现</strong>：在讨论中写”NCA显示X的效应量很大（d=0.6），说明X对Y的影响很大”。</p>
+<p><strong>后果</strong>：误解了NCA的效应量含义。</p>
+<p><strong>纠正</strong>：NCA的效应量（d值）仅表示必要条件的约束程度，而非影响力大小。应该解释为”X是Y产生的瓶颈条件，约束程度为d=0.6”。</p>
+<h4 id="误区4混合方法但未整合结果">误区4：混合方法但未整合结果</h4>
+<p><strong>表现</strong>：分别报告了三种方法的结果，但没有提供整合解释。</p>
+<p><strong>后果</strong>：混合方法的价值未体现，看起来像”方法堆砌”。</p>
+<p><strong>纠正</strong>：使用整合解释框架，提供综合性结论。可以分别报告，然后整合解释。</p>
+<h4
+id="误区5校准锚点选择缺乏理论依据">误区5：校准锚点选择缺乏理论依据</h4>
+<p><strong>表现</strong>：在QCA校准时，随意选择锚点，或仅基于数据分布选择。</p>
+<p><strong>后果</strong>：校准结果不可靠，QCA结果缺乏理论支撑。</p>
+<p><strong>纠正</strong>：校准锚点必须有理论或分位数依据。如果理论未明确，使用分位数法，并报告敏感性检验。</p>
+<h4
+id="误区6样本量不足但想用混合方法">误区6：样本量不足但想用混合方法</h4>
+<p><strong>表现</strong>：样本量 &lt; 200，但想使用SEM + NCA +
+QCA混合方法。</p>
+<p><strong>后果</strong>：SEM的cb-SEM需要大样本，结果可能不可靠。</p>
+<p><strong>纠正</strong>：增加样本量至&gt;200，或改为单一方法（优先SEM或fsQCA）。</p>
+<hr />
+<h2 id="附录代码模板与工具">附录：代码模板与工具</h2>
+<h3 id="r语言完整分析流程">R语言完整分析流程</h3>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># SEM + NCA + QCA 混合分析流程（完整版）</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载所需包</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan)   <span class="co"># SEM</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(NCA)       <span class="co"># NCA</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(QCA)        <span class="co"># QCA</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(semTools)   <span class="co"># SEM工具</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)      <span class="co"># 描述性统计</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 阶段1：数据预处理</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 导入数据</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data.csv&quot;</span>)</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 检查缺失值</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data)</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 处理缺失值（推荐使用FIML，lavaan默认使用）</span></span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 无需手动删除缺失值</span></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 检查数据正态性</span></span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(data)</span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 阶段2：SEM分析</span></span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 指定测量模型</span></span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a>cfa_model <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent1 =~ x1 + x2 + x3</span></span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent2 =~ y1 + y2 + y3</span></span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent3 =~ z1 + z2 + z3</span></span>
+<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a><span class="co"># 拟合测量模型</span></span>
+<span id="cb25-38"><a href="#cb25-38" aria-hidden="true" tabindex="-1"></a>fit_cfa <span class="ot">&lt;-</span> <span class="fu">cfa</span>(cfa_model, <span class="at">data =</span> data)</span>
+<span id="cb25-39"><a href="#cb25-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-40"><a href="#cb25-40" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看CFA结果</span></span>
+<span id="cb25-41"><a href="#cb25-41" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_cfa, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-42"><a href="#cb25-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-43"><a href="#cb25-43" aria-hidden="true" tabindex="-1"></a><span class="co"># 检查拟合指数</span></span>
+<span id="cb25-44"><a href="#cb25-44" aria-hidden="true" tabindex="-1"></a><span class="fu">fitMeasures</span>(fit_cfa, <span class="fu">c</span>(<span class="st">&quot;chisq&quot;</span>, <span class="st">&quot;df&quot;</span>, <span class="st">&quot;cfi&quot;</span>, <span class="st">&quot;tli&quot;</span>, <span class="st">&quot;rmsea&quot;</span>, <span class="st">&quot;srmr&quot;</span>))</span>
+<span id="cb25-45"><a href="#cb25-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-46"><a href="#cb25-46" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果拟合指数不达标，修正测量模型</span></span>
+<span id="cb25-47"><a href="#cb25-47" aria-hidden="true" tabindex="-1"></a><span class="co"># 检查因子载荷，删除载荷&lt;0.5的题目</span></span>
+<span id="cb25-48"><a href="#cb25-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-49"><a href="#cb25-49" aria-hidden="true" tabindex="-1"></a><span class="co"># 指定结构模型</span></span>
+<span id="cb25-50"><a href="#cb25-50" aria-hidden="true" tabindex="-1"></a>sem_model <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb25-51"><a href="#cb25-51" aria-hidden="true" tabindex="-1"></a><span class="st">  # 测量模型</span></span>
+<span id="cb25-52"><a href="#cb25-52" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent1 =~ x1 + x2 + x3</span></span>
+<span id="cb25-53"><a href="#cb25-53" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent2 =~ y1 + y2 + y3</span></span>
+<span id="cb25-54"><a href="#cb25-54" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent3 =~ z1 + z2 + z3</span></span>
+<span id="cb25-55"><a href="#cb25-55" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb25-56"><a href="#cb25-56" aria-hidden="true" tabindex="-1"></a><span class="st">  # 结构模型</span></span>
+<span id="cb25-57"><a href="#cb25-57" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent2 ~ Latent1</span></span>
+<span id="cb25-58"><a href="#cb25-58" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent3 ~ Latent1 + Latent2</span></span>
+<span id="cb25-59"><a href="#cb25-59" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb25-60"><a href="#cb25-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-61"><a href="#cb25-61" aria-hidden="true" tabindex="-1"></a><span class="co"># 拟合结构模型</span></span>
+<span id="cb25-62"><a href="#cb25-62" aria-hidden="true" tabindex="-1"></a>fit_sem <span class="ot">&lt;-</span> <span class="fu">sem</span>(sem_model, <span class="at">data =</span> data)</span>
+<span id="cb25-63"><a href="#cb25-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-64"><a href="#cb25-64" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看SEM结果</span></span>
+<span id="cb25-65"><a href="#cb25-65" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_sem, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-66"><a href="#cb25-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-67"><a href="#cb25-67" aria-hidden="true" tabindex="-1"></a><span class="co"># Bootstrap法检验中介效应（如果有）</span></span>
+<span id="cb25-68"><a href="#cb25-68" aria-hidden="true" tabindex="-1"></a>sem_model_med <span class="ot">&lt;-</span> <span class="st">&#39;</span></span>
+<span id="cb25-69"><a href="#cb25-69" aria-hidden="true" tabindex="-1"></a><span class="st">  # 测量模型</span></span>
+<span id="cb25-70"><a href="#cb25-70" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent1 =~ x1 + x2 + x3</span></span>
+<span id="cb25-71"><a href="#cb25-71" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent2 =~ m1 + m2 + m3</span></span>
+<span id="cb25-72"><a href="#cb25-72" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent3 =~ y1 + y2 + y3</span></span>
+<span id="cb25-73"><a href="#cb25-73" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb25-74"><a href="#cb25-74" aria-hidden="true" tabindex="-1"></a><span class="st">  # 结构模型</span></span>
+<span id="cb25-75"><a href="#cb25-75" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent2 ~ a*Latent1</span></span>
+<span id="cb25-76"><a href="#cb25-76" aria-hidden="true" tabindex="-1"></a><span class="st">  Latent3 ~ b*Latent2 + c*Latent1</span></span>
+<span id="cb25-77"><a href="#cb25-77" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb25-78"><a href="#cb25-78" aria-hidden="true" tabindex="-1"></a><span class="st">  # 间接效应</span></span>
+<span id="cb25-79"><a href="#cb25-79" aria-hidden="true" tabindex="-1"></a><span class="st">  indirect := a * b</span></span>
+<span id="cb25-80"><a href="#cb25-80" aria-hidden="true" tabindex="-1"></a><span class="st">  total := c + (a * b)</span></span>
+<span id="cb25-81"><a href="#cb25-81" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;</span></span>
+<span id="cb25-82"><a href="#cb25-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-83"><a href="#cb25-83" aria-hidden="true" tabindex="-1"></a>fit_med <span class="ot">&lt;-</span> <span class="fu">sem</span>(sem_model_med, </span>
+<span id="cb25-84"><a href="#cb25-84" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> data, </span>
+<span id="cb25-85"><a href="#cb25-85" aria-hidden="true" tabindex="-1"></a>               <span class="at">se =</span> <span class="st">&quot;bootstrap&quot;</span>, </span>
+<span id="cb25-86"><a href="#cb25-86" aria-hidden="true" tabindex="-1"></a>               <span class="at">bootstrap =</span> <span class="dv">5000</span>)</span>
+<span id="cb25-87"><a href="#cb25-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-88"><a href="#cb25-88" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_med, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-89"><a href="#cb25-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-90"><a href="#cb25-90" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取潜变量得分用于NCA和QCA</span></span>
+<span id="cb25-91"><a href="#cb25-91" aria-hidden="true" tabindex="-1"></a>sem_scores <span class="ot">&lt;-</span> <span class="fu">lavPredict</span>(fit_sem)</span>
+<span id="cb25-92"><a href="#cb25-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-93"><a href="#cb25-93" aria-hidden="true" tabindex="-1"></a><span class="co"># 合并原始数据</span></span>
+<span id="cb25-94"><a href="#cb25-94" aria-hidden="true" tabindex="-1"></a>data_nca_qca <span class="ot">&lt;-</span> <span class="fu">cbind</span>(data, sem_scores)</span>
+<span id="cb25-95"><a href="#cb25-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-96"><a href="#cb25-96" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb25-97"><a href="#cb25-97" aria-hidden="true" tabindex="-1"></a><span class="co"># 阶段3：NCA分析</span></span>
+<span id="cb25-98"><a href="#cb25-98" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb25-99"><a href="#cb25-99" aria-hidden="true" tabindex="-1"></a><span class="co"># 理论论证：在运行NCA之前，必须理论论证必要条件</span></span>
+<span id="cb25-100"><a href="#cb25-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-101"><a href="#cb25-101" aria-hidden="true" tabindex="-1"></a><span class="co"># NCA分析</span></span>
+<span id="cb25-102"><a href="#cb25-102" aria-hidden="true" tabindex="-1"></a>nca_result <span class="ot">&lt;-</span> <span class="fu">nca</span>(</span>
+<span id="cb25-103"><a href="#cb25-103" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> data_nca_qca,</span>
+<span id="cb25-104"><a href="#cb25-104" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">&quot;Latent1&quot;</span>,   <span class="co"># 必要条件</span></span>
+<span id="cb25-105"><a href="#cb25-105" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">&quot;Latent3&quot;</span>,   <span class="co"># 结果变量</span></span>
+<span id="cb25-106"><a href="#cb25-106" aria-hidden="true" tabindex="-1"></a>  <span class="at">ceiling =</span> <span class="st">&quot;CR&quot;</span>,  <span class="co"># 天花板线类型</span></span>
+<span id="cb25-107"><a href="#cb25-107" aria-hidden="true" tabindex="-1"></a>  <span class="at">test =</span> <span class="cn">TRUE</span>,     <span class="co"># 进行显著性检验</span></span>
+<span id="cb25-108"><a href="#cb25-108" aria-hidden="true" tabindex="-1"></a>  <span class="at">perm =</span> <span class="dv">1000</span>      <span class="co"># 置换检验1000次</span></span>
+<span id="cb25-109"><a href="#cb25-109" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-110"><a href="#cb25-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-111"><a href="#cb25-111" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看NCA结果</span></span>
+<span id="cb25-112"><a href="#cb25-112" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nca_result)</span>
+<span id="cb25-113"><a href="#cb25-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-114"><a href="#cb25-114" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制天花板线图</span></span>
+<span id="cb25-115"><a href="#cb25-115" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nca_result, </span>
+<span id="cb25-116"><a href="#cb25-116" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Necessary Condition Analysis&quot;</span>,</span>
+<span id="cb25-117"><a href="#cb25-117" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Condition X&quot;</span>,</span>
+<span id="cb25-118"><a href="#cb25-118" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Outcome Y&quot;</span>)</span>
+<span id="cb25-119"><a href="#cb25-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-120"><a href="#cb25-120" aria-hidden="true" tabindex="-1"></a><span class="co"># 瓶颈分析</span></span>
+<span id="cb25-121"><a href="#cb25-121" aria-hidden="true" tabindex="-1"></a>bottleneck <span class="ot">&lt;-</span> <span class="fu">nca_bottleneck</span>(</span>
+<span id="cb25-122"><a href="#cb25-122" aria-hidden="true" tabindex="-1"></a>  nca_result,</span>
+<span id="cb25-123"><a href="#cb25-123" aria-hidden="true" tabindex="-1"></a>  <span class="at">y_levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">90</span>, <span class="dv">100</span>)</span>
+<span id="cb25-124"><a href="#cb25-124" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-125"><a href="#cb25-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-126"><a href="#cb25-126" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(bottleneck)</span>
+<span id="cb25-127"><a href="#cb25-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-128"><a href="#cb25-128" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb25-129"><a href="#cb25-129" aria-hidden="true" tabindex="-1"></a><span class="co"># 阶段4：QCA分析</span></span>
+<span id="cb25-130"><a href="#cb25-130" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb25-131"><a href="#cb25-131" aria-hidden="true" tabindex="-1"></a><span class="co"># 数据校准</span></span>
+<span id="cb25-132"><a href="#cb25-132" aria-hidden="true" tabindex="-1"></a>data_cal <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb25-133"><a href="#cb25-133" aria-hidden="true" tabindex="-1"></a>  <span class="at">Condition1 =</span> <span class="fu">calibrate</span>(</span>
+<span id="cb25-134"><a href="#cb25-134" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> sem_scores[,<span class="dv">1</span>],</span>
+<span id="cb25-135"><a href="#cb25-135" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;fuzzy&quot;</span>,</span>
+<span id="cb25-136"><a href="#cb25-136" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;direct&quot;</span>,</span>
+<span id="cb25-137"><a href="#cb25-137" aria-hidden="true" tabindex="-1"></a>    <span class="at">thresholds =</span> <span class="st">&quot;e=0.05, c=0.50, i=0.95&quot;</span></span>
+<span id="cb25-138"><a href="#cb25-138" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb25-139"><a href="#cb25-139" aria-hidden="true" tabindex="-1"></a>  <span class="at">Condition2 =</span> <span class="fu">calibrate</span>(</span>
+<span id="cb25-140"><a href="#cb25-140" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> sem_scores[,<span class="dv">2</span>],</span>
+<span id="cb25-141"><a href="#cb25-141" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;fuzzy&quot;</span>,</span>
+<span id="cb25-142"><a href="#cb25-142" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;direct&quot;</span>,</span>
+<span id="cb25-143"><a href="#cb25-143" aria-hidden="true" tabindex="-1"></a>    <span class="at">thresholds =</span> <span class="st">&quot;e=0.05, c=0.50, i=0.95&quot;</span></span>
+<span id="cb25-144"><a href="#cb25-144" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb25-145"><a href="#cb25-145" aria-hidden="true" tabindex="-1"></a>  <span class="at">Outcome =</span> <span class="fu">calibrate</span>(</span>
+<span id="cb25-146"><a href="#cb25-146" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> sem_scores[,<span class="dv">3</span>],</span>
+<span id="cb25-147"><a href="#cb25-147" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;fuzzy&quot;</span>,</span>
+<span id="cb25-148"><a href="#cb25-148" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;direct&quot;</span>,</span>
+<span id="cb25-149"><a href="#cb25-149" aria-hidden="true" tabindex="-1"></a>    <span class="at">thresholds =</span> <span class="st">&quot;e=0.05, c=0.50, i=0.95&quot;</span></span>
+<span id="cb25-150"><a href="#cb25-150" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb25-151"><a href="#cb25-151" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-152"><a href="#cb25-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-153"><a href="#cb25-153" aria-hidden="true" tabindex="-1"></a><span class="co"># 必要性分析</span></span>
+<span id="cb25-154"><a href="#cb25-154" aria-hidden="true" tabindex="-1"></a>necessity <span class="ot">&lt;-</span> <span class="fu">necessity</span>(</span>
+<span id="cb25-155"><a href="#cb25-155" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> data_cal<span class="sc">$</span>Outcome,</span>
+<span id="cb25-156"><a href="#cb25-156" aria-hidden="true" tabindex="-1"></a>  <span class="at">conditions =</span> data_cal[, <span class="fu">c</span>(<span class="st">&quot;Condition1&quot;</span>, <span class="st">&quot;Condition2&quot;</span>)]</span>
+<span id="cb25-157"><a href="#cb25-157" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-158"><a href="#cb25-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-159"><a href="#cb25-159" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(necessity)</span>
+<span id="cb25-160"><a href="#cb25-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-161"><a href="#cb25-161" aria-hidden="true" tabindex="-1"></a><span class="co"># 真值表分析</span></span>
+<span id="cb25-162"><a href="#cb25-162" aria-hidden="true" tabindex="-1"></a>truth_table <span class="ot">&lt;-</span> <span class="fu">truthTable</span>(</span>
+<span id="cb25-163"><a href="#cb25-163" aria-hidden="true" tabindex="-1"></a>  data_cal,</span>
+<span id="cb25-164"><a href="#cb25-164" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="st">&quot;Outcome&quot;</span>,</span>
+<span id="cb25-165"><a href="#cb25-165" aria-hidden="true" tabindex="-1"></a>  <span class="at">conditions =</span> <span class="fu">c</span>(<span class="st">&quot;Condition1&quot;</span>, <span class="st">&quot;Condition2&quot;</span>),</span>
+<span id="cb25-166"><a href="#cb25-166" aria-hidden="true" tabindex="-1"></a>  <span class="at">incl.cut =</span> <span class="fl">0.8</span>,  <span class="co"># 一致性阈值</span></span>
+<span id="cb25-167"><a href="#cb25-167" aria-hidden="true" tabindex="-1"></a>  <span class="at">n.cut =</span> <span class="dv">1</span>        <span class="co"># 最小案例频数</span></span>
+<span id="cb25-168"><a href="#cb25-168" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-169"><a href="#cb25-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-170"><a href="#cb25-170" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看真值表</span></span>
+<span id="cb25-171"><a href="#cb25-171" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(truth_table)</span>
+<span id="cb25-172"><a href="#cb25-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-173"><a href="#cb25-173" aria-hidden="true" tabindex="-1"></a><span class="co"># 最小化分析（识别组态）</span></span>
+<span id="cb25-174"><a href="#cb25-174" aria-hidden="true" tabindex="-1"></a>solution <span class="ot">&lt;-</span> <span class="fu">minimize</span>(</span>
+<span id="cb25-175"><a href="#cb25-175" aria-hidden="true" tabindex="-1"></a>  truth_table,</span>
+<span id="cb25-176"><a href="#cb25-176" aria-hidden="true" tabindex="-1"></a>  <span class="at">include =</span> <span class="st">&quot;?&quot;</span>,</span>
+<span id="cb25-177"><a href="#cb25-177" aria-hidden="true" tabindex="-1"></a>  <span class="at">details =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb25-178"><a href="#cb25-178" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.cases =</span> <span class="cn">TRUE</span></span>
+<span id="cb25-179"><a href="#cb25-179" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-180"><a href="#cb25-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-181"><a href="#cb25-181" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看组态解</span></span>
+<span id="cb25-182"><a href="#cb25-182" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(solution)</span>
+<span id="cb25-183"><a href="#cb25-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-184"><a href="#cb25-184" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看中间解（推荐报告）</span></span>
+<span id="cb25-185"><a href="#cb25-185" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(solution<span class="sc">$</span>ims)</span>
+<span id="cb25-186"><a href="#cb25-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-187"><a href="#cb25-187" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb25-188"><a href="#cb25-188" aria-hidden="true" tabindex="-1"></a><span class="co"># 阶段5：结果整合</span></span>
+<span id="cb25-189"><a href="#cb25-189" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb25-190"><a href="#cb25-190" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">=== SEM结果 ===</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb25-191"><a href="#cb25-191" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_sem, <span class="at">standardized =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-192"><a href="#cb25-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-193"><a href="#cb25-193" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">=== NCA结果 ===</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb25-194"><a href="#cb25-194" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nca_result)</span>
+<span id="cb25-195"><a href="#cb25-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-196"><a href="#cb25-196" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">=== QCA结果 ===</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb25-197"><a href="#cb25-197" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(solution)</span>
+<span id="cb25-198"><a href="#cb25-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-199"><a href="#cb25-199" aria-hidden="true" tabindex="-1"></a><span class="co"># 解读：</span></span>
+<span id="cb25-200"><a href="#cb25-200" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. SEM识别的显著路径 → 统计因果关系</span></span>
+<span id="cb25-201"><a href="#cb25-201" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. NCA识别的必要条件 → 瓶颈条件</span></span>
+<span id="cb25-202"><a href="#cb25-202" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. QCA识别的组态 → 多重并发因果路径</span></span>
+<span id="cb25-203"><a href="#cb25-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-204"><a href="#cb25-204" aria-hidden="true" tabindex="-1"></a><span class="co"># 整合解释：</span></span>
+<span id="cb25-205"><a href="#cb25-205" aria-hidden="true" tabindex="-1"></a><span class="co"># 基于三种方法的结果，构建综合因果理论</span></span></code></pre></div>
+<h3 id="stata代码模板sem部分">Stata代码模板（SEM部分）</h3>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode stata"><code class="sourceCode stata"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>* ============================================</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>* SEM分析（Stata）</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>* ============================================</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>* 加载数据</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="kw">use</span> <span class="st">&quot;data.dta&quot;</span>, <span class="kw">clear</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>* 描述性统计</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="kw">summarize</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>* 相关性分析</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="kw">pwcorr</span> x1 <span class="kw">x2</span> x3 y1 y2 y3, sig</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>* ============================================</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>* CFA（测量模型）</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>* ============================================</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>sem (Latent1 -&gt; x1 <span class="kw">x2</span> x3) <span class="co">///</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>    (Latent2 -&gt; y1 y2 y3), <span class="co">///</span></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    standardized</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>* 查看拟合指数</span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a><span class="kw">estat</span> gof, <span class="kw">stats</span>(<span class="ot">all</span>)</span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>* 如果拟合指数不达标，修正模型</span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>* 检查因子载荷</span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a><span class="kw">estat</span> standardized</span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>* ============================================</span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a>* SEM（结构模型）</span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>* ============================================</span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a>sem (Latent1 -&gt; x1 <span class="kw">x2</span> x3) <span class="co">///</span></span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a>    (Latent2 -&gt; y1 y2 y3) <span class="co">///</span></span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a>    (Latent3 -&gt; z1 z2 z3) <span class="co">///</span></span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a>    (Latent2 &lt;- Latent1) <span class="co">///</span></span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a>    (Latent3 &lt;- Latent1 Latent2), <span class="co">///</span></span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a>    standardized</span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a>* 查看结果</span>
+<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a><span class="kw">estat</span> standardized</span>
+<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a>* 拟合指数</span>
+<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a><span class="kw">estat</span> gof, <span class="kw">stats</span>(<span class="ot">all</span>)</span>
+<span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a>* ============================================</span>
+<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a>* Bootstrap中介效应</span>
+<span id="cb26-46"><a href="#cb26-46" aria-hidden="true" tabindex="-1"></a>* ============================================</span>
+<span id="cb26-47"><a href="#cb26-47" aria-hidden="true" tabindex="-1"></a>sem (Latent1 -&gt; x1 <span class="kw">x2</span> x3) <span class="co">///</span></span>
+<span id="cb26-48"><a href="#cb26-48" aria-hidden="true" tabindex="-1"></a>    (Latent2 -&gt; m1 m2 m3) <span class="co">///</span></span>
+<span id="cb26-49"><a href="#cb26-49" aria-hidden="true" tabindex="-1"></a>    (Latent3 -&gt; y1 y2 y3) <span class="co">///</span></span>
+<span id="cb26-50"><a href="#cb26-50" aria-hidden="true" tabindex="-1"></a>    (Latent2 &lt;- Latent1) <span class="co">///</span></span>
+<span id="cb26-51"><a href="#cb26-51" aria-hidden="true" tabindex="-1"></a>    (Latent3 &lt;- Latent1 Latent2), <span class="co">///</span></span>
+<span id="cb26-52"><a href="#cb26-52" aria-hidden="true" tabindex="-1"></a>    <span class="kw">vce</span>(<span class="kw">bootstrap</span>, reps(5000))</span>
+<span id="cb26-53"><a href="#cb26-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-54"><a href="#cb26-54" aria-hidden="true" tabindex="-1"></a>* 查看Bootstrap结果</span>
+<span id="cb26-55"><a href="#cb26-55" aria-hidden="true" tabindex="-1"></a><span class="kw">estat</span> standardized</span>
+<span id="cb26-56"><a href="#cb26-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-57"><a href="#cb26-57" aria-hidden="true" tabindex="-1"></a>* ============================================</span>
+<span id="cb26-58"><a href="#cb26-58" aria-hidden="true" tabindex="-1"></a>* 提取潜变量得分</span>
+<span id="cb26-59"><a href="#cb26-59" aria-hidden="true" tabindex="-1"></a>* ============================================</span>
+<span id="cb26-60"><a href="#cb26-60" aria-hidden="true" tabindex="-1"></a><span class="kw">predict</span> latent1_score, latent(Latent1)</span>
+<span id="cb26-61"><a href="#cb26-61" aria-hidden="true" tabindex="-1"></a><span class="kw">predict</span> latent2_score, latent(Latent2)</span>
+<span id="cb26-62"><a href="#cb26-62" aria-hidden="true" tabindex="-1"></a><span class="kw">predict</span> latent3_score, latent(Latent3)</span>
+<span id="cb26-63"><a href="#cb26-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-64"><a href="#cb26-64" aria-hidden="true" tabindex="-1"></a>* 保存数据用于NCA和QCA</span>
+<span id="cb26-65"><a href="#cb26-65" aria-hidden="true" tabindex="-1"></a><span class="kw">save</span> <span class="st">&quot;data_with_latent_scores.dta&quot;</span>, <span class="kw">replace</span></span>
+<span id="cb26-66"><a href="#cb26-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-67"><a href="#cb26-67" aria-hidden="true" tabindex="-1"></a>* 导出为CSV用于R分析</span>
+<span id="cb26-68"><a href="#cb26-68" aria-hidden="true" tabindex="-1"></a><span class="kw">export</span> delimited <span class="kw">using</span> <span class="st">&quot;data_for_nca_qca.csv&quot;</span>, <span class="kw">replace</span></span></code></pre></div>
+<h3 id="mplus代码模板sem部分">Mplus代码模板（SEM部分）</h3>
+<pre class="mplus"><code>TITLE: SEM + Mediation Analysis (Mplus)
+
+DATA: FILE = data.dat;
+
+VARIABLE: 
+  NAMES = x1 x2 x3 y1 y2 y3 m1 m2 m3 z1 z2 z3;
+  USEVARIABLES = x1-x3 y1-y3 m1-m3 z1-z3;
+
+MODEL:
+  ! 测量模型
+  LX BY x1 x2 x3;
+  LY BY y1 y2 y3;
+  LM BY m1 m2 m3;
+  LZ BY z1 z2 z3;
+  
+  ! 结构模型
+  LY ON LX;
+  LZ ON LX LY;
+  
+  ! 中介效应（Bootstrap）
+  MODEL INDIRECT:
+    LZ IND LX VIA LY;
+    
+OUTPUT: 
+  STANDARDIZED 
+  CINTERVAL(BCBOOTSTRAP) 
+  MODINDICES(10.0);
+  
+BOOTSTRAP = 5000;</code></pre>
+<h3 id="软件选择指南">软件选择指南</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>推荐软件</th>
+<th>替代软件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SEM (cb-SEM)</td>
+<td>Mplus</td>
+<td>AMOS, lavaan (R)</td>
+<td>Mplus最灵活，lavaan免费</td>
+</tr>
+<tr>
+<td>SEM (PLS-SEM)</td>
+<td>SmartPLS</td>
+<td>plspm (R)</td>
+<td>SmartPLS界面友好</td>
+</tr>
+<tr>
+<td>NCA</td>
+<td>NCA (R)</td>
+<td></td>
+<td>R的NCA包最完善</td>
+</tr>
+<tr>
+<td>QCA</td>
+<td>fsQCA (软件)</td>
+<td>QCA (R)</td>
+<td>fsQCA软件界面友好，QCA包更灵活</td>
+</tr>
+</tbody>
+</table>
+<h3 id="推荐学习资源">推荐学习资源</h3>
+<p><strong>SEM</strong>： - Kline, R. B. (2016). <em>Principles and
+Practice of Structural Equation Modeling</em> (4th ed.). Guilford Press.
+- 温忠麟、叶宝娟 (2014). 中介效应分析：方法和模型发展.
+<em>心理科学进展</em>, 22(5), 731-745.</p>
+<p><strong>NCA</strong>： - Dul, J. (2016). Necessary Condition Analysis
+(NCA): Logic and methodology. <em>Organizational Research Methods</em>,
+19(1), 10-52. - Dul, J., et al. (2023). Necessary condition analysis
+(NCA): Review of research topics and suggestions for good practice.
+<em>Review of Managerial Science</em>, 17, 683-714.</p>
+<p><strong>QCA</strong>： - Ragin, C. C. (2008). <em>Redesigning Social
+Inquiry: Fuzzy Sets and Beyond</em>. University of Chicago Press. -
+Fiss, P. C. (2011). Building better causal theories: A fuzzy set
+approach to typologies in organization research. <em>Academy of
+Management Journal</em>, 54(2), 393-420. - Pappas, I. O., &amp;
+Woodside, A. G. (2021). Fuzzy-set Qualitative Comparative Analysis
+(fsQCA): Guidelines for research practice. <em>International Journal of
+Information Management</em>, 58, 102310.</p>
+<p><strong>混合方法</strong>： - Sukhov, A., et al. (2023). Unlocking
+potential: An integrated approach using PLS-SEM, NCA, and fsQCA.
+<em>Journal of Retailing and Consumer Services</em>, 74, 103424. -
+Wellman, L., et al. (2023). Publishing Multimethod Research in AMJ.
+<em>Academy of Management Journal</em>, 66(4), 1007-1015.</p>
+<hr />
+<h2 id="总结">总结</h2>
+<p>本教程系统介绍了如何整合SEM、NCA和QCA三种方法进行混合研究。核心要点：</p>
+<ol type="1">
+<li><strong>理论驱动</strong>：方法选择和使用必须理论驱动，不能”先跑一下看看”</li>
+<li><strong>方法适配</strong>：根据研究问题的因果逻辑选择最适配的方法</li>
+<li><strong>互补整合</strong>：三种方法各擅其长，互补而非替代</li>
+<li><strong>结果整合</strong>：混合方法的价值在于整合，需提供综合性理论框架</li>
+<li><strong>透明报告</strong>：详细报告分析步骤和结果，便于复制和验证</li>
+</ol>
+<p><strong>三种方法的整合价值</strong>：</p>
+<ul>
+<li><strong>SEM</strong>揭示了”平均效应” →
+告诉你”一般情况下X对Y的影响”</li>
+<li><strong>NCA</strong>识别了”必要条件” →
+告诉你”什么是Y产生不可或缺的”</li>
+<li><strong>QCA</strong>探索了”组态路径” →
+告诉你”哪些条件组合可以导致Y”</li>
+</ul>
+<p>三种方法的结合，能够提供更全面、更深入的因果理解，超越单一方法的局限。</p>
+<hr />
+<p><strong>教程结束</strong></p>
+<blockquote>
+<p>本教程基于混合方法分析框架（SEM + fsQCA +
+NCA）Skill，结合教学需求扩展而成。 作者：<a
+href="https://x.com/AlchainHust">花叔</a> 最后更新：2026年6月</p>
+</blockquote>
+</body>
+</html>

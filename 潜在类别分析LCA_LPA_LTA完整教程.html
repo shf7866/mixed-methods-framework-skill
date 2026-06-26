@@ -1,0 +1,2510 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>潜在类别分析（LCA）、潜在剖面分析（LPA）与潜在转变分析（LTA）完整教程</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="C:\Users\songh\.workbuddy\skills\huashu-md-html\templates\interactive\theme.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">潜在类别分析（LCA）、潜在剖面分析（LPA）与潜在转变分析（LTA）完整教程</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#目录" id="toc-目录">目录</a></li>
+<li><a href="#教程概述" id="toc-教程概述">教程概述</a>
+<ul>
+<li><a href="#为什么需要潜在类别剖面分析"
+id="toc-为什么需要潜在类别剖面分析">为什么需要潜在类别/剖面分析？</a></li>
+<li><a href="#本教程的核心价值"
+id="toc-本教程的核心价值">本教程的核心价值</a></li>
+<li><a href="#学习成果" id="toc-学习成果">学习成果</a></li>
+</ul></li>
+<li><a href="#理论基础" id="toc-理论基础">理论基础</a>
+<ul>
+<li><a href="#核心概念" id="toc-核心概念">核心概念</a></li>
+<li><a href="#方法间的逻辑关系与区别"
+id="toc-方法间的逻辑关系与区别">方法间的逻辑关系与区别</a></li>
+<li><a href="#理论基础关键假设"
+id="toc-理论基础关键假设">理论基础：关键假设</a></li>
+</ul></li>
+<li><a href="#研究设计" id="toc-研究设计">研究设计</a>
+<ul>
+<li><a href="#样本量确定" id="toc-样本量确定">样本量确定</a></li>
+<li><a href="#变量选择与编码策略"
+id="toc-变量选择与编码策略">变量选择与编码策略</a></li>
+<li><a href="#模型假设检验方法"
+id="toc-模型假设检验方法">模型假设检验方法</a></li>
+</ul></li>
+<li><a href="#数据分析策略" id="toc-数据分析策略">数据分析策略</a>
+<ul>
+<li><a href="#数据预处理流程"
+id="toc-数据预处理流程">数据预处理流程</a></li>
+<li><a href="#模型拟合指标" id="toc-模型拟合指标">模型拟合指标</a></li>
+<li><a href="#类别数确定的判断标准"
+id="toc-类别数确定的判断标准">类别数确定的判断标准</a></li>
+<li><a href="#协变量引入方式"
+id="toc-协变量引入方式">协变量引入方式</a></li>
+<li><a href="#稳健性检验方法"
+id="toc-稳健性检验方法">稳健性检验方法</a></li>
+</ul></li>
+<li><a href="#前沿方法扩展" id="toc-前沿方法扩展">前沿方法扩展</a>
+<ul>
+<li><a href="#多组lcamultigroup-lca" id="toc-多组lcamultigroup-lca">1.
+多组LCA（Multigroup LCA）</a></li>
+<li><a href="#多层ltamultilevel-lta" id="toc-多层ltamultilevel-lta">2.
+多层LTA（Multilevel LTA）</a></li>
+<li><a href="#贝叶斯潜在类别模型bayesian-lca"
+id="toc-贝叶斯潜在类别模型bayesian-lca">3. 贝叶斯潜在类别模型（Bayesian
+LCA）</a></li>
+<li><a href="#时变协变量扩展time-varying-covariates"
+id="toc-时变协变量扩展time-varying-covariates">4.
+时变协变量扩展（Time-Varying Covariates）</a></li>
+<li><a href="#联合lcajoint-lca" id="toc-联合lcajoint-lca">5.
+联合LCA（Joint LCA）</a></li>
+</ul></li>
+<li><a href="#结果解释框架" id="toc-结果解释框架">结果解释框架</a>
+<ul>
+<li><a href="#类别命名与特征描述规范"
+id="toc-类别命名与特征描述规范">类别命名与特征描述规范</a></li>
+<li><a href="#转变概率解读方式"
+id="toc-转变概率解读方式">转变概率解读方式</a></li>
+<li><a href="#效应量报告标准"
+id="toc-效应量报告标准">效应量报告标准</a></li>
+<li><a href="#结果可视化方案"
+id="toc-结果可视化方案">结果可视化方案</a></li>
+</ul></li>
+<li><a href="#完整案例分析" id="toc-完整案例分析">完整案例分析</a>
+<ul>
+<li><a href="#案例员工工作倦怠的潜在类别与转换研究"
+id="toc-案例员工工作倦怠的潜在类别与转换研究">案例：员工工作倦怠的潜在类别与转换研究</a></li>
+<li><a href="#分析步骤" id="toc-分析步骤">分析步骤</a></li>
+<li><a href="#结果整合" id="toc-结果整合">结果整合</a></li>
+</ul></li>
+<li><a href="#最佳实践与常见误区"
+id="toc-最佳实践与常见误区">最佳实践与常见误区</a>
+<ul>
+<li><a href="#最佳实践" id="toc-最佳实践">最佳实践</a></li>
+<li><a href="#常见误区" id="toc-常见误区">常见误区</a></li>
+</ul></li>
+<li><a href="#附录代码模板与工具"
+id="toc-附录代码模板与工具">附录：代码模板与工具</a>
+<ul>
+<li><a href="#r语言完整分析流程"
+id="toc-r语言完整分析流程">R语言完整分析流程</a></li>
+<li><a href="#mplus完整分析流程"
+id="toc-mplus完整分析流程">Mplus完整分析流程</a></li>
+<li><a href="#软件选择指南" id="toc-软件选择指南">软件选择指南</a></li>
+<li><a href="#推荐学习资源" id="toc-推荐学习资源">推荐学习资源</a></li>
+</ul></li>
+<li><a href="#总结" id="toc-总结">总结</a></li>
+</ul>
+</nav>
+<blockquote>
+<p><strong>教程目标</strong>：系统掌握LCA、LPA、LTA及其前沿方法的理论基础、研究设计、数据分析策略和结果解释框架，能够独立应用于学术研究或实际项目。</p>
+</blockquote>
+<hr />
+<h2 id="目录">目录</h2>
+<ol type="1">
+<li><a href="#教程概述">教程概述</a></li>
+<li><a href="#理论基础">理论基础</a></li>
+<li><a href="#研究设计">研究设计</a></li>
+<li><a href="#数据分析策略">数据分析策略</a></li>
+<li><a href="#前沿方法扩展">前沿方法扩展</a></li>
+<li><a href="#结果解释框架">结果解释框架</a></li>
+<li><a href="#完整案例分析">完整案例分析</a></li>
+<li><a href="#最佳实践与常见误区">最佳实践与常见误区</a></li>
+<li><a href="#附录代码模板与工具">附录：代码模板与工具</a></li>
+</ol>
+<hr />
+<h2 id="教程概述">教程概述</h2>
+<h3 id="为什么需要潜在类别剖面分析">为什么需要潜在类别/剖面分析？</h3>
+<p>传统的研究方法往往存在以下局限：</p>
+<ol type="1">
+<li><strong>变量中心视角的局限</strong>：
+<ul>
+<li>大多数研究关注变量间的平均关系（如回归系数）</li>
+<li>忽视了个体间的异质性（heterogeneity）</li>
+<li>假设所有个体来自同一总体，服从同一分布</li>
+</ul></li>
+<li><strong>现实世界的复杂性</strong>：
+<ul>
+<li>个体在心理特征、行为模式、发展轨迹上存在差异</li>
+<li>这些差异往往是”类别化”的，而非连续的</li>
+<li>需要”人中心”（person-centered）方法识别异质子群体</li>
+</ul></li>
+<li><strong>纵向变化的动态性</strong>：
+<ul>
+<li>个体特征随时间可能发生变化</li>
+<li>需要捕捉变化的模式和转换路径</li>
+<li>传统方法（如重复测量ANOVA）无法捕捉类别转换</li>
+</ul></li>
+</ol>
+<h3 id="本教程的核心价值">本教程的核心价值</h3>
+<p>本教程将教你如何系统应用三种互补的方法：</p>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 31%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr>
+<th>方法</th>
+<th>全称</th>
+<th>适用场景</th>
+<th>你的收获</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LCA</strong></td>
+<td>潜在类别分析<br>Latent Class Analysis</td>
+<td>截面数据 + 类别/有序变量</td>
+<td>识别异质子群体（如”高风险型”“低风险型”）</td>
+</tr>
+<tr>
+<td><strong>LPA</strong></td>
+<td>潜在剖面分析<br>Latent Profile Analysis</td>
+<td>截面数据 + 连续变量</td>
+<td>识别异质剖面（如”高自评型”“低自评型”）</td>
+</tr>
+<tr>
+<td><strong>LTA</strong></td>
+<td>潜在转变分析<br>Latent Transition Analysis</td>
+<td>纵向数据 + 类别变量</td>
+<td>识别类别间的转换模式和路径</td>
+</tr>
+</tbody>
+</table>
+<h3 id="学习成果">学习成果</h3>
+<p>完成本教程后，你将能够：</p>
+<p>✅ 理解LCA、LPA、LTA的理论基础和应用场景<br />
+✅ 设计严谨的潜在类别/剖面研究方案<br />
+✅ 独立完成LCA、LPA、LTA分析<br />
+✅ 应用前沿方法（多组LCA、多层LTA、贝叶斯模型等）<br />
+✅ 规范解释和报告分析结果<br />
+✅ 避免常见的方法论错误<br />
+✅ 将方法应用于实际研究项目或论文撰写</p>
+<hr />
+<h2 id="理论基础">理论基础</h2>
+<h3 id="核心概念">核心概念</h3>
+<h4 id="潜在变量latent-variable">1. 潜在变量（Latent Variable）</h4>
+<p><strong>定义</strong>：无法直接观测，需要通过观测变量推断的变量。</p>
+<p><strong>示例</strong>： -
+<strong>抑郁</strong>：无法直接观测，需要通过PHQ-9量表（9个题项）测量 -
+<strong>工作倦怠</strong>：无法直接观测，需要通过MBI量表（情感耗竭、去人格化、个人成就感三个维度）测量</p>
+<p><strong>与因子分析的区别</strong>： -
+<strong>因子分析</strong>：潜在变量是<strong>连续的</strong>（如”抑郁程度”从低到高连续分布）
+-
+<strong>潜在类别分析</strong>：潜在变量是<strong>类别的</strong>（如”抑郁类型”分为”高抑郁型”“低抑郁型”）</p>
+<h4 id="潜在类别分析lca的核心逻辑">2. 潜在类别分析（LCA）的核心逻辑</h4>
+<p><strong>基本思想</strong>：存在一个无法观测的类别变量（C），它解释了观测变量（Y₁,
+Y₂, …, Yₚ）之间的关联。</p>
+<p><strong>数学模型</strong>：</p>
+<p>假设有K个潜在类别，观测变量Yⱼ为类别变量：</p>
+<p><strong>P(Y₁ = y₁, Y₂ = y₂, …, Yₚ = yₚ) = Σₖ πₖ × Πⱼ P(Yⱼ = yⱼ | C =
+k)</strong></p>
+<p>其中： -
+<strong>πₖ</strong>：类别k的先验概率（所有案例属于类别k的比例） -
+<strong>P(Yⱼ = yⱼ | C = k)</strong>：在类别k中，Yⱼ =
+yⱼ的条件概率（也叫”项目反应概率”）</p>
+<p><strong>核心假设</strong>：<strong>局部独立性</strong>（Local
+Independence） - 在控制潜在类别C后，观测变量Yⱼ之间相互独立 -
+即：Yⱼ之间的关联完全由潜在类别解释</p>
+<h4 id="潜在剖面分析lpa的核心逻辑">3. 潜在剖面分析（LPA）的核心逻辑</h4>
+<p><strong>与LCA的区别</strong>： -
+LCA：观测变量是<strong>类别/有序</strong>的 →
+输出<strong>条件概率</strong> - LPA：观测变量是<strong>连续</strong>的 →
+输出<strong>均值、方差、协方差</strong></p>
+<p><strong>数学模型</strong>：</p>
+<p>假设有K个潜在剖面，观测变量Xⱼ为连续变量：</p>
+<p><strong>Xⱼ | C = k ~ N(μⱼₖ, σ²ⱼₖ)</strong></p>
+<p>其中： - <strong>μⱼₖ</strong>：在剖面k中，Xⱼ的均值 -
+<strong>σ²ⱼₖ</strong>：在剖面k中，Xⱼ的方差</p>
+<p><strong>LPA的变体</strong>（关于方差-协方差矩阵）：</p>
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>方差-协方差假设</th>
+<th>参数数量</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>模型1</strong></td>
+<td>各类面方差相等，无协方差</td>
+<td>最少</td>
+<td>探索性分析</td>
+</tr>
+<tr>
+<td><strong>模型2</strong></td>
+<td>各类面方差不等，无协方差</td>
+<td>中等</td>
+<td>允许各类面变异程度不同</td>
+</tr>
+<tr>
+<td><strong>模型3</strong></td>
+<td>各类面方差相等，有协方差</td>
+<td>中等</td>
+<td>允许指标间相关</td>
+</tr>
+<tr>
+<td><strong>模型6</strong></td>
+<td>各类面方差-协方差均不等</td>
+<td>最多</td>
+<td>最灵活，但可能过拟合</td>
+</tr>
+</tbody>
+</table>
+<p><strong>推荐</strong>：使用<code>tidyLPA</code>时，默认比较模型1-6，选择BIC最小的模型。</p>
+<h4 id="潜在转变分析lta的核心逻辑">4. 潜在转变分析（LTA）的核心逻辑</h4>
+<p><strong>基本思想</strong>：将LCA扩展到纵向数据，考察潜在类别随时间的转换。</p>
+<p><strong>核心组件</strong>：</p>
+<ol type="1">
+<li><strong>测量模型</strong>（Measurement Model）：
+<ul>
+<li>每个时间点的潜在类别由该时间点的观测变量定义</li>
+<li>与LCA相同</li>
+</ul></li>
+<li><strong>结构模型</strong>（Structural Model）：
+<ul>
+<li>转换概率矩阵：P(Cₜ = j | Cₜ₋₁ = i)</li>
+<li>表示在t-1时刻属于类别i的个体，在t时刻转换为类别j的概率</li>
+</ul></li>
+</ol>
+<p><strong>示例</strong>：2个时间点、3个类别的LTA</p>
+<p><strong>转换概率矩阵（T1 → T2）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>类别1(T2)</th>
+<th>类别2(T2)</th>
+<th>类别3(T2)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>类别1(T1)</td>
+<td>0.70</td>
+<td>0.20</td>
+<td>0.10</td>
+</tr>
+<tr>
+<td>类别2(T1)</td>
+<td>0.15</td>
+<td>0.60</td>
+<td>0.25</td>
+</tr>
+<tr>
+<td>类别3(T1)</td>
+<td>0.10</td>
+<td>0.30</td>
+<td>0.60</td>
+</tr>
+</tbody>
+</table>
+<p><strong>解读</strong>： -
+<strong>驻留概率</strong>（对角线）：个体保持原类别的概率（如类别1→类别1：70%）
+-
+<strong>转换概率</strong>（非对角线）：个体从一个类别转换到另一个类别的概率（如类别2→类别3：25%）</p>
+<h3 id="方法间的逻辑关系与区别">方法间的逻辑关系与区别</h3>
+<h4 id="决策树如何选择方法">决策树：如何选择方法？</h4>
+<pre><code>开始：研究问题
+  │
+  ├── 数据类型
+  │   ├── 截面数据 → 进入「类别链」（LCA/LPA）
+  │   └── 纵向数据 → 进入「转换链」（LTA/GMM）
+  │
+  ├── 类别链选择
+  │   ├── 观测变量：类别/有序 → LCA
+  │   └── 观测变量：连续 → LPA
+  │
+  └── 转换链选择
+      ├── 潜在变量：类别型 → LTA
+      ├── 潜在变量：连续型，类内同质 → LCGA
+      └── 潜在变量：连续型，类内异质 → GMM</code></pre>
+<h4 id="lca-vs-lpa-vs-lta-对比表">LCA vs LPA vs LTA 对比表</h4>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 23%" />
+<col style="width: 23%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr>
+<th>特征</th>
+<th>LCA</th>
+<th>LPA</th>
+<th>LTA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>数据类型</strong></td>
+<td>截面</td>
+<td>截面</td>
+<td>纵向</td>
+</tr>
+<tr>
+<td><strong>观测变量</strong></td>
+<td>类别/有序</td>
+<td>连续</td>
+<td>类别/有序</td>
+</tr>
+<tr>
+<td><strong>输出</strong></td>
+<td>条件概率</td>
+<td>均值、方差</td>
+<td>转换概率矩阵</td>
+</tr>
+<tr>
+<td><strong>核心问题</strong></td>
+<td>“有哪些子群体？”</td>
+<td>“有哪些剖面？”</td>
+<td>“子群体如何变化？”</td>
+</tr>
+<tr>
+<td><strong>软件推荐</strong></td>
+<td>Mplus、poLCA</td>
+<td>Mplus、tidyLPA</td>
+<td>Mplus</td>
+</tr>
+<tr>
+<td><strong>样本量</strong></td>
+<td>&gt; 100（2-3类）<br>&gt; 300（4-5类）</td>
+<td>同LCA</td>
+<td>&gt; 200（2时点）<br>&gt; 500（3+时点）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="lta-vs-gmm-vs-lcga-对比表">LTA vs GMM vs LCGA 对比表</h4>
+<table>
+<thead>
+<tr>
+<th>特征</th>
+<th>LTA</th>
+<th>GMM</th>
+<th>LCGA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>潜在变量</strong></td>
+<td>类别型</td>
+<td>连续型</td>
+<td>连续型</td>
+</tr>
+<tr>
+<td><strong>类内变异</strong></td>
+<td>无</td>
+<td>有</td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>时间点</strong></td>
+<td>≥2</td>
+<td>≥3</td>
+<td>≥3</td>
+</tr>
+<tr>
+<td><strong>输出</strong></td>
+<td>转换概率</td>
+<td>轨迹形状</td>
+<td>轨迹形状（类内同质）</td>
+</tr>
+<tr>
+<td><strong>参数数量</strong></td>
+<td>中</td>
+<td>多</td>
+<td>少</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>类别转换</td>
+<td>连续轨迹异质性</td>
+<td>连续轨迹异质性（简化）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="理论基础关键假设">理论基础：关键假设</h3>
+<h4 id="局部独立性local-independence">1. 局部独立性（Local
+Independence）</h4>
+<p><strong>假设</strong>：在控制潜在类别后，观测变量之间相互独立。</p>
+<p><strong>检验方法</strong>： -
+<strong>技术检验</strong>：使用Mplus的<code>TECH10</code>输出，检查残差关联
+- <strong>实践检验</strong>：如果局部独立性不成立，考虑： -
+增加潜在类别数 -
+允许部分残差相关（Mplus中使用<code>y1 WITH y2;</code>）</p>
+<h4 id="类别数确定性class-number-determination">2. 类别数确定性（Class
+Number Determination）</h4>
+<p><strong>假设</strong>：存在一个”真实”的类别数K。</p>
+<p><strong>现实</strong>：类别数是一个估计问题，需要多指标综合判断。</p>
+<p><strong>判断标准</strong>（见”数据分析策略”章节）： -
+信息准则：BIC、aBIC（越小越好） - 分类质量：Entropy（越大越好） -
+统计检验：LMR-LRT、BLRT（p &lt; 0.05支持K类而非K-1类） -
+实际意义：类别比例 &gt; 5%，类别可解释</p>
+<h4 id="模型识别model-identification">3. 模型识别（Model
+Identification）</h4>
+<p><strong>假设</strong>：模型参数可以唯一估计。</p>
+<p><strong>识别条件</strong>： -
+<strong>LCA</strong>：至少需要（K-1）×（J-1）个观测变量（K为类别数，J为每个变量的类别数）
+- <strong>LPA</strong>：至少需要（K-1）× 2个连续变量</p>
+<p><strong>实践建议</strong>： - 如果模型无法识别，减少类别数K -
+或使用约束（如设定某些条件概率相等）</p>
+<hr />
+<h2 id="研究设计">研究设计</h2>
+<h3 id="样本量确定">样本量确定</h3>
+<h4 id="样本量经验法则">样本量经验法则</h4>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>最低样本量</th>
+<th>推荐样本量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LCA</strong></td>
+<td>N &gt; 100</td>
+<td>N &gt; 300</td>
+<td>2-3类：N&gt;100；4-5类：N&gt;300</td>
+</tr>
+<tr>
+<td><strong>LPA</strong></td>
+<td>N &gt; 100</td>
+<td>N &gt; 300</td>
+<td>同LCA</td>
+</tr>
+<tr>
+<td><strong>LTA</strong></td>
+<td>N &gt; 200</td>
+<td>N &gt; 500</td>
+<td>2时点：N&gt;200；3+时点：N&gt;500</td>
+</tr>
+<tr>
+<td><strong>多组LCA</strong></td>
+<td>每组N &gt; 50</td>
+<td>每组N &gt; 100</td>
+<td>每组需要有足够案例估计类别</td>
+</tr>
+</tbody>
+</table>
+<p><strong>样本量不足的应对措施</strong>：</p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 31%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr>
+<th>触发条件</th>
+<th>一线修复</th>
+<th>仍失败兜底</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>样本量 &lt; 100但想用LCA/LPA</td>
+<td>增加样本量</td>
+<td>改为因子分析或聚类分析</td>
+</tr>
+<tr>
+<td>样本量 &lt; 200但想用LTA</td>
+<td>增加时间点或减少类别数</td>
+<td>改用重复测量ANOVA</td>
+</tr>
+<tr>
+<td>类别比例 &lt; 5%</td>
+<td>检查是否过拟合，减少类别数</td>
+<td>合并小类别或删除相关案例</td>
+</tr>
+</tbody>
+</table>
+<p><strong>🛑
+STOP：请确认样本量是否符合所选方法的要求？如果不符合，需要调整方法选择或增加样本量。</strong></p>
+<h4 id="样本量计算基于统计效力">样本量计算（基于统计效力）</h4>
+<p><strong>目标</strong>：检测类别间差异的统计效力 &gt; 0.80。</p>
+<p><strong>计算方法</strong>（使用G*Power或Mplus的Monte
+Carlo模拟）：</p>
+<ol type="1">
+<li><strong>效应量</strong>：类别均值差异的Cohen’s
+d（0.5为中等效应）</li>
+<li><strong>α水平</strong>：0.05</li>
+<li><strong>统计效力</strong>：0.80</li>
+</ol>
+<p><strong>经验法则</strong>： - 检测大效应（d &gt; 0.8）：N &gt; 100 -
+检测中等效应（d = 0.5）：N &gt; 200 - 检测小效应（d &lt; 0.3）：N &gt;
+500</p>
+<h3 id="变量选择与编码策略">变量选择与编码策略</h3>
+<h4 id="观测变量选择标准">观测变量选择标准</h4>
+<p><strong>核心原则</strong>：观测变量必须能够区分潜在类别。</p>
+<p><strong>选择标准</strong>：</p>
+<ol type="1">
+<li><strong>理论相关性</strong>：
+<ul>
+<li>变量必须与研究现象理论上相关</li>
+<li>基于文献回顾和理论框架</li>
+</ul></li>
+<li><strong>区分效度</strong>：
+<ul>
+<li>变量必须能够区分不同类别</li>
+<li>如果所有类别在某个变量上的反应都相同，该变量无区分价值</li>
+</ul></li>
+<li><strong>测量质量</strong>：
+<ul>
+<li>使用已验证的量表（Validated Scales）</li>
+<li>确保信度（α &gt; 0.7）和效度（CFA拟合指数达标）</li>
+</ul></li>
+</ol>
+<p><strong>变量数量建议</strong>： -
+<strong>LCA</strong>：至少3个变量，推荐5-8个变量 -
+<strong>LPA</strong>：至少2个变量，推荐3-5个变量 -
+<strong>太少</strong>：无法稳定估计类别 -
+<strong>太多</strong>：模型复杂，可能过拟合</p>
+<h4 id="变量编码策略">变量编码策略</h4>
+<p><strong>LCA：类别/有序变量编码</strong></p>
+<table>
+<thead>
+<tr>
+<th>变量类型</th>
+<th>编码方式</th>
+<th>注意事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>二分类</strong></td>
+<td>0/1</td>
+<td>直接使用</td>
+</tr>
+<tr>
+<td><strong>多分类</strong></td>
+<td>哑变量或保留多类别</td>
+<td>Mplus中直接使用<code>CATEGORICAL</code>选项</td>
+</tr>
+<tr>
+<td><strong>有序分类</strong></td>
+<td>保留顺序（如1-5）</td>
+<td>假设顺序有意义</td>
+</tr>
+</tbody>
+</table>
+<p><strong>LPA：连续变量编码</strong></p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 32%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr>
+<th>变量类型</th>
+<th>编码方式</th>
+<th>注意事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>连续变量</strong></td>
+<td>原始得分或标准化</td>
+<td>推荐标准化（便于比较均值）</td>
+</tr>
+<tr>
+<td><strong>李克特量表</strong></td>
+<td>视为连续（5点或7点）</td>
+<td>大样本下可接受，但理论上是序变量</td>
+</tr>
+<tr>
+<td><strong>偏态分布</strong></td>
+<td>考虑转换（如对数转换）</td>
+<td>或使用稳健估计器（MLR）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>编码质量检查</strong>：</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R代码：检查变量分布</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 连续变量：检查正态分布</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(x1<span class="sc">:</span>x5) <span class="sc">%&gt;%</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(variable, value) <span class="sc">%&gt;%</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>) <span class="sc">+</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> variable, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 类别变量：检查类别分布</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(y1<span class="sc">:</span>y5) <span class="sc">%&gt;%</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span></code></pre></div>
+<h4 id="外生变量预测变量和结果变量">外生变量（预测变量和结果变量）</h4>
+<p><strong>预测变量</strong>（X → 类别）： -
+用于解释类别归属（如”为什么有些人属于高风险类？“） -
+方法：R3STEP（Mplus）、多项式Logistic回归（R）</p>
+<p><strong>结果变量</strong>（类别 → Y）： -
+用于检验类别差异（如”高风险类是否导致更差的结果？“） -
+方法：BCH（Mplus）、ANOVA（R）</p>
+<p><strong>选择建议</strong>： -
+预测变量：选择理论上重要的变量（如人口统计学变量、组织变量） -
+结果变量：选择实际重要的结果（如绩效、离职意向） -
+<strong>不要过多</strong>：3-5个外生变量为宜，避免模型过于复杂</p>
+<h3 id="模型假设检验方法">模型假设检验方法</h3>
+<h4 id="假设1局部独立性">假设1：局部独立性</h4>
+<p><strong>检验方法1：残差关联检验（Mplus TECH10）</strong></p>
+<pre class="mplus"><code>OUTPUT: TECH10;</code></pre>
+<p><strong>解读</strong>：TECH10输出每个观测变量对的残差关联（在控制潜在类别后）。
+- 如果残差关联显著（p &lt; 0.05），说明局部独立性不成立 -
+<strong>修复</strong>：允许该变量对的残差相关</p>
+<pre class="mplus"><code>MODEL:
+  %OVERALL%
+  y1 WITH y2;  ! 允许y1和y2的残差相关</code></pre>
+<p><strong>检验方法2：模型拟合（整体检验）</strong></p>
+<ul>
+<li>LCA/LPA/LTA没有传统的拟合指数（如CFI、RMSEA）</li>
+<li>使用信息准则（BIC、AIC）和分类质量（Entropy）</li>
+<li>如果BIC持续下降但Entropy很低（&lt; 0.6），可能局部独立性不成立</li>
+</ul>
+<h4 id="假设2类别数正确性">假设2：类别数正确性</h4>
+<p><strong>检验方法</strong>：使用多指标综合判断（见”数据分析策略”章节）</p>
+<ul>
+<li>信息准则：BIC、aBIC</li>
+<li>分类质量：Entropy</li>
+<li>统计检验：LMR-LRT、BLRT</li>
+<li>实际意义：类别比例、可解释性</li>
+</ul>
+<h4 id="假设3模型识别">假设3：模型识别</h4>
+<p><strong>检验方法</strong>：检查模型收敛和唯一解</p>
+<p><strong>收敛诊断</strong>： - Mplus：检查”THE MODEL ESTIMATION
+TERMINATED NORMALLY” - R（tidyLPA）：检查警告信息</p>
+<p><strong>局部最优解诊断</strong>： -
+增加起始值：<code>STARTS = 500 100</code>（Mplus） -
+检查多个起始值的解是否一致</p>
+<p><strong>识别不足诊断</strong>： - 如果模型无法收敛，可能识别不足 -
+<strong>修复</strong>：减少类别数，或增加约束</p>
+<hr />
+<h2 id="数据分析策略">数据分析策略</h2>
+<h3 id="数据预处理流程">数据预处理流程</h3>
+<h4 id="步骤1数据清洗">步骤1：数据清洗</h4>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R代码：数据清洗</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mice)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 导入数据</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data.csv&quot;</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 检查缺失值</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>missing_summary <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(<span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(variable, n_missing) <span class="sc">%&gt;%</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n_missing))</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(missing_summary)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 处理缺失值</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 方法1：删除缺失值（推荐用于LCA/LPA，如果缺失率&lt;5%）</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>data_complete <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(data)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 方法2：多重插补（推荐用于LTA，保留纵向结构）</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>imputed_data <span class="ot">&lt;-</span> <span class="fu">mice</span>(data, <span class="at">m =</span> <span class="dv">5</span>, <span class="at">maxit =</span> <span class="dv">50</span>, <span class="at">method =</span> <span class="st">&#39;pmm&#39;</span>, <span class="at">seed =</span> <span class="dv">500</span>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择其中一个插补数据集</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>data_imputed <span class="ot">&lt;-</span> <span class="fu">complete</span>(imputed_data, <span class="dv">1</span>)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 检查异常值</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>data_imputed <span class="sc">%&gt;%</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(x1<span class="sc">:</span>x5) <span class="sc">%&gt;%</span>  <span class="co"># 连续变量</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(variable, value) <span class="sc">%&gt;%</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> value)) <span class="sc">+</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> variable, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="co"># 处理异常值（如3个标准差以外）</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>data_clean <span class="ot">&lt;-</span> data_imputed <span class="sc">%&gt;%</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(x1<span class="sc">:</span>x5), <span class="sc">~</span> <span class="fu">ifelse</span>(<span class="fu">abs</span>(<span class="fu">scale</span>(.)) <span class="sc">&gt;</span> <span class="dv">3</span>, <span class="cn">NA</span>, .))) <span class="sc">%&gt;%</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span></code></pre></div>
+<h4 id="步骤2变量编码">步骤2：变量编码</h4>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LCA：确保变量为类别型</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>data_lca <span class="ot">&lt;-</span> data_clean <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(y1<span class="sc">:</span>y5), as.factor))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># LPA：标准化连续变量（推荐）</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>data_lpa <span class="ot">&lt;-</span> data_clean <span class="sc">%&gt;%</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(x1<span class="sc">:</span>x5), <span class="sc">~</span> <span class="fu">scale</span>(.)[,<span class="dv">1</span>]))</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 检查编码</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data_lca)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data_lpa)</span></code></pre></div>
+<h4 id="步骤3描述性统计">步骤3：描述性统计</h4>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 描述性统计</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 连续变量</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(data_lpa)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 类别变量</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>data_lca <span class="sc">%&gt;%</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(y1<span class="sc">:</span>y5) <span class="sc">%&gt;%</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 相关性分析（LPA）</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>cor_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(data_lpa <span class="sc">%&gt;%</span> <span class="fu">select</span>(x1<span class="sc">:</span>x5))</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cor_matrix)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 可视化相关性</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(cor_matrix, <span class="at">method =</span> <span class="st">&quot;color&quot;</span>, <span class="at">type =</span> <span class="st">&quot;upper&quot;</span>)</span></code></pre></div>
+<h3 id="模型拟合指标">模型拟合指标</h3>
+<h4 id="信息准则information-criteria">信息准则（Information
+Criteria）</h4>
+<p><strong>核心指标</strong>：BIC（贝叶斯信息准则）</p>
+<p><strong>计算公式</strong>：BIC = -2 × log-likelihood + log(N) × k -
+k：模型参数数量 - N：样本量</p>
+<p><strong>判断标准</strong>： - <strong>BIC</strong>：越小越好 -
+<strong>ΔBIC &gt; 10</strong>：强烈支持BIC较小的模型 - <strong>ΔBIC =
+6-10</strong>：中等支持 - <strong>ΔBIC &lt; 6</strong>：证据不足</p>
+<p><strong>其他信息准则</strong>：</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 21%" />
+<col style="width: 35%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr>
+<th>指标</th>
+<th>全称</th>
+<th>判断标准</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AIC</strong></td>
+<td>Akaike Information Criterion</td>
+<td>越小越好</td>
+<td>倾向于选择更多类别</td>
+</tr>
+<tr>
+<td><strong>BIC</strong></td>
+<td>Bayesian Information Criterion</td>
+<td>越小越好</td>
+<td>倾向于选择更少类别（推荐）</td>
+</tr>
+<tr>
+<td><strong>aBIC</strong></td>
+<td>sample-size adjusted BIC</td>
+<td>越小越好</td>
+<td>小样本下优于BIC（推荐）</td>
+</tr>
+<tr>
+<td><strong>CAIC</strong></td>
+<td>Consistent AIC</td>
+<td>越小越好</td>
+<td>与BIC类似</td>
+</tr>
+</tbody>
+</table>
+<p><strong>推荐</strong>：使用<strong>BIC</strong>和<strong>aBIC</strong>作为主要指标。</p>
+<h4 id="分类质量指标">分类质量指标</h4>
+<p><strong>Entropy（熵）</strong></p>
+<p><strong>定义</strong>：衡量分类确定性的指标（0-1之间）。</p>
+<p><strong>计算公式</strong>：基于后验归属概率（posterior membership
+probabilities）。</p>
+<p><strong>判断标准</strong>： - <strong>Entropy ≥
+0.80</strong>：优秀，分类质量高 - <strong>Entropy =
+0.70-0.80</strong>：可接受 - <strong>Entropy &lt;
+0.70</strong>：分类质量低，类别区分度不足</p>
+<p><strong>注意事项</strong>： - Entropy高不代表模型正确，需结合BIC判断
+- Entropy低一定说明模型有问题（类别区分度低）</p>
+<p><strong>平均后验概率</strong>（Average Posterior Probability）</p>
+<p><strong>定义</strong>：每个案例属于其最可能类别的平均概率。</p>
+<p><strong>判断标准</strong>： - <strong>平均后验概率 ≥
+0.80</strong>：分类确定 - <strong>平均后验概率 &lt;
+0.70</strong>：分类不确定</p>
+<p><strong>报告规范</strong>：</p>
+<pre><code>各类别的平均后验归属概率：
+- 类别1：M = 0.92, SD = 0.08
+- 类别2：M = 0.89, SD = 0.11
+- 类别3：M = 0.91, SD = 0.09</code></pre>
+<h4 id="统计检验">统计检验</h4>
+<p><strong>LMR-LRT（Lo-Mendell-Rubin Likelihood Ratio
+Test）</strong></p>
+<p><strong>定义</strong>：检验K类模型是否显著优于K-1类模型。</p>
+<p><strong>判断标准</strong>： - <strong>p &lt;
+0.05</strong>：支持K类模型（拒绝K-1类模型） - <strong>p ≥
+0.05</strong>：不支持K类模型（接受K-1类模型）</p>
+<p><strong>注意事项</strong>： - LMR-LRT可能保守（倾向于选择更少类别） -
+结合BIC判断</p>
+<p><strong>BLRT（Bootstrap Likelihood Ratio Test）</strong></p>
+<p><strong>定义</strong>：基于Bootstrap的似然比检验，比LMR-LRT更稳健。</p>
+<p><strong>判断标准</strong>： - <strong>p &lt;
+0.05</strong>：支持K类模型 - <strong>p ≥
+0.05</strong>：不支持K类模型</p>
+<p><strong>推荐</strong>：使用<strong>BLRT</strong>，如果计算资源允许（需要多次Bootstrap）。</p>
+<h3 id="类别数确定的判断标准">类别数确定的判断标准</h3>
+<h4 id="综合判断框架">综合判断框架</h4>
+<p><strong>🔴 CHECKPOINT · 类别数确定检查</strong></p>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>权重</th>
+<th>判断标准</th>
+<th>你的结果</th>
+<th>是否支持K类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BIC</strong></td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>越小越好，ΔBIC&gt;10强烈支持</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>aBIC</strong></td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>越小越好</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Entropy</strong></td>
+<td>⭐⭐⭐⭐</td>
+<td>≥0.80优秀</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>LMR-LRT</strong></td>
+<td>⭐⭐⭐⭐</td>
+<td>p&lt;0.05支持K类</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>BLRT</strong></td>
+<td>⭐⭐⭐⭐</td>
+<td>p&lt;0.05支持K类</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>类别比例</strong></td>
+<td>⭐⭐⭐⭐</td>
+<td>&gt;5%可接受</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>可解释性</strong></td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>类别是否有理论意义</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>综合判断规则</strong>：</p>
+<ol type="1">
+<li><strong>首选规则</strong>：BIC和aBIC同时最小 + Entropy ≥ 0.80 +
+类别比例 &gt; 5%</li>
+<li><strong>次要规则</strong>：如果BIC和Entropy冲突，优先BIC（统计标准优先）</li>
+<li><strong>理论规则</strong>：如果统计指标冲突，选择理论可解释的类别数</li>
+</ol>
+<p><strong>示例判断</strong>：</p>
+<table>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 8%" />
+<col style="width: 9%" />
+<col style="width: 14%" />
+<col style="width: 20%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr>
+<th>K</th>
+<th>BIC</th>
+<th>aBIC</th>
+<th>Entropy</th>
+<th>LMR-LRT (p)</th>
+<th>BLRT (p)</th>
+<th>类别比例</th>
+<th>判断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>5000</td>
+<td>5010</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>100%</td>
+<td>基准</td>
+</tr>
+<tr>
+<td>2</td>
+<td>4800</td>
+<td>4815</td>
+<td>0.85</td>
+<td>0.001</td>
+<td>0.000</td>
+<td>45%/55%</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>3</td>
+<td>4750</td>
+<td>4770</td>
+<td>0.82</td>
+<td>0.023</td>
+<td>0.019</td>
+<td>30%/35%/35%</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>4</td>
+<td>4745</td>
+<td>4770</td>
+<td>0.78</td>
+<td>0.089</td>
+<td>0.057</td>
+<td>25%/30%/25%/20%</td>
+<td><strong>不支持</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>结论</strong>：选择<strong>3类模型</strong>（BIC和aBIC在K=3时最小，Entropy=0.82&gt;0.80，LMR-LRT和BLRT显著，类别比例均&gt;5%）</p>
+<h4 id="类别数确定报告模板">类别数确定报告模板</h4>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">### 模型比较结果</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>为确定最优类别数，本研究比较了1-5类模型的拟合指标（表1）。</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>**表1：潜在类别模型比较**</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 类别数K <span class="pp">|</span> BIC <span class="pp">|</span> aBIC <span class="pp">|</span> AIC <span class="pp">|</span> Entropy <span class="pp">|</span> LMR-LRT (p) <span class="pp">|</span> BLRT (p) <span class="pp">|</span> 最小类别比例 <span class="pp">|</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="pp">|---------|-----|------|-----|---------|-------------|----------|-------------|</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> 5000 <span class="pp">|</span> 5010 <span class="pp">|</span> 4980 <span class="pp">|</span> — <span class="pp">|</span> — <span class="pp">|</span> — <span class="pp">|</span> 100% <span class="pp">|</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2 <span class="pp">|</span> 4800 <span class="pp">|</span> 4815 <span class="pp">|</span> 4760 <span class="pp">|</span> 0.85 <span class="pp">|</span> 0.001 <span class="pp">|</span> 0.000 <span class="pp">|</span> 45% <span class="pp">|</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3 <span class="pp">|</span> 4750 <span class="pp">|</span> 4770 <span class="pp">|</span> 4690 <span class="pp">|</span> 0.82 <span class="pp">|</span> 0.023 <span class="pp">|</span> 0.019 <span class="pp">|</span> 30% <span class="pp">|</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 4 <span class="pp">|</span> 4745 <span class="pp">|</span> 4770 <span class="pp">|</span> 4675 <span class="pp">|</span> 0.78 <span class="pp">|</span> 0.089 <span class="pp">|</span> 0.057 <span class="pp">|</span> 20% <span class="pp">|</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 5 <span class="pp">|</span> 4740 <span class="pp">|</span> 4765 <span class="pp">|</span> 4660 <span class="pp">|</span> 0.75 <span class="pp">|</span> 0.123 <span class="pp">|</span> 0.098 <span class="pp">|</span> 15% <span class="pp">|</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>注：*** p &lt; 0.001, ** p &lt; 0.01, * p &lt; 0.05</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="fu">### 最优模型选择依据</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>基于以下标准综合判断：</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**信息准则**：3类模型的BIC（4750）和aBIC（4770）均为所有模型中最低（K=4时BIC仅下降5，ΔBIC=5&lt;10，证据不足）；</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**分类质量**：3类模型的Entropy = 0.82，大于推荐的0.80标准，表明分类质量良好；</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**统计检验**：3类模型的LMR-LRT（p = 0.023 &lt; 0.05）和BLRT（p = 0.019 &lt; 0.05）均显著，表明3类模型显著优于2类模型；而4类模型的LMR-LRT（p = 0.089）和BLRT（p = 0.057）均不显著，表明4类模型不显著优于3类模型；</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**类别比例**：3类模型的各类别比例分别为30%、35%、35%，均大于推荐的5%标准，表明各类别均有实际意义；</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**理论可解释性**：3类模型的结果在理论上可解释（见&quot;类别特征&quot;部分），且与前人研究一致（XXX, 2020）。</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>综合考虑，本研究确定**3个潜在类别**为最优模型。</span></code></pre></div>
+<h3 id="协变量引入方式">协变量引入方式</h3>
+<h4 id="方法1r3step预测变量-类别">方法1：R3STEP（预测变量 → 类别）</h4>
+<p><strong>适用场景</strong>：检验预测变量（X）对类别归属的影响。</p>
+<p><strong>Mplus语法</strong>：</p>
+<pre class="mplus"><code>VARIABLE:
+  NAMES = y1-y5 x1 x2;
+  CATEGORICAL = y1-y5;
+  CLASSES = c(3);
+  AUXILIARY = x1 x2 (R3STEP);  ! 预测变量
+
+ANALYSIS:
+  TYPE = MIXTURE;
+  ESTIMATOR = MLR;
+  STARTS = 200 50;
+
+MODEL:
+  %OVERALL%
+  c ON x1 x2;  ! 预测变量 → 类别</code></pre>
+<p><strong>输出解读</strong>： - 输出类别归属概率的比数比（Odds Ratio）
+- 例如：x1增加一个单位，属于类别2（vs类别1）的Odds增加1.5倍</p>
+<h4 id="方法2bch类别-结果变量">方法2：BCH（类别 → 结果变量）</h4>
+<p><strong>适用场景</strong>：检验类别对结果变量（Y）的影响。</p>
+<p><strong>Mplus语法</strong>：</p>
+<pre class="mplus"><code>VARIABLE:
+  NAMES = y1-y5 outcome;
+  CATEGORICAL = y1-y5;
+  CLASSES = c(3);
+  AUXILIARY = outcome (BCH);  ! 结果变量
+
+ANALYSIS:
+  TYPE = MIXTURE;
+  ESTIMATOR = MLR;
+  STARTS = 200 50;
+
+MODEL:
+  %OVERALL%
+  outcome ON c;  ! 类别 → 结果变量（自动编码为哑变量）</code></pre>
+<p><strong>输出解读</strong>： - 输出各类别在结果变量上的均值差异 -
+例如：类别2的结果变量均值显著高于类别1（p &lt; 0.05）</p>
+<h4 id="方法3dcat预测变量-结果变量">方法3：DCAT（预测变量 +
+结果变量）</h4>
+<p><strong>适用场景</strong>：同时纳入预测变量和结果变量。</p>
+<p><strong>Mplus语法</strong>：</p>
+<pre class="mplus"><code>VARIABLE:
+  NAMES = y1-y5 x1 x2 outcome;
+  CATEGORICAL = y1-y5;
+  CLASSES = c(3);
+  AUXILIARY = x1 x2 (DCAT) outcome (DCAT);
+
+ANALYSIS:
+  TYPE = MIXTURE;
+  ESTIMATOR = MLR;
+  STARTS = 200 50;</code></pre>
+<h4 id="方法选择决策树">方法选择决策树</h4>
+<pre><code>开始：协变量类型
+  │
+  ├── 只有预测变量（X → 类别）
+  │   └── 使用R3STEP
+  │
+  ├── 只有结果变量（类别 → Y）
+  │   └── 使用BCH
+  │
+  └── 既有预测变量又有结果变量
+      └── 使用DCAT（或分别用R3STEP和BCH）</code></pre>
+<p><strong>推荐</strong>： - <strong>预测变量</strong>：R3STEP（最常用）
+- <strong>结果变量</strong>：BCH（最常用，对类别分类误差进行校正） -
+<strong>同时有</strong>：DCAT（一步完成）</p>
+<h3 id="稳健性检验方法">稳健性检验方法</h3>
+<h4 id="检验1不同起始值local-optimum">检验1：不同起始值（Local
+Optimum）</h4>
+<p><strong>问题</strong>：混合模型容易陷入局部最优解。</p>
+<p><strong>检验方法</strong>：增加起始值，检查解是否稳定。</p>
+<p><strong>Mplus语法</strong>：</p>
+<pre class="mplus"><code>ANALYSIS:
+  TYPE = MIXTURE;
+  STARTS = 500 100;  ! 500次随机起始，100次优化
+  OPTSEED = 12345;   ! 固定最优种子</code></pre>
+<p><strong>判断标准</strong>： - 如果多次运行得到相同解 → 稳健 -
+如果解不稳定 → 增加STARTS至1000 200</p>
+<h4 id="检验2不同模型设定">检验2：不同模型设定</h4>
+<p><strong>问题</strong>：模型设定（如方差-协方差矩阵）影响结果。</p>
+<p><strong>检验方法</strong>：比较不同模型设定（LPA中比较模型1-6）。</p>
+<p><strong>R语法（tidyLPA）</strong>：</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyLPA)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 比较模型1-6</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">estimate_profiles</span>(<span class="at">n_profiles =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">models =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看比较结果</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_solutions</span>(results)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择BIC最小的模型</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_bic</span>(results)</span></code></pre></div>
+<h4 id="检验3不同类别数敏感性分析">检验3：不同类别数（敏感性分析）</h4>
+<p><strong>问题</strong>：类别数确定是否有稳健？</p>
+<p><strong>检验方法</strong>：报告2-3个候选类别数的结果，比较结论是否一致。</p>
+<p><strong>报告规范</strong>：</p>
+<pre><code>稳健性检验：本研究也检验了2类和4类模型的结果。
+2类模型将[类别A]和[类别B]合并，丢失了细粒度信息；
+4类模型增加了一个小类别（比例&lt;10%），且理论解释困难。
+因此，3类模型的结果最为稳健。</code></pre>
+<h4
+id="检验4不同样本cross-validation">检验4：不同样本（Cross-validation）</h4>
+<p><strong>问题</strong>：结果是否受样本影响？</p>
+<p><strong>检验方法</strong>： 1.
+<strong>拆分样本</strong>：随机拆分为两半，分别运行LCA/LPA 2.
+<strong>比较类别结构</strong>：使用Cronbach’s Alpha for
+Classes（如果类别结构一致，Alpha &gt; 0.70）</p>
+<p><strong>R语法</strong>：</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 拆分样本</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>train_index <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(data<span class="sc">$</span>y1, <span class="at">p =</span> <span class="fl">0.5</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>train_data <span class="ot">&lt;-</span> data[train_index, ]</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> data[<span class="sc">-</span>train_index, ]</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 分别在两个样本上运行LPA</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyLPA)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>results_train <span class="ot">&lt;-</span> train_data <span class="sc">%&gt;%</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">estimate_profiles</span>(<span class="at">n_profiles =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">models =</span> <span class="dv">1</span>)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>results_test <span class="ot">&lt;-</span> test_data <span class="sc">%&gt;%</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">estimate_profiles</span>(<span class="at">n_profiles =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">models =</span> <span class="dv">1</span>)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 比较类别结构</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_solutions</span>(results_train)</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_solutions</span>(results_test)</span></code></pre></div>
+<hr />
+<h2 id="前沿方法扩展">前沿方法扩展</h2>
+<h3 id="多组lcamultigroup-lca">1. 多组LCA（Multigroup LCA）</h3>
+<p><strong>研究问题</strong>：不同群组（如性别、文化、组织）的潜在类别结构是否相同？</p>
+<p><strong>核心概念</strong>：</p>
+<ul>
+<li><strong>完全不变性</strong>（Full
+Invariance）：各类别的条件概率在不同群组中完全相同</li>
+<li><strong>部分不变性</strong>（Partial
+Invariance）：部分条件概率相同，部分不同</li>
+<li><strong>完全变异性</strong>（Full
+Variability）：条件概率完全不同</li>
+</ul>
+<p><strong>分析步骤</strong>：</p>
+<ol type="1">
+<li><strong>步骤1：配置不变性</strong>（Configural Invariance）
+<ul>
+<li>分别在两个群组中运行LCA</li>
+<li>检查类别数是否相同</li>
+</ul></li>
+<li><strong>步骤2：测量不变性</strong>（Measurement Invariance）
+<ul>
+<li>约束各类别的条件概率相等</li>
+<li>使用似然比检验（LRT）比较约束模型和非约束模型</li>
+</ul></li>
+<li><strong>步骤3：结构不变性</strong>（Structural Invariance）
+<ul>
+<li>约束类别先验概率相等</li>
+<li>检验类别比例是否相同</li>
+</ul></li>
+</ol>
+<p><strong>Mplus语法（多组LCA）</strong>：</p>
+<pre class="mplus"><code>TITLE: Multigroup LCA;
+DATA: FILE = data.csv;
+VARIABLE: 
+  NAMES = y1-y5 group;
+  CATEGORICAL = y1-y5;
+  GROUPING = group (0 = Group1, 1 = Group2);  ! 分组变量
+  CLASSES = c(3);
+ANALYSIS: 
+  TYPE = MIXTURE;
+  ESTIMATOR = MLR;
+  STARTS = 200 50;
+MODEL: 
+  %OVERALL%
+  ! 默认：允许条件概率和类别比例在不同群组中自由估计
+  
+  ! 测量不变性约束（可选）：
+  ! MODEL GROUP1:
+  ! %c#1%
+  ! [y1$1] (p1);
+  ! 
+  ! MODEL GROUP2:
+  ! %c#1%
+  ! [y1$1] (p1);  ! 约束y1在类别1中的条件概率相等
+OUTPUT: TECH1 TECH8;</code></pre>
+<p><strong>结果解读</strong>：</p>
+<ul>
+<li>如果测量不变性成立 →
+不同群组的类别结构相同，可以直接比较类别比例</li>
+<li>如果测量不变性不成立 → 不同群组的类别结构不同，需要分别解释</li>
+</ul>
+<h3 id="多层ltamultilevel-lta">2. 多层LTA（Multilevel LTA）</h3>
+<p><strong>研究问题</strong>：考虑嵌套结构（如学生嵌套于班级、员工嵌套于团队）的潜在类别转换。</p>
+<p><strong>核心概念</strong>：</p>
+<ul>
+<li><strong>水平1</strong>：个体层面（个体内的类别转换）</li>
+<li><strong>水平2</strong>：群组层面（群组间的类别比例差异）</li>
+</ul>
+<p><strong>分析挑战</strong>：</p>
+<ul>
+<li>传统LTA忽略嵌套结构，标准误可能有偏</li>
+<li>需要使用多层模型（Multilevel Mixture Model）</li>
+</ul>
+<p><strong>Mplus语法（多层LTA）</strong>：</p>
+<pre class="mplus"><code>TITLE: Multilevel LTA;
+DATA: FILE = data.csv;
+VARIABLE: 
+  NAMES = y1-y5_t1 y1-y5_t2 class_id;
+  CATEGORICAL = y1-y5_t1 y1-y5_t2;
+  CLUSTER = class_id;  ! 嵌套变量
+  CLASSES = c1(3) c2(3);
+ANALYSIS: 
+  TYPE = MIXTURE TWOLEVEL;  ! 两层模型
+  ESTIMATOR = MLR;
+  STARTS = 200 50;
+MODEL: 
+  %WITHIN%
+  ! 个体内转换
+  c2 ON c1;
+  
+  %BETWEEN%
+  ! 群组间差异
+  c1;
+  c2;
+OUTPUT: TECH1 TECH8;</code></pre>
+<p><strong>注意事项</strong>：</p>
+<ul>
+<li>多层LTA需要大样本（水平2 &gt; 50，水平1 &gt; 10 per 水平2）</li>
+<li>计算复杂，可能需要增加STARTS</li>
+</ul>
+<h3 id="贝叶斯潜在类别模型bayesian-lca">3. 贝叶斯潜在类别模型（Bayesian
+LCA）</h3>
+<p><strong>研究问题</strong>：小样本或复杂模型下，频率主义方法（如ML估计）可能不收敛或结果不稳定。</p>
+<p><strong>核心概念</strong>：</p>
+<ul>
+<li><strong>频率主义</strong>：参数固定，使用最大似然估计（MLE）</li>
+<li><strong>贝叶斯</strong>：参数服从分布，使用马尔可夫链蒙特卡洛（MCMC）估计后验分布</li>
+</ul>
+<p><strong>优势</strong>：</p>
+<ol type="1">
+<li><strong>小样本友好</strong>：贝叶斯方法可以在小样本下得到稳定估计</li>
+<li><strong>复杂模型可行</strong>：可以估计频率主义方法无法识别的模型</li>
+<li><strong>不确定性量化</strong>：直接得到参数的后验分布（而不仅仅是点估计）</li>
+</ol>
+<p><strong>Mplus语法（贝叶斯LCA）</strong>：</p>
+<pre class="mplus"><code>TITLE: Bayesian LCA;
+DATA: FILE = data.csv;
+VARIABLE: 
+  NAMES = y1-y5;
+  CATEGORICAL = y1-y5;
+  CLASSES = c(3);
+ANALYSIS: 
+  TYPE = MIXTURE;
+  ESTIMATOR = BAYES;  ! 贝叶斯估计器
+  PROCESSORS = 4;     ! 使用多核加速
+MODEL: 
+  %OVERALL%
+  ! 模型设定同频率主义LCA
+OUTPUT: TECH1 TECH8;
+  BPARAMETERS = 1000;  ! 保存后验分布样本</code></pre>
+<p><strong>结果解读</strong>：</p>
+<ul>
+<li>查看后验均值（Posterior Mean）和后验标准差（Posterior SD）</li>
+<li>查看95%可信区间（Credible Interval）</li>
+<li>如果可信区间不包含0 → 参数显著</li>
+</ul>
+<p><strong>注意事项</strong>：</p>
+<ul>
+<li>贝叶斯方法需要设定先验分布（Mplus默认使用无信息先验）</li>
+<li>需要检查MCMC收敛（如Gelman-Rubin统计量 &lt; 1.1）</li>
+</ul>
+<h3 id="时变协变量扩展time-varying-covariates">4.
+时变协变量扩展（Time-Varying Covariates）</h3>
+<p><strong>研究问题</strong>：协变量（如工作压力）随时间变化，如何影响潜在类别的转换？</p>
+<p><strong>核心概念</strong>：</p>
+<ul>
+<li><strong>时不变协变量</strong>（Time-Invariant
+Covariates）：如性别、年龄，不随时间变化</li>
+<li><strong>时变协变量</strong>（Time-Varying
+Covariates）：如工作压力、工作满意度，随时间变化</li>
+</ul>
+<p><strong>分析策略</strong>：</p>
+<p><strong>策略1：将时变协变量作为LTA的预测变量</strong></p>
+<pre class="mplus"><code>TITLE: LTA with Time-Varying Covariates;
+DATA: FILE = data.csv;
+VARIABLE: 
+  NAMES = y1-y5_t1 y1-y5_t2 cov_t1 cov_t2;
+  CATEGORICAL = y1-y5_t1 y1-y5_t2;
+  CLASSES = c1(3) c2(3);
+ANALYSIS: 
+  TYPE = MIXTURE;
+  ESTIMATOR = MLR;
+MODEL: 
+  %OVERALL%
+  ! 时不变协变量
+  c1 ON x1 x2;
+  
+  ! 时变协变量
+  c1 ON cov_t1;
+  c2 ON cov_t2;
+  
+  ! 转换
+  c2 ON c1;
+OUTPUT: TECH1 TECH8;</code></pre>
+<p><strong>策略2：将时变协变量作为LTA的类别指标</strong></p>
+<ul>
+<li>如果时变协变量是类别变量，可以将其作为LTA的观测变量</li>
+<li>即：在T1和T2都测量该协变量，作为类别指标</li>
+</ul>
+<p><strong>Mplus语法</strong>：</p>
+<pre class="mplus"><code>VARIABLE: 
+  NAMES = y1-y5_t1 y1-y5_t2 cov_t1 cov_t2;
+  CATEGORICAL = y1-y5_t1 y1-y5_t2 cov_t1 cov_t2;  ! 时变协变量也作为类别指标
+  CLASSES = c1(3) c2(3);
+MODEL: 
+  %OVERALL%
+  c1 BY y1-y5_t1 cov_t1;  ! T1的类别指标包括时变协变量
+  c2 BY y1-y5_t2 cov_t2;  ! T2的类别指标包括时变协变量
+  c2 ON c1;</code></pre>
+<p><strong>选择建议</strong>：</p>
+<ul>
+<li>如果时变协变量是<strong>预测变量</strong> → 使用策略1</li>
+<li>如果时变协变量是<strong>类别定义的一部分</strong> → 使用策略2</li>
+</ul>
+<h3 id="联合lcajoint-lca">5. 联合LCA（Joint LCA）</h3>
+<p><strong>研究问题</strong>：多个领域的潜在类别是否相关？（如”工作倦怠类型”和”应对方式类型”是否相关？）</p>
+<p><strong>核心概念</strong>：</p>
+<ul>
+<li><strong>联合LCA</strong>：同时分析多个领域的潜在类别，识别跨领域的类别组合</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<ul>
+<li>领域1：工作倦怠（3类）→ 低倦怠、中度倦怠、高倦怠</li>
+<li>领域2：应对方式（2类）→ 问题导向应对、情绪导向应对</li>
+<li>联合类别：3 × 2 =
+6个联合类别（如”低倦怠+问题导向应对”“高倦怠+情绪导向应对”）</li>
+</ul>
+<p><strong>Mplus语法（联合LCA）</strong>：</p>
+<pre class="mplus"><code>TITLE: Joint LCA;
+DATA: FILE = data.csv;
+VARIABLE: 
+  NAMES = y1-y5 z1-z5;  ! y = 倦怠题项，z = 应对方式题项
+  CATEGORICAL = y1-y5 z1-z5;
+  CLASSES = c(6);  ! 6个联合类别
+ANALYSIS: 
+  TYPE = MIXTURE;
+  ESTIMATOR = MLR;
+  STARTS = 500 100;  ! 联合LCA需要更多起始值
+MODEL: 
+  %OVERALL%
+  ! 模型会自动识别联合类别
+OUTPUT: TECH1 TECH8;
+SAVEDATA: FILE = joint_lca_results.csv; SAVE = CPROB;</code></pre>
+<p><strong>结果解读</strong>：</p>
+<ul>
+<li>输出6个联合类别的条件概率</li>
+<li>可以检验联合类别是否显著（如”低倦怠+问题导向应对”是否显著多于随机期望）</li>
+</ul>
+<hr />
+<h2 id="结果解释框架">结果解释框架</h2>
+<h3 id="类别命名与特征描述规范">类别命名与特征描述规范</h3>
+<h4 id="命名策略">命名策略</h4>
+<p><strong>策略1：高-中-低模式法</strong></p>
+<p><strong>适用场景</strong>：多维度量表，每个维度有均值或条件概率</p>
+<p><strong>示例</strong>（LPA，3个剖面）：</p>
+<pre><code>类别1 - &quot;高倦怠-低应对型&quot;（n = 120, 40%）：
+- 情感耗竭：M = 4.2（高）
+- 去人格化：M = 3.8（高）
+- 个人成就感：M = 2.1（低）
+- 问题导向应对：M = 2.3（低）
+- 情绪导向应对：M = 4.1（高）
+
+类别2 - &quot;中度倦怠-平衡应对型&quot;（n = 105, 35%）：
+- 情感耗竭：M = 3.0（中）
+- 去人格化：M = 2.5（中）
+- 个人成就感：M = 3.2（中）
+- 问题导向应对：M = 3.1（中）
+- 情绪导向应对：M = 3.0（中）
+
+类别3 - &quot;低倦怠-高应对型&quot;（n = 75, 25%）：
+- 情感耗竭：M = 1.8（低）
+- 去人格化：M = 1.5（低）
+- 个人成就感：M = 4.5（高）
+- 问题导向应对：M = 4.3（高）
+- 情绪导向应对：M = 2.2（低）</code></pre>
+<p><strong>策略2：理论构念法</strong></p>
+<p><strong>适用场景</strong>：有明确理论框架的研究</p>
+<p><strong>示例</strong>（LCA，基于工作倦怠理论）：</p>
+<pre><code>类别1 - &quot;敬业型&quot;（n = 150, 50%）：
+基于Schaufeli等人的工作敬业理论，该类别个体在所有倦怠维度上均表现良好...
+
+类别2 - &quot;倦怠型&quot;（n = 90, 30%）：
+该类别个体符合Maslach倦怠模型的核心特征...
+
+类别3 - &quot;游离型&quot;（n = 60, 20%）：
+该类别个体表现出情感耗竭但个人成就感尚可...</code></pre>
+<p><strong>策略3：典型特征法</strong></p>
+<p><strong>适用场景</strong>：探索性研究，理论框架不明确</p>
+<p><strong>示例</strong>：</p>
+<pre><code>类别1 - &quot;活力缺乏型&quot;：
+最显著特征是情感耗竭得分高，其他维度中等...
+
+类别2 - &quot;情感导向型&quot;：
+最显著特征是情绪导向应对得分高...</code></pre>
+<h4 id="特征描述规范">特征描述规范</h4>
+<p><strong>LCA：基于条件概率</strong></p>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>**类别1 - [命名]（n = [数量], [比例]%）**：</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 变量 <span class="pp">|</span> 类别1条件概率 <span class="pp">|</span> 类别2条件概率 <span class="pp">|</span> 类别3条件概率 <span class="pp">|</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|--------------|--------------|--------------|</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> y1 &quot;经常感到疲惫&quot; <span class="pp">|</span> 0.85 <span class="pp">|</span> 0.45 <span class="pp">|</span> 0.20 <span class="pp">|</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> y2 &quot;对工作失去热情&quot; <span class="pp">|</span> 0.78 <span class="pp">|</span> 0.50 <span class="pp">|</span> 0.15 <span class="pp">|</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> y3 &quot;工作效率下降&quot; <span class="pp">|</span> 0.72 <span class="pp">|</span> 0.55 <span class="pp">|</span> 0.25 <span class="pp">|</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>注：条件概率表示在該类别中，回答&quot;是&quot;的概率。</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>类别1的特征是：在所有题项上条件概率均&gt;0.70，表明该类别个体&quot;经常&quot;出现倦怠症状。</span></code></pre></div>
+<p><strong>LPA：基于均值和标准化得分</strong></p>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>**类别1 - [命名]（n = [数量], [比例]%）**：</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 变量 <span class="pp">|</span> 类别1均值 <span class="pp">|</span> 类别2均值 <span class="pp">|</span> 类别3均值 <span class="pp">|</span> 总体均值 <span class="pp">|</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|----------|----------|----------|---------|</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> x1 情感耗竭 <span class="pp">|</span> 4.2 <span class="pp">|</span> 3.0 <span class="pp">|</span> 1.8 <span class="pp">|</span> 3.0 <span class="pp">|</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> x2 去人格化 <span class="pp">|</span> 3.8 <span class="pp">|</span> 2.5 <span class="pp">|</span> 1.5 <span class="pp">|</span> 2.6 <span class="pp">|</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> x3 个人成就感 <span class="pp">|</span> 2.1 <span class="pp">|</span> 3.2 <span class="pp">|</span> 4.5 <span class="pp">|</span> 3.3 <span class="pp">|</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>注：所有变量为1-5李克特量表。类别1在情感耗竭和去人格化上得分高，在个人成就感上得分低。</span></code></pre></div>
+<p><strong>标准化得分（z分数）呈现</strong>：</p>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>**类别1 - [命名]**：</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 变量 <span class="pp">|</span> 类别1 z得分 <span class="pp">|</span> 类别2 z得分 <span class="pp">|</span> 类别3 z得分 <span class="pp">|</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="pp">|------|------------|------------|------------|</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> x1 情感耗竭 <span class="pp">|</span> +1.2 <span class="pp">|</span> 0.0 <span class="pp">|</span> -1.2 <span class="pp">|</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> x2 去人格化 <span class="pp">|</span> +1.0 <span class="pp">|</span> -0.1 <span class="pp">|</span> -1.1 <span class="pp">|</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> x3 个人成就感 <span class="pp">|</span> -1.1 <span class="pp">|</span> +0.1 <span class="pp">|</span> +1.2 <span class="pp">|</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>注：z得分表示与总体均值的偏离。类别1在倦怠维度上高于均值1-1.2个标准差。</span></code></pre></div>
+<h3 id="转变概率解读方式">转变概率解读方式</h3>
+<h4 id="lta转换概率矩阵解读">LTA转换概率矩阵解读</h4>
+<p><strong>基本解读</strong>：</p>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">### 转换概率矩阵（T1 → T2）</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span>          <span class="pp">|</span> 类别1(T2) <span class="pp">|</span> 类别2(T2) <span class="pp">|</span> 类别3(T2) <span class="pp">|</span> 行合计 <span class="pp">|</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="pp">|----------|-----------|-----------|-----------|--------|</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 类别1(T1) <span class="pp">|</span> 0.70      <span class="pp">|</span> 0.20      <span class="pp">|</span> 0.10      <span class="pp">|</span> 1.00   <span class="pp">|</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 类别2(T1) <span class="pp">|</span> 0.15      <span class="pp">|</span> 0.60      <span class="pp">|</span> 0.25      <span class="pp">|</span> 1.00   <span class="pp">|</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 类别3(T1) <span class="pp">|</span> 0.10      <span class="pp">|</span> 0.30      <span class="pp">|</span> 0.60      <span class="pp">|</span> 1.00   <span class="pp">|</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="fu">### 解读</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**驻留概率**（对角线元素）：</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>类别1：70%的成员在T2仍属于类别1（高驻留率）</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>类别2：60%的成员在T2仍属于类别2</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>类别3：60%的成员在T2仍属于类别3</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**转换概率**（非对角线元素）：</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>类别1 → 类别2：20%（部分成员从类别1转换为类别2）</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>类别2 → 类别3：25%（最主要的转换路径）</span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>类别3 → 类别2：30%（次主要的转换路径）</span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**流动性分析**：</span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>类别1的流动性最低（70%驻留）</span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>类别2的流动性最高（40%转换）</span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>主要转换方向：类别2 → 类别3（恶化），类别3 → 类别2（改善）</span></code></pre></div>
+<h4 id="转换概率可视化">转换概率可视化</h4>
+<p><strong>图1：转换概率桑基图（Sankey Diagram）</strong></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R代码：绘制LTA转换概率桑基图</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(networkD3)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 准备数据</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>nodes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">name =</span> <span class="fu">c</span>(<span class="st">&quot;类别1(T1)&quot;</span>, <span class="st">&quot;类别2(T1)&quot;</span>, <span class="st">&quot;类别3(T1)&quot;</span>, </span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>                            <span class="st">&quot;类别1(T2)&quot;</span>, <span class="st">&quot;类别2(T2)&quot;</span>, <span class="st">&quot;类别3(T2)&quot;</span>))</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>links <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">source =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>),</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">target =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>),</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">c</span>(<span class="fl">0.70</span>, <span class="fl">0.20</span>, <span class="fl">0.10</span>, <span class="fl">0.15</span>, <span class="fl">0.60</span>, <span class="fl">0.25</span>, <span class="fl">0.10</span>, <span class="fl">0.30</span>, <span class="fl">0.60</span>) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制桑基图</span></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="fu">sankeyNetwork</span>(<span class="at">Links =</span> links, <span class="at">Nodes =</span> nodes, <span class="at">Source =</span> <span class="st">&quot;source&quot;</span>,</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>              <span class="at">Target =</span> <span class="st">&quot;target&quot;</span>, <span class="at">Value =</span> <span class="st">&quot;value&quot;</span>,</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>              <span class="at">NodeID =</span> <span class="st">&quot;name&quot;</span>, <span class="at">fontSize =</span> <span class="dv">16</span>, <span class="at">nodeWidth =</span> <span class="dv">30</span>)</span></code></pre></div>
+<p><strong>图2：转换概率热图</strong></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R代码：绘制转换概率热图</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 转换概率矩阵</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>trans_mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fl">0.70</span>, <span class="fl">0.20</span>, <span class="fl">0.10</span>,</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>                     <span class="fl">0.15</span>, <span class="fl">0.60</span>, <span class="fl">0.25</span>,</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>                     <span class="fl">0.10</span>, <span class="fl">0.30</span>, <span class="fl">0.60</span>), <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(trans_mat) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;类别1(T1)&quot;</span>, <span class="st">&quot;类别2(T1)&quot;</span>, <span class="st">&quot;类别3(T1)&quot;</span>)</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(trans_mat) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;类别1(T2)&quot;</span>, <span class="st">&quot;类别2(T2)&quot;</span>, <span class="st">&quot;类别3(T2)&quot;</span>)</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 转换为长格式</span></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>trans_long <span class="ot">&lt;-</span> <span class="fu">melt</span>(trans_mat)</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制热图</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(trans_long, <span class="fu">aes</span>(<span class="at">x =</span> Var2, <span class="at">y =</span> Var1, <span class="at">fill =</span> value)) <span class="sc">+</span></span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">&quot;%.2f&quot;</span>, value)), <span class="at">size =</span> <span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">&quot;white&quot;</span>, <span class="at">high =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;T2&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;T1&quot;</span>) <span class="sc">+</span></span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>()</span></code></pre></div>
+<h4 id="转换概率的统计检验">转换概率的统计检验</h4>
+<p><strong>研究问题</strong>：转换概率是否显著不同于随机期望？</p>
+<p><strong>检验方法</strong>：使用Wald检验或似然比检验。</p>
+<p><strong>Mplus语法</strong>：</p>
+<pre class="mplus"><code>MODEL TEST:
+  ! 检验类别1→类别2的转换概率是否=0.20
+  trans_12 = 0.20;</code></pre>
+<h3 id="效应量报告标准">效应量报告标准</h3>
+<h4 id="lcalpa效应量">LCA/LPA效应量</h4>
+<p><strong>类别解释方差</strong>（R²）</p>
+<p><strong>定义</strong>：外生变量（预测变量）解释类别归属的方差。</p>
+<p><strong>计算</strong>：使用R3STEP输出的伪R²。</p>
+<p><strong>报告规范</strong>：</p>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>预测变量对类别归属的解释方差：</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>性别：伪R² = 0.05（小效应）</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>年龄：伪R² = 0.08（中等效应）</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>工作年限：伪R² = 0.12（中等效应）</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>所有预测变量合计解释类别归属方差的15%。</span></code></pre></div>
+<p><strong>类别间差异的效应量</strong>（Cohen’s d）</p>
+<p><strong>定义</strong>：两个类别在连续变量上的均值差异。</p>
+<p><strong>计算</strong>：d = (M₁ - M₂) / SDₚₒₒₗₑd</p>
+<p><strong>报告规范</strong>：</p>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>类别间差异效应量（Cohen&#39;s d）：</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>类别1 vs 类别2：d = 0.8（大效应）</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>类别1 vs 类别3：d = 1.2（大效应）</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>类别2 vs 类别3：d = 0.5（中等效应）</span></code></pre></div>
+<h4 id="lta效应量">LTA效应量</h4>
+<p><strong>转换概率的差异</strong></p>
+<p><strong>定义</strong>：不同群组（如实验组vs对照组）的转换概率差异。</p>
+<p><strong>计算</strong>：Δp = pₜᵣₑₐₜ - p_control</p>
+<p><strong>报告规范</strong>：</p>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>实验组 vs 对照组的转换概率差异：</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>类别2→类别3（恶化）：实验组 = 0.15，对照组 = 0.25，Δp = -0.10</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>类别3→类别2（改善）：实验组 = 0.40，对照组 = 0.30，Δp = +0.10</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>实验组的恶化概率显著降低，改善概率显著提高。</span></code></pre></div>
+<h3 id="结果可视化方案">结果可视化方案</h3>
+<h4 id="方案1剖面图profile-plot">方案1：剖面图（Profile Plot）</h4>
+<p><strong>适用</strong>：LPA结果展示</p>
+<p><strong>R代码</strong>：</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 准备数据</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>profile_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;情感耗竭&quot;</span>, <span class="st">&quot;去人格化&quot;</span>, <span class="st">&quot;个人成就感&quot;</span>), <span class="at">times =</span> <span class="dv">3</span>),</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Mean =</span> <span class="fu">c</span>(<span class="fl">4.2</span>, <span class="fl">3.8</span>, <span class="fl">2.1</span>,  <span class="co"># 类别1</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>           <span class="fl">3.0</span>, <span class="fl">2.5</span>, <span class="fl">3.2</span>,  <span class="co"># 类别2</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>           <span class="fl">1.8</span>, <span class="fl">1.5</span>, <span class="fl">4.5</span>), <span class="co"># 类别3</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">Class =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;类别1&quot;</span>, <span class="st">&quot;类别2&quot;</span>, <span class="st">&quot;类别3&quot;</span>), <span class="at">each =</span> <span class="dv">3</span>)</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制剖面图</span></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(profile_data, <span class="fu">aes</span>(<span class="at">x =</span> Variable, <span class="at">y =</span> Mean, <span class="at">group =</span> Class, <span class="at">color =</span> Class)) <span class="sc">+</span></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;均值&quot;</span>) <span class="sc">+</span></span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;变量&quot;</span>) <span class="sc">+</span></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
+<h4
+id="方案2条件概率图conditional-probability-plot">方案2：条件概率图（Conditional
+Probability Plot）</h4>
+<p><strong>适用</strong>：LCA结果展示</p>
+<p><strong>R代码</strong>：</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 准备数据</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>prob_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;y1&quot;</span>, <span class="st">&quot;y2&quot;</span>, <span class="st">&quot;y3&quot;</span>), <span class="at">times =</span> <span class="dv">3</span>),</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Probability =</span> <span class="fu">c</span>(<span class="fl">0.85</span>, <span class="fl">0.78</span>, <span class="fl">0.72</span>,  <span class="co"># 类别1</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>                  <span class="fl">0.45</span>, <span class="fl">0.50</span>, <span class="fl">0.55</span>,  <span class="co"># 类别2</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>                  <span class="fl">0.20</span>, <span class="fl">0.15</span>, <span class="fl">0.25</span>), <span class="co"># 类别3</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Class =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;类别1&quot;</span>, <span class="st">&quot;类别2&quot;</span>, <span class="st">&quot;类别3&quot;</span>), <span class="at">each =</span> <span class="dv">3</span>)</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制条件概率图</span></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(prob_data, <span class="fu">aes</span>(<span class="at">x =</span> Variable, <span class="at">y =</span> Probability, <span class="at">group =</span> Class, <span class="at">color =</span> Class)) <span class="sc">+</span></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;条件概率&quot;</span>) <span class="sc">+</span></span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;变量&quot;</span>) <span class="sc">+</span></span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
+<h4 id="方案3转换概率桑基图sankey-diagram">方案3：转换概率桑基图（Sankey
+Diagram）</h4>
+<p><strong>适用</strong>：LTA结果展示</p>
+<p>（见”转变概率解读方式”部分的R代码）</p>
+<h4 id="方案4轨迹图trajectory-plot">方案4：轨迹图（Trajectory
+Plot）</h4>
+<p><strong>适用</strong>：GMM/LCGA结果展示</p>
+<p><strong>R代码</strong>：</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 准备数据（示例：3个类别的轨迹）</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>trajectory_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Time =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;T1&quot;</span>, <span class="st">&quot;T2&quot;</span>, <span class="st">&quot;T3&quot;</span>, <span class="st">&quot;T4&quot;</span>), <span class="at">times =</span> <span class="dv">3</span>),</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Mean =</span> <span class="fu">c</span>(<span class="fl">2.5</span>, <span class="fl">2.8</span>, <span class="fl">3.2</span>, <span class="fl">3.5</span>,  <span class="co"># 类别1（上升型）</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>           <span class="fl">3.0</span>, <span class="fl">2.9</span>, <span class="fl">2.7</span>, <span class="fl">2.5</span>,  <span class="co"># 类别2（下降型）</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>           <span class="fl">3.2</span>, <span class="fl">3.3</span>, <span class="fl">3.1</span>, <span class="fl">3.2</span>), <span class="co"># 类别3（稳定型）</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Class =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;上升型&quot;</span>, <span class="st">&quot;下降型&quot;</span>, <span class="st">&quot;稳定型&quot;</span>), <span class="at">each =</span> <span class="dv">4</span>)</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制轨迹图</span></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(trajectory_data, <span class="fu">aes</span>(<span class="at">x =</span> Time, <span class="at">y =</span> Mean, <span class="at">group =</span> Class, <span class="at">color =</span> Class)) <span class="sc">+</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;均值&quot;</span>) <span class="sc">+</span></span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;时间点&quot;</span>) <span class="sc">+</span></span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
+<hr />
+<h2 id="完整案例分析">完整案例分析</h2>
+<h3
+id="案例员工工作倦怠的潜在类别与转换研究">案例：员工工作倦怠的潜在类别与转换研究</h3>
+<p><strong>研究问题</strong>： 1. 员工工作倦怠有哪些潜在类别？ 2.
+这些类别随时间如何转换？ 3. 哪些因素预测类别归属和转换？</p>
+<p><strong>理论框架</strong>：Maslach倦怠模型 + 工作要求-资源模型</p>
+<p><strong>研究方法</strong>：LCA + LTA混合方法</p>
+<p><strong>样本</strong>：N =
+300名员工（来自5家中国企业），追踪3个时间点（间隔6个月）</p>
+<p><strong>变量</strong>： -
+<strong>倦怠指标</strong>（类别变量，用于LCA/LTA）：情感耗竭（3题项）、去人格化（3题项）、个人成就感（3题项），每个题项为5点量表（1=从不，5=每天）
+- <strong>预测变量</strong>：性别、年龄、工作年限、工作要求、工作资源 -
+<strong>结果变量</strong>：工作绩效、离职意向</p>
+<h3 id="分析步骤">分析步骤</h3>
+<h4 id="步骤1lca分析t1数据">步骤1：LCA分析（T1数据）</h4>
+<p><strong>目标</strong>：确定T1的潜在类别数。</p>
+<p><strong>分析</strong>：</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(poLCA)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 准备数据</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>data_t1 <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(y1<span class="sc">:</span>y9) <span class="sc">%&gt;%</span>  <span class="co"># 9个倦怠题项</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(as.factor)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 比较1-5类模型</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>lca_results <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="fu">cbind</span>(y1, y2, y3, y4, y5, y6, y7, y8, y9) <span class="sc">~</span> <span class="dv">1</span></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>  lca_results[[k]] <span class="ot">&lt;-</span> <span class="fu">poLCA</span>(f, data_t1, <span class="at">nclass =</span> k, <span class="at">nrep =</span> <span class="dv">10</span>, <span class="at">maxiter =</span> <span class="dv">1000</span>)</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取拟合指标</span></span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>lca_fit <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">K =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">BIC =</span> <span class="fu">sapply</span>(lca_results, <span class="cf">function</span>(x) x<span class="sc">$</span>bic),</span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">AIC =</span> <span class="fu">sapply</span>(lca_results, <span class="cf">function</span>(x) x<span class="sc">$</span>aic),</span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">Entropy =</span> <span class="fu">sapply</span>(lca_results, <span class="cf">function</span>(x) <span class="fu">entropy</span>(x))</span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(lca_fit)</span></code></pre></div>
+<p><strong>结果</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>K</th>
+<th>BIC</th>
+<th>AIC</th>
+<th>Entropy</th>
+<th>LMR-LRT (p)</th>
+<th>BLRT (p)</th>
+<th>最小类别比例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>5000</td>
+<td>4980</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>4800</td>
+<td>4760</td>
+<td>0.85</td>
+<td>0.001</td>
+<td>0.000</td>
+<td>45%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>4750</td>
+<td>4690</td>
+<td>0.82</td>
+<td>0.023</td>
+<td>0.019</td>
+<td>30%</td>
+</tr>
+<tr>
+<td>4</td>
+<td>4745</td>
+<td>4675</td>
+<td>0.78</td>
+<td>0.089</td>
+<td>0.057</td>
+<td>20%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>结论</strong>：选择<strong>3类模型</strong>（BIC最小，Entropy=0.82，LMR-LRT和BLRT显著）。</p>
+<p><strong>类别解释</strong>：</p>
+<ul>
+<li><strong>类别1 - “高倦怠型”（n = 90, 30%）</strong>：
+<ul>
+<li>情感耗竭：条件概率 = 0.85</li>
+<li>去人格化：条件概率 = 0.78</li>
+<li>个人成就感：条件概率 = 0.25（反向编码，低=高倦怠）</li>
+</ul></li>
+<li><strong>类别2 - “中度倦怠型”（n = 105, 35%）</strong>：
+<ul>
+<li>情感耗竭：条件概率 = 0.50</li>
+<li>去人格化：条件概率 = 0.45</li>
+<li>个人成就感：条件概率 = 0.55</li>
+</ul></li>
+<li><strong>类别3 - “低倦怠型”（n = 105, 35%）</strong>：
+<ul>
+<li>情感耗竭：条件概率 = 0.20</li>
+<li>去人格化：条件概率 = 0.15</li>
+<li>个人成就感：条件概率 = 0.80</li>
+</ul></li>
+</ul>
+<h4 id="步骤2lta分析t1-t3数据">步骤2：LTA分析（T1-T3数据）</h4>
+<p><strong>目标</strong>：检验类别间的转换模式。</p>
+<p><strong>Mplus语法</strong>：</p>
+<pre class="mplus"><code>TITLE: LTA Analysis (T1-T3);
+DATA: FILE = lta_data.csv;
+VARIABLE: 
+  NAMES = y1-y9_t1 y1-y9_t2 y1-y9_t3;
+  CATEGORICAL = y1-y9_t1 y1-y9_t2 y1-y9_t3;
+  CLASSES = c1(3) c2(3) c3(3);
+ANALYSIS: 
+  TYPE = MIXTURE;
+  ESTIMATOR = MLR;
+  STARTS = 500 100;
+MODEL: 
+  %OVERALL%
+  ! 测量模型（各类别的条件概率）
+  c1 BY y1-y9_t1;
+  c2 BY y1-y9_t2;
+  c3 BY y1-y9_t3;
+  
+  ! 结构模型（转换概率）
+  c2 ON c1;
+  c3 ON c2;
+OUTPUT: TECH1 TECH8;
+SAVEDATA: FILE = lta_results.csv; SAVE = CPROB;</code></pre>
+<p><strong>结果</strong>：</p>
+<p><strong>T1 → T2转换概率矩阵</strong>：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>高倦怠(T2)</th>
+<th>中度倦怠(T2)</th>
+<th>低倦怠(T2)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>高倦怠(T1)</td>
+<td>0.60</td>
+<td>0.30</td>
+<td>0.10</td>
+</tr>
+<tr>
+<td>中度倦怠(T1)</td>
+<td>0.20</td>
+<td>0.50</td>
+<td>0.30</td>
+</tr>
+<tr>
+<td>低倦怠(T1)</td>
+<td>0.05</td>
+<td>0.25</td>
+<td>0.70</td>
+</tr>
+</tbody>
+</table>
+<p><strong>T2 → T3转换概率矩阵</strong>：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>高倦怠(T3)</th>
+<th>中度倦怠(T3)</th>
+<th>低倦怠(T3)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>高倦怠(T2)</td>
+<td>0.65</td>
+<td>0.25</td>
+<td>0.10</td>
+</tr>
+<tr>
+<td>中度倦怠(T2)</td>
+<td>0.15</td>
+<td>0.55</td>
+<td>0.30</td>
+</tr>
+<tr>
+<td>低倦怠(T2)</td>
+<td>0.05</td>
+<td>0.20</td>
+<td>0.75</td>
+</tr>
+</tbody>
+</table>
+<p><strong>解读</strong>：</p>
+<ol type="1">
+<li><strong>稳定性</strong>：低倦怠型的驻留概率最高（70% →
+75%），表明低倦怠状态最稳定</li>
+<li><strong>流动性</strong>：高倦怠型的转换概率较高（40%转换为其他类别），表明倦怠状态可能改善</li>
+<li><strong>转换方向</strong>：主要转换方向为”高倦怠 →
+中度倦怠”（改善）和”中度倦怠 → 低倦怠”（改善）</li>
+</ol>
+<h4 id="步骤3预测变量分析r3step">步骤3：预测变量分析（R3STEP）</h4>
+<p><strong>目标</strong>：检验哪些因素预测类别归属。</p>
+<p><strong>Mplus语法</strong>：</p>
+<pre class="mplus"><code>VARIABLE:
+  AUXILIARY = gender age work_demands work_resources (R3STEP);</code></pre>
+<p><strong>结果</strong>：</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 43%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr>
+<th>预测变量</th>
+<th>高倦怠 vs 低倦怠（Odds Ratio）</th>
+<th>中度倦怠 vs 低倦怠（Odds Ratio）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>性别（男vs女）</td>
+<td>1.2 (p &gt; 0.05)</td>
+<td>1.1 (p &gt; 0.05)</td>
+</tr>
+<tr>
+<td>年龄</td>
+<td>0.95* (p &lt; 0.05)</td>
+<td>0.98 (p &gt; 0.05)</td>
+</tr>
+<tr>
+<td>工作要求</td>
+<td>1.5*** (p &lt; 0.001)</td>
+<td>1.2* (p &lt; 0.05)</td>
+</tr>
+<tr>
+<td>工作资源</td>
+<td>0.7** (p &lt; 0.01)</td>
+<td>0.85 (p &gt; 0.05)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>解读</strong>： - 年龄越大，属于高倦怠型的概率越低（Odds
+Ratio &lt; 1） - 工作要求越高，属于高倦怠型的概率越高（Odds Ratio &gt;
+1） - 工作资源越高，属于高倦怠型的概率越低（Odds Ratio &lt; 1）</p>
+<h4 id="步骤4结果变量分析bch">步骤4：结果变量分析（BCH）</h4>
+<p><strong>目标</strong>：检验类别对结果变量的影响。</p>
+<p><strong>Mplus语法</strong>：</p>
+<pre class="mplus"><code>VARIABLE:
+  AUXILIARY = performance turnover_intention (BCH);</code></pre>
+<p><strong>结果</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>结果变量</th>
+<th>高倦怠型</th>
+<th>中度倦怠型</th>
+<th>低倦怠型</th>
+<th>F统计量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工作绩效</td>
+<td>2.8</td>
+<td>3.5</td>
+<td>4.2</td>
+<td>F(2, 297) = 25.6***</td>
+</tr>
+<tr>
+<td>离职意向</td>
+<td>4.1</td>
+<td>3.2</td>
+<td>2.5</td>
+<td>F(2, 297) = 18.3***</td>
+</tr>
+</tbody>
+</table>
+<p><strong>解读</strong>： - 高倦怠型的工作绩效显著低于低倦怠型（p &lt;
+0.001） - 高倦怠型的离职意向显著高于低倦怠型（p &lt; 0.001）</p>
+<h3 id="结果整合">结果整合</h3>
+<p><strong>整合解释</strong>：</p>
+<ol type="1">
+<li><p><strong>类别结构</strong>：员工工作倦怠分为3个类别（高倦怠、中度倦怠、低倦怠），与支持Maslach倦怠理论的3类别结构一致。</p></li>
+<li><p><strong>转换模式</strong>：低倦怠状态最稳定（75%驻留率），而高倦怠状态有改善可能（40%转换）。这表明干预措施可能有效。</p></li>
+<li><p><strong>预测因素</strong>：工作要求是高风险因素（Odds Ratio =
+1.5），工作资源是保护因素（Odds Ratio =
+0.7）。这支持了工作要求-资源模型。</p></li>
+<li><p><strong>结果影响</strong>：高倦怠型导致更差的工作绩效和更高的离职意向，表明倦怠的个体成本和组织成本。</p></li>
+</ol>
+<p><strong>理论贡献</strong>：</p>
+<ol type="1">
+<li>揭示了倦怠类别的动态性（转换模式），超越了前人仅关注截面异质性的研究。</li>
+<li>识别了工作要求-资源对倦怠类别的预测作用，为干预提供了靶点。</li>
+</ol>
+<p><strong>实践启示</strong>：</p>
+<ol type="1">
+<li><strong>干预靶点</strong>：降低工作要求、增加工作资源，可以预防高倦怠型。</li>
+<li><strong>干预时机</strong>：在T1属于高倦怠型的员工，在T2有40%概率改善，表明早期干预可能有效。</li>
+</ol>
+<hr />
+<h2 id="最佳实践与常见误区">最佳实践与常见误区</h2>
+<h3 id="最佳实践">最佳实践</h3>
+<h4 id="理论驱动">1. 理论驱动</h4>
+<p><strong>原则</strong>：类别数确定和类别解释必须理论驱动。</p>
+<p><strong>实践</strong>： - 在LCA/LPA之前，明确理论预期的类别数 -
+类别命名基于理论构念，而非仅基于统计指标 -
+如果统计结果和理论预期矛盾，讨论可能的原因</p>
+<h4 id="多指标综合判断">2. 多指标综合判断</h4>
+<p><strong>原则</strong>：类别数确定不能仅依赖单一指标。</p>
+<p><strong>实践</strong>： -
+同时使用BIC、Entropy、LMR-LRT、BLRT、类别比例 -
+如果指标冲突，优先BIC（统计标准）和可解释性（理论标准）</p>
+<h4 id="稳健性检验">3. 稳健性检验</h4>
+<p><strong>原则</strong>：结果必须经过稳健性检验。</p>
+<p><strong>实践</strong>： - 检验不同起始值（增加STARTS） -
+检验不同模型设定（LPA比较模型1-6） -
+检验不同类别数（报告2-3个候选类别数的结果）</p>
+<h4 id="透明报告">4. 透明报告</h4>
+<p><strong>原则</strong>：报告必须透明、可复制。</p>
+<p><strong>实践</strong>： -
+详细报告模型选择过程（表格展示1-K类模型的所有指标） -
+报告收敛诊断（起始值、局部最优解检验） -
+报告类别解释（条件概率或均值表格） - 提供分析代码或详细Mplus/ R语法</p>
+<h4 id="方法适配">5. 方法适配</h4>
+<p><strong>原则</strong>：方法选择必须由研究问题决定。</p>
+<p><strong>实践</strong>： - 截面数据 → LCA/LPA - 纵向数据 → LTA/GMM -
+类别变量 → LCA/LTA - 连续变量 → LPA/GMM</p>
+<h3 id="常见误区">常见误区</h3>
+<h4 id="误区1类别数越多越好">误区1：类别数越多越好</h4>
+<p><strong>表现</strong>：选择BIC最小的类别数，即使类别数很大（如K=7）。</p>
+<p><strong>后果</strong>：过拟合，小类别无可解释性，结果不稳定。</p>
+<p><strong>纠正</strong>：类别数必须兼顾统计指标和可解释性。如果类别比例&lt;5%，考虑减少类别数。</p>
+<h4 id="误区2忽略局部独立性假设">误区2：忽略局部独立性假设</h4>
+<p><strong>表现</strong>：不检验局部独立性，直接使用LCA/LPA。</p>
+<p><strong>后果</strong>：如果局部独立性不成立，类别解释有偏。</p>
+<p><strong>纠正</strong>：使用Mplus的TECH10检验残差关联。如果不成立，允许部分残差相关。</p>
+<h4 id="误区3entropy高模型正确">误区3：Entropy高=模型正确</h4>
+<p><strong>表现</strong>：仅基于Entropy选择类别数。</p>
+<p><strong>后果</strong>：Entropy高不代表模型正确，可能过拟合。</p>
+<p><strong>纠正</strong>：Entropy仅是分类质量指标，必须结合BIC判断。</p>
+<h4 id="误区4lta忽略纵向结构">误区4：LTA忽略纵向结构</h4>
+<p><strong>表现</strong>：分别对每个时间点做LCA，然后手动比较类别。</p>
+<p><strong>后果</strong>：丢失了转换概率信息，无法检验转换模式。</p>
+<p><strong>纠正</strong>：使用LTA（一步法）同时分析所有时间点，直接估计转换概率。</p>
+<h4 id="误区5类别命名主观">误区5：类别命名主观</h4>
+<p><strong>表现</strong>：基于均值或条件概率的微小差异命名类别。</p>
+<p><strong>后果</strong>：类别命名不可靠，难以复制。</p>
+<p><strong>纠正</strong>：基于理论构念命名，或使用独立样本验证类别结构的稳定性。</p>
+<hr />
+<h2 id="附录代码模板与工具">附录：代码模板与工具</h2>
+<h3 id="r语言完整分析流程">R语言完整分析流程</h3>
+<h4 id="lca分析polca">LCA分析（poLCA）</h4>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="co"># LCA分析完整流程（poLCA包）</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载所需包</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(poLCA)</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 步骤1：数据预处理</span></span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 导入数据</span></span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data.csv&quot;</span>)</span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 检查缺失值</span></span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data)</span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 处理缺失值</span></span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a>data_complete <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(data)</span>
+<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 确保变量为类别型</span></span>
+<span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a>data_lca <span class="ot">&lt;-</span> data_complete <span class="sc">%&gt;%</span></span>
+<span id="cb44-24"><a href="#cb44-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(y1<span class="sc">:</span>y9), as.factor))</span>
+<span id="cb44-25"><a href="#cb44-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-26"><a href="#cb44-26" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb44-27"><a href="#cb44-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 步骤2：确定最优类别数</span></span>
+<span id="cb44-28"><a href="#cb44-28" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb44-29"><a href="#cb44-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 比较1-5类模型</span></span>
+<span id="cb44-30"><a href="#cb44-30" aria-hidden="true" tabindex="-1"></a>lca_results <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb44-31"><a href="#cb44-31" aria-hidden="true" tabindex="-1"></a>bic_values <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb44-32"><a href="#cb44-32" aria-hidden="true" tabindex="-1"></a>aic_values <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb44-33"><a href="#cb44-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-34"><a href="#cb44-34" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb44-35"><a href="#cb44-35" aria-hidden="true" tabindex="-1"></a>  f <span class="ot">&lt;-</span> <span class="fu">cbind</span>(y1, y2, y3, y4, y5, y6, y7, y8, y9) <span class="sc">~</span> <span class="dv">1</span></span>
+<span id="cb44-36"><a href="#cb44-36" aria-hidden="true" tabindex="-1"></a>  lca_results[[k]] <span class="ot">&lt;-</span> <span class="fu">poLCA</span>(f, data_lca, <span class="at">nclass =</span> k, <span class="at">nrep =</span> <span class="dv">10</span>, <span class="at">maxiter =</span> <span class="dv">1000</span>)</span>
+<span id="cb44-37"><a href="#cb44-37" aria-hidden="true" tabindex="-1"></a>  bic_values[k] <span class="ot">&lt;-</span> lca_results[[k]]<span class="sc">$</span>bic</span>
+<span id="cb44-38"><a href="#cb44-38" aria-hidden="true" tabindex="-1"></a>  aic_values[k] <span class="ot">&lt;-</span> lca_results[[k]]<span class="sc">$</span>aic</span>
+<span id="cb44-39"><a href="#cb44-39" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb44-40"><a href="#cb44-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-41"><a href="#cb44-41" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制BIC和AIC曲线</span></span>
+<span id="cb44-42"><a href="#cb44-42" aria-hidden="true" tabindex="-1"></a>plot_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">K =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">BIC =</span> bic_values, <span class="at">AIC =</span> aic_values)</span>
+<span id="cb44-43"><a href="#cb44-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-44"><a href="#cb44-44" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(plot_df, <span class="fu">aes</span>(<span class="at">x =</span> K)) <span class="sc">+</span></span>
+<span id="cb44-45"><a href="#cb44-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> BIC, <span class="at">color =</span> <span class="st">&quot;BIC&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb44-46"><a href="#cb44-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> BIC, <span class="at">color =</span> <span class="st">&quot;BIC&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb44-47"><a href="#cb44-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> AIC, <span class="at">color =</span> <span class="st">&quot;AIC&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb44-48"><a href="#cb44-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> AIC, <span class="at">color =</span> <span class="st">&quot;AIC&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb44-49"><a href="#cb44-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;类别数K&quot;</span>) <span class="sc">+</span></span>
+<span id="cb44-50"><a href="#cb44-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;信息准则&quot;</span>) <span class="sc">+</span></span>
+<span id="cb44-51"><a href="#cb44-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb44-52"><a href="#cb44-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-53"><a href="#cb44-53" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择BIC最小的类别数</span></span>
+<span id="cb44-54"><a href="#cb44-54" aria-hidden="true" tabindex="-1"></a>optimal_k <span class="ot">&lt;-</span> <span class="fu">which.min</span>(bic_values)</span>
+<span id="cb44-55"><a href="#cb44-55" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;最优类别数：&quot;</span>, optimal_k, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb44-56"><a href="#cb44-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-57"><a href="#cb44-57" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb44-58"><a href="#cb44-58" aria-hidden="true" tabindex="-1"></a><span class="co"># 步骤3：提取最终结果</span></span>
+<span id="cb44-59"><a href="#cb44-59" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb44-60"><a href="#cb44-60" aria-hidden="true" tabindex="-1"></a>final_model <span class="ot">&lt;-</span> lca_results[[optimal_k]]</span>
+<span id="cb44-61"><a href="#cb44-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-62"><a href="#cb44-62" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看结果</span></span>
+<span id="cb44-63"><a href="#cb44-63" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(final_model)</span>
+<span id="cb44-64"><a href="#cb44-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-65"><a href="#cb44-65" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取类别概率</span></span>
+<span id="cb44-66"><a href="#cb44-66" aria-hidden="true" tabindex="-1"></a>class_prob <span class="ot">&lt;-</span> final_model<span class="sc">$</span>predclass</span>
+<span id="cb44-67"><a href="#cb44-67" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(class_prob)</span>
+<span id="cb44-68"><a href="#cb44-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-69"><a href="#cb44-69" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取后验归属概率</span></span>
+<span id="cb44-70"><a href="#cb44-70" aria-hidden="true" tabindex="-1"></a>posterior_prob <span class="ot">&lt;-</span> final_model<span class="sc">$</span>posterior</span>
+<span id="cb44-71"><a href="#cb44-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-72"><a href="#cb44-72" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算平均后验概率</span></span>
+<span id="cb44-73"><a href="#cb44-73" aria-hidden="true" tabindex="-1"></a>mean_posterior <span class="ot">&lt;-</span> <span class="fu">apply</span>(posterior_prob, <span class="dv">1</span>, max)</span>
+<span id="cb44-74"><a href="#cb44-74" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;平均后验概率：&quot;</span>, <span class="fu">mean</span>(mean_posterior), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb44-75"><a href="#cb44-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-76"><a href="#cb44-76" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb44-77"><a href="#cb44-77" aria-hidden="true" tabindex="-1"></a><span class="co"># 步骤4：可视化</span></span>
+<span id="cb44-78"><a href="#cb44-78" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb44-79"><a href="#cb44-79" aria-hidden="true" tabindex="-1"></a><span class="co"># 条件概率图</span></span>
+<span id="cb44-80"><a href="#cb44-80" aria-hidden="true" tabindex="-1"></a>cond_prob <span class="ot">&lt;-</span> final_model<span class="sc">$</span>probs</span>
+<span id="cb44-81"><a href="#cb44-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-82"><a href="#cb44-82" aria-hidden="true" tabindex="-1"></a><span class="co"># 转换为数据框用于绘图</span></span>
+<span id="cb44-83"><a href="#cb44-83" aria-hidden="true" tabindex="-1"></a>cond_prob_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb44-84"><a href="#cb44-84" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">rep</span>(<span class="fu">colnames</span>(cond_prob[[<span class="dv">1</span>]]), <span class="at">times =</span> optimal_k),</span>
+<span id="cb44-85"><a href="#cb44-85" aria-hidden="true" tabindex="-1"></a>  <span class="at">Category =</span> <span class="fu">unlist</span>(<span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span>optimal_k, <span class="cf">function</span>(k) <span class="fu">rep</span>(<span class="fu">paste0</span>(<span class="st">&quot;类别&quot;</span>, k), <span class="fu">nrow</span>(cond_prob[[<span class="dv">1</span>]])))),</span>
+<span id="cb44-86"><a href="#cb44-86" aria-hidden="true" tabindex="-1"></a>  <span class="at">Probability =</span> <span class="fu">unlist</span>(<span class="fu">lapply</span>(cond_prob, <span class="cf">function</span>(x) <span class="fu">c</span>(x)))</span>
+<span id="cb44-87"><a href="#cb44-87" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb44-88"><a href="#cb44-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-89"><a href="#cb44-89" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制条件概率图</span></span>
+<span id="cb44-90"><a href="#cb44-90" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cond_prob_df, <span class="fu">aes</span>(<span class="at">x =</span> Variable, <span class="at">y =</span> Probability, <span class="at">group =</span> Category, <span class="at">color =</span> Category)) <span class="sc">+</span></span>
+<span id="cb44-91"><a href="#cb44-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb44-92"><a href="#cb44-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb44-93"><a href="#cb44-93" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;条件概率&quot;</span>) <span class="sc">+</span></span>
+<span id="cb44-94"><a href="#cb44-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;变量&quot;</span>) <span class="sc">+</span></span>
+<span id="cb44-95"><a href="#cb44-95" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb44-96"><a href="#cb44-96" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb44-97"><a href="#cb44-97" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+<h4 id="lpa分析tidylpa">LPA分析（tidyLPA）</h4>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co"># LPA分析完整流程（tidyLPA包）</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载所需包</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyLPA)</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 步骤1：数据预处理</span></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 导入数据</span></span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data.csv&quot;</span>)</span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择连续变量</span></span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>data_lpa <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(x1<span class="sc">:</span>x5) <span class="sc">%&gt;%</span>  <span class="co"># 连续变量</span></span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(<span class="sc">~</span> <span class="fu">scale</span>(.)[,<span class="dv">1</span>])  <span class="co"># 标准化</span></span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-22"><a href="#cb45-22" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb45-23"><a href="#cb45-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 步骤2：确定最优类别数和模型</span></span>
+<span id="cb45-24"><a href="#cb45-24" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb45-25"><a href="#cb45-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 比较不同类别数（2-5）和不同模型（1-6）</span></span>
+<span id="cb45-26"><a href="#cb45-26" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> data_lpa <span class="sc">%&gt;%</span></span>
+<span id="cb45-27"><a href="#cb45-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">estimate_profiles</span>(<span class="at">n_profiles =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">models =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb45-28"><a href="#cb45-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-29"><a href="#cb45-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看模型比较结果</span></span>
+<span id="cb45-30"><a href="#cb45-30" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_solutions</span>(results)</span>
+<span id="cb45-31"><a href="#cb45-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-32"><a href="#cb45-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制BIC曲线</span></span>
+<span id="cb45-33"><a href="#cb45-33" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_bic</span>(results)</span>
+<span id="cb45-34"><a href="#cb45-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-35"><a href="#cb45-35" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择最优模型（BIC最小）</span></span>
+<span id="cb45-36"><a href="#cb45-36" aria-hidden="true" tabindex="-1"></a>optimal_result <span class="ot">&lt;-</span> <span class="fu">get_fit</span>(results) <span class="sc">%&gt;%</span></span>
+<span id="cb45-37"><a href="#cb45-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(BIC) <span class="sc">%&gt;%</span></span>
+<span id="cb45-38"><a href="#cb45-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>)</span>
+<span id="cb45-39"><a href="#cb45-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-40"><a href="#cb45-40" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;最优类别数：&quot;</span>, optimal_result<span class="sc">$</span>n_profiles, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb45-41"><a href="#cb45-41" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;最优模型：&quot;</span>, optimal_result<span class="sc">$</span>model, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb45-42"><a href="#cb45-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-43"><a href="#cb45-43" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb45-44"><a href="#cb45-44" aria-hidden="true" tabindex="-1"></a><span class="co"># 步骤3：提取最终结果</span></span>
+<span id="cb45-45"><a href="#cb45-45" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb45-46"><a href="#cb45-46" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取最优模型</span></span>
+<span id="cb45-47"><a href="#cb45-47" aria-hidden="true" tabindex="-1"></a>best_model <span class="ot">&lt;-</span> results<span class="sc">$</span>models[[optimal_result<span class="sc">$</span>n_profiles]][[optimal_result<span class="sc">$</span>model]]</span>
+<span id="cb45-48"><a href="#cb45-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-49"><a href="#cb45-49" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看结果</span></span>
+<span id="cb45-50"><a href="#cb45-50" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(best_model)</span>
+<span id="cb45-51"><a href="#cb45-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-52"><a href="#cb45-52" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取类别均值</span></span>
+<span id="cb45-53"><a href="#cb45-53" aria-hidden="true" tabindex="-1"></a>class_means <span class="ot">&lt;-</span> best_model<span class="sc">$</span>parameters<span class="sc">$</span>mean</span>
+<span id="cb45-54"><a href="#cb45-54" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(class_means)</span>
+<span id="cb45-55"><a href="#cb45-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-56"><a href="#cb45-56" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取类别概率</span></span>
+<span id="cb45-57"><a href="#cb45-57" aria-hidden="true" tabindex="-1"></a>class_prob <span class="ot">&lt;-</span> best_model<span class="sc">$</span>parameters<span class="sc">$</span>proportion</span>
+<span id="cb45-58"><a href="#cb45-58" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(class_prob)</span>
+<span id="cb45-59"><a href="#cb45-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-60"><a href="#cb45-60" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取后验归属概率</span></span>
+<span id="cb45-61"><a href="#cb45-61" aria-hidden="true" tabindex="-1"></a>posterior_prob <span class="ot">&lt;-</span> best_model<span class="sc">$</span>dff_MLTPRM1<span class="sc">$</span>probability_Class_1</span>
+<span id="cb45-62"><a href="#cb45-62" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>optimal_result<span class="sc">$</span>n_profiles) {</span>
+<span id="cb45-63"><a href="#cb45-63" aria-hidden="true" tabindex="-1"></a>  posterior_prob <span class="ot">&lt;-</span> <span class="fu">cbind</span>(posterior_prob, best_model<span class="sc">$</span>dff_MLTPRM1[[<span class="fu">paste0</span>(<span class="st">&quot;probability_Class_&quot;</span>, k)]])</span>
+<span id="cb45-64"><a href="#cb45-64" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb45-65"><a href="#cb45-65" aria-hidden="true" tabindex="-1"></a>mean_posterior <span class="ot">&lt;-</span> <span class="fu">apply</span>(posterior_prob, <span class="dv">1</span>, max)</span>
+<span id="cb45-66"><a href="#cb45-66" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;平均后验概率：&quot;</span>, <span class="fu">mean</span>(mean_posterior), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb45-67"><a href="#cb45-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-68"><a href="#cb45-68" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb45-69"><a href="#cb45-69" aria-hidden="true" tabindex="-1"></a><span class="co"># 步骤4：可视化</span></span>
+<span id="cb45-70"><a href="#cb45-70" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb45-71"><a href="#cb45-71" aria-hidden="true" tabindex="-1"></a><span class="co"># 剖面图</span></span>
+<span id="cb45-72"><a href="#cb45-72" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_profiles</span>(results, <span class="at">to_center =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb45-73"><a href="#cb45-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-74"><a href="#cb45-74" aria-hidden="true" tabindex="-1"></a><span class="co"># 类别均值图</span></span>
+<span id="cb45-75"><a href="#cb45-75" aria-hidden="true" tabindex="-1"></a>class_means_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb45-76"><a href="#cb45-76" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">rep</span>(<span class="fu">colnames</span>(data_lpa), <span class="at">times =</span> optimal_result<span class="sc">$</span>n_profiles),</span>
+<span id="cb45-77"><a href="#cb45-77" aria-hidden="true" tabindex="-1"></a>  <span class="at">Mean =</span> <span class="fu">c</span>(class_means),</span>
+<span id="cb45-78"><a href="#cb45-78" aria-hidden="true" tabindex="-1"></a>  <span class="at">Class =</span> <span class="fu">rep</span>(<span class="fu">paste0</span>(<span class="st">&quot;类别&quot;</span>, <span class="dv">1</span><span class="sc">:</span>optimal_result<span class="sc">$</span>n_profiles), <span class="at">each =</span> <span class="fu">ncol</span>(data_lpa))</span>
+<span id="cb45-79"><a href="#cb45-79" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb45-80"><a href="#cb45-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-81"><a href="#cb45-81" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(class_means_df, <span class="fu">aes</span>(<span class="at">x =</span> Variable, <span class="at">y =</span> Mean, <span class="at">group =</span> Class, <span class="at">color =</span> Class)) <span class="sc">+</span></span>
+<span id="cb45-82"><a href="#cb45-82" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb45-83"><a href="#cb45-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb45-84"><a href="#cb45-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;标准化均值&quot;</span>) <span class="sc">+</span></span>
+<span id="cb45-85"><a href="#cb45-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;变量&quot;</span>) <span class="sc">+</span></span>
+<span id="cb45-86"><a href="#cb45-86" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb45-87"><a href="#cb45-87" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+<h3 id="mplus完整分析流程">Mplus完整分析流程</h3>
+<h4 id="lca分析mplus">LCA分析（Mplus）</h4>
+<pre class="mplus"><code>TITLE: LCA Model Selection;
+
+DATA: 
+  FILE = data.csv;
+
+VARIABLE: 
+  NAMES = y1-y9;
+  CATEGORICAL = y1-y9;
+  MISSING = ALL (-999);
+
+ANALYSIS: 
+  TYPE = MIXTURE;
+  ESTIMATOR = MLR;
+  STARTS = 200 50;
+  OPTSEED = 12345;
+
+MODEL: 
+  %OVERALL%
+  ! 模型会估计各类别的条件概率
+  
+OUTPUT: 
+  TECH1 TECH8 TECH10;
+  PLOT = PLOT3;
+
+SAVEDATA: 
+  FILE = lca_results.csv;
+  SAVE = CPROB;
+  FORMAT = FREE;
+
+PLOT:
+  TYPE = PLOT3;
+  SERIES = y1-y9;</code></pre>
+<h4 id="lpa分析mplus">LPA分析（Mplus）</h4>
+<pre class="mplus"><code>TITLE: LPA Model Selection;
+
+DATA: 
+  FILE = data.csv;
+
+VARIABLE: 
+  NAMES = x1-x5;
+  MISSING = ALL (-999);
+  CLASSES = c(3);  ! 根据BIC选择最优类别数
+
+ANALYSIS: 
+  TYPE = MIXTURE;
+  ESTIMATOR = MLR;
+  STARTS = 200 50;
+
+MODEL: 
+  %OVERALL%
+  ! 模型1：各类面方差相等，无协方差
+  ! 默认设定
+  
+  ! 模型2：各类面方差不等，无协方差
+  %c#1%
+  [x1-x5];
+  x1-x5;
+  
+  %c#2%
+  [x1-x5];
+  x1-x5;
+  
+  %c#3%
+  [x1-x5];
+  x1-x5;
+  
+  ! 模型3：各类面方差相等，有协方差
+  x1 WITH x2-x5;
+  x2 WITH x3-x5;
+  x3 WITH x4-x5;
+  x4 WITH x5;
+  
+OUTPUT: 
+  TECH1 TECH8;
+  PLOT = PLOT3;
+
+SAVEDATA: 
+  FILE = lpa_results.csv;
+  SAVE = CPROB;</code></pre>
+<h4 id="lta分析mplus">LTA分析（Mplus）</h4>
+<pre class="mplus"><code>TITLE: LTA Model (T1-T3);
+
+DATA: 
+  FILE = lta_data.csv;
+
+VARIABLE: 
+  NAMES = y1-y9_t1 y1-y9_t2 y1-y9_t3;
+  CATEGORICAL = y1-y9_t1 y1-y9_t2 y1-y9_t3;
+  CLASSES = c1(3) c2(3) c3(3);
+
+ANALYSIS: 
+  TYPE = MIXTURE;
+  ESTIMATOR = MLR;
+  STARTS = 500 100;
+
+MODEL: 
+  %OVERALL%
+  ! 测量模型
+  c1 BY y1-y9_t1;
+  c2 BY y1-y9_t2;
+  c3 BY y1-y9_t3;
+  
+  ! 结构模型（转换概率）
+  c2 ON c1;
+  c3 ON c2;
+  
+  ! 可选：约束转换概率相等（T1→T2 = T2→T3）
+  ! c2 ON c1@a;
+  ! c3 ON c2@a;
+  
+OUTPUT: 
+  TECH1 TECH8;
+  PLOT = PLOT3;
+
+SAVEDATA: 
+  FILE = lta_results.csv;
+  SAVE = CPROB;
+  FORMAT = FREE;
+
+PLOT:
+  TYPE = PLOT3;
+  SERIES = y1-y9_t1 | y1-y9_t2 | y1-y9_t3;</code></pre>
+<h3 id="软件选择指南">软件选择指南</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>推荐软件</th>
+<th>替代软件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LCA</strong></td>
+<td>Mplus</td>
+<td>poLCA (R), Latent Gold</td>
+<td>Mplus最灵活，poLCA免费</td>
+</tr>
+<tr>
+<td><strong>LPA</strong></td>
+<td>Mplus</td>
+<td>tidyLPA (R), Mclust</td>
+<td>tidyLPA易用，Mplus功能强</td>
+</tr>
+<tr>
+<td><strong>LTA</strong></td>
+<td>Mplus</td>
+<td></td>
+<td>Mplus是唯一成熟选择</td>
+</tr>
+<tr>
+<td><strong>GMM/LCGA</strong></td>
+<td>Mplus</td>
+<td>lcmm (R)</td>
+<td>Mplus最成熟</td>
+</tr>
+<tr>
+<td><strong>多组LCA</strong></td>
+<td>Mplus</td>
+<td></td>
+<td>Mplus支持多组分析</td>
+</tr>
+<tr>
+<td><strong>贝叶斯LCA</strong></td>
+<td>Mplus</td>
+<td>blca (R)</td>
+<td>Mplus的贝叶斯估计器易用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="推荐学习资源">推荐学习资源</h3>
+<p><strong>LCA/LPA</strong>： - Collins, L. M., &amp; Lanza, S. T.
+(2010). <em>Latent Class and Latent Transition Analysis: With
+Applications in the Social, Behavioral, and Health Sciences</em>. Wiley.
+- Weller, B. E., Bowen, N. K., &amp; Faubert, S. J. (2020). Latent class
+analysis: A guide to best practice. <em>Journal of Smoking
+Cessation</em>, 15(2), 63-71.</p>
+<p><strong>LTA</strong>： - Lanza, S. T., &amp; Collins, L. M. (2008). A
+new SAS procedure for latent transition analysis. <em>Structural
+Equation Modeling</em>, 15(3), 509-521. - Nylund, K. L. (2007). Latent
+transition analysis: Modeling extensions and an application to peer
+victimization. <em>Dissertation Abstracts International</em>, 67(12B),
+7303.</p>
+<p><strong>GMM/LCGA</strong>： - Jung, T., &amp; Wickrama, K. A. S.
+(2008). An introduction to latent class growth analysis and growth
+mixture modeling. <em>Social and Personality Psychology Compass</em>,
+2(1), 302-317.</p>
+<p><strong>应用案例</strong>： -
+查看<code>references/research/04-integrated-applications.md</code>（本Skill的参考资料）</p>
+<hr />
+<h2 id="总结">总结</h2>
+<p>本教程系统介绍了LCA、LPA、LTA及其前沿方法的理论基础、研究设计、数据分析策略和结果解释框架。核心要点：</p>
+<ol type="1">
+<li><strong>理论驱动</strong>：方法选择、类别数确定、类别解释必须理论驱动</li>
+<li><strong>多指标判断</strong>：类别数确定需要BIC、Entropy、LMR-LRT、BLRT、类别比例多指标综合判断</li>
+<li><strong>稳健性检验</strong>：结果必须经过不同起始值、不同模型设定、不同类别数的稳健性检验</li>
+<li><strong>前沿扩展</strong>：多组LCA、多层LTA、贝叶斯模型、时变协变量等前沿方法可以处理更复杂的研究问题</li>
+<li><strong>规范报告</strong>：透明报告分析步骤、模型选择过程、类别解释依据</li>
+</ol>
+<p><strong>三种方法的整合价值</strong>：</p>
+<ul>
+<li><strong>LCA/LPA</strong>识别了截面异质性 → 告诉你”有哪些子群体”</li>
+<li><strong>LTA</strong>捕捉了纵向变化 → 告诉你”子群体如何变化”</li>
+<li><strong>前沿方法</strong>处理了复杂数据结构和研究设计 →
+告诉你”如何在复杂情境下应用这些方法”</li>
+</ul>
+<p>三种方法的结合，能够提供更全面、更深入的异质性和动态性理解，超越传统的变量中心方法。</p>
+<hr />
+<p><strong>教程结束</strong></p>
+<blockquote>
+<p>本教程基于LCA/LPA/转换研究方法框架Skill，结合教学需求扩展而成。
+作者：<a href="https://x.com/AlchainHust">花叔</a>
+最后更新：2026年6月</p>
+</blockquote>
+</body>
+</html>
